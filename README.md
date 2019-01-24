@@ -28,7 +28,6 @@ The nservicebusservicecontrol module requires the following:
 * Access to the internet.
 * Microsoft .NET 4.6.1 Runtime.
 * Windows Server 2012/2012R2/2016.
-* (Optional) Silverlight 5 if you want to manage the nservicebusservicecontrol from management studio.
 
 ### Beginning with nservicebusservicecontrol
 
@@ -38,20 +37,33 @@ To get started with the nservicebusservicecontrol module simply include the foll
 include nservicebusservicecontrol
 ```
 
-This example downloads, installs, and configures the currently pinned version of the Service Control (3.6.1).  After running this you should be able to begin to create service control instances and perform other tasks using the `nservicebusservicecontrol::instance` defined type.
+This example downloads, installs, and configures the latest version of servicecontrol.  After running this you should be able to begin to create service control instances and perform other tasks using the `nservicebusservicecontrol::instance` defined type.
+
+> NOTE: By default this module pulls the package from chocolatey (https://chocolatey.org/packages/servicecontrol).
 
 ## Usage
 
 All parameters for the nservicebusservicecontrol module are contained within the main `nservicebusservicecontrol` class, so for any function of the module, set the options you want. See the common usages below for examples.
 
-### Install a newer/older release of service control
+### Install a specific version of service control from chocolatey
 
 ```puppet
 class { 'nservicebusservicecontrol':
-  package_ensure     => 'present',
-  remote_file_source => 'https://github.com/Particular/ServiceControl/releases/download/3.6.1/Particular.ServiceControl-3.6.1.exe',
+  package_ensure     => '3.6.2',
 }
 ```
+
+> NOTE: We recommend always specifying a specific version so that it's easily viewable and explicit in code.  The default value is present which just grabs whatever version happens to be the latest at the time your first puppet run happened with this code
+
+### Automatically install newer versions as they are released on chocolatey
+
+```puppet
+class { 'nservicebusservicecontrol':
+  package_ensure     => 'latest',
+}
+```
+
+**NOTE: Use this with caution.  New versions could contain a bug and since servicecontrol sometimes performs migrations on upgrades it's impossible to downgrade without going through the hassle of uninstalling and reinstalling the package**
 
 ### Install your license
 
@@ -65,7 +77,6 @@ LICENSE
 
 class { 'nservicebusservicecontrol':
   package_ensure     => 'present',
-  remote_file_source => 'https://github.com/Particular/ServiceControl/releases/download/3.6.1/Particular.ServiceControl-3.6.1.exe',
   license_xml        => $license_xml,
 }
 ```
@@ -104,7 +115,7 @@ nservicebusservicecontrol::instance { 'Development':
 }
 ```
 
-**NOTE: Ensure the database is already created and the user can connect.  ServiceControl by default will take care of creating the tables for using as queues.**
+> NOTE: Ensure the database is already created and the user can connect.  ServiceControl by default will take care of creating the tables for using as queues.
 
 ### Create a Service Control Instance using the MSMQ Transport
 
@@ -115,7 +126,7 @@ nservicebusservicecontrol::instance { 'Development':
 }
 ```
 
-**NOTE: Ensure the MSMQ Windows Feature is is already installed.  ServiceControl by default will take care of creating the tables for using as queues.**
+> NOTE: Ensure the MSMQ Windows Feature is is already installed.  ServiceControl by default will take care of creating the tables for using as queues.
 
 ### Create a Service Control Instance using the Azure Storage Queue Transport
 

@@ -30,27 +30,19 @@ The following parameters are available in the `nservicebusservicecontrol` class.
 
 ##### `package_ensure`
 
-Data type: `Enum['present', 'installed', 'absent']`
+Data type: `String`
 
 Whether to install the ServiceControl package.
 
 Default value: 'present'
 
-##### `remote_file_path`
+##### `package_source`
 
-Data type: `Stdlib::Absolutepath`
+Data type: `Optional[String]`
 
-The location to store the downloaded installer on the local system.
+The package source for the package.
 
-Default value: 'C:\\Particular.ServiceControl-3.6.1.exe'
-
-##### `remote_file_source`
-
-Data type: `Stdlib::Httpsurl`
-
-The http/https location in which a specific version of servicecontrol can be downloaded from.
-
-Default value: 'https://github.com/Particular/ServiceControl/releases/download/3.6.1/Particular.ServiceControl-3.6.1.exe'
+Default value: `undef`
 
 ##### `license_xml`
 
