@@ -1,0 +1,7 @@
+<%- | String $instance_name,
+      Boolean $remove_db_on_delete,
+      Boolean $remove_logs_on_delete, | -%>
+Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\ServiceControlMgmt.psd1"
+Remove-ServiceControlInstance -Name <%= $instance_name %> `
+                              <% if $remove_db_on_delete { %> -RemoveDB <% } %> `
+                              <% if $remove_logs_on_delete { %> -RemoveLogs <% } %> `
