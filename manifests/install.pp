@@ -17,11 +17,12 @@ class nservicebusservicecontrol::install {
   }
 
   package { 'ServiceControl':
-    ensure            => $nservicebusservicecontrol::package_ensure,
-    source            => $nservicebusservicecontrol::remote_file_path,
-    install_options   => ['/Quiet'],
-    uninstall_options => ['/Quiet'],
-    require           => Remote_file[$nservicebusservicecontrol::remote_file_path],
+    ensure               => $nservicebusservicecontrol::package_ensure,
+    source               => $nservicebusservicecontrol::remote_file_path,
+    install_options      => ['/Quiet'],
+    uninstall_options    => ['/Quiet'],
+    reinstall_on_refresh => true,
+    subscribe            => Remote_file[$nservicebusservicecontrol::remote_file_path],
   }
 
 }
