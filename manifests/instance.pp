@@ -114,6 +114,9 @@
 # @param skip_queue_creation
 #   Normally an instance will attempt to create the queues that it uses. If this flag is set, queue creation will be skipped.
 #
+# @param automatic_instance_upgrades
+#   Automatically upgrade the service control monitoring instance when a new version of servicecontrol is installed.
+#
 define nservicebusservicecontrol::instance (
   Enum['present', 'absent'] $ensure,
   String $instance_name                                    = $title,

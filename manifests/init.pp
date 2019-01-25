@@ -21,5 +21,6 @@ class nservicebusservicecontrol(
   Class['nservicebusservicecontrol::install']
   -> Class['nservicebusservicecontrol::config']
   -> Nservicebusservicecontrol::Instance <| |>
+  -> Nservicebusservicecontrol::Monitoring_instance <| |>
 
 }

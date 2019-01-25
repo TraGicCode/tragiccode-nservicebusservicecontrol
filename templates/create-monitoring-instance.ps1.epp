@@ -1,0 +1,28 @@
+<%- | String $instance_name,
+      String $install_path,
+      String $log_path,
+      String $host_name,
+      Integer[1, 49151] $port,
+      String $error_queue,
+      String $transport,
+      String $display_name,
+      Optional[String] $connection_string,
+      String $description,
+      String $service_account,
+      Optional[String] $service_account_password,
+      Boolean $skip_queue_creation,  | -%>
+Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\ServiceControlMgmt.psd1"
+
+New-MonitoringInstance -Name "<%= $instance_name %>" `
+                       -InstallPath "<%= $install_path %>" `
+                       -LogPath "<%= $log_path %>" `
+                       -HostName "<%= $host_name %>" `
+                       -Port <%= $port %> `
+                       -ErrorQueue "<%= $error_queue %>" `
+                       -Transport "<%= $transport %>" `
+                       -DisplayName "<%= $display_name %>" `
+                       <% if $connection_string { %> -ConnectionString "<%= $connection_string %>" <% } %> `
+                       -Description "<%= $description %>" `
+                       -ServiceAccount "<%= $service_account %>" `
+                       <% if !($service_account.downcase() in ['localsystem', 'localservice']) { %> -ServiceAccountPassword "<%= $service_account_password %>" <% } %> `
+                       <% if $skip_queue_creation { %> -SkipQueueCreation <% } %> `
