@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
-## [0.2.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/0.2.0) (2019-01-24)
+## [0.2.1](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/0.2.1) (2019-01-25)
+
+[Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/0.2.0...0.2.1)
+
+### Fixed
+
+- Fixing up dependency conflict with chocolatey. [\#5](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/5) ([TraGicCode](https://github.com/TraGicCode))
+
+## [0.2.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/0.2.0) (2019-01-25)
 
 [Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/0.1.0...0.2.0)
 
