@@ -1,4 +1,3 @@
-
 # nservicebusservicecontrol
 
 [![Puppet Forge](http://img.shields.io/puppetforge/v/tragiccode/nservicebusservicecontrol.svg)](https://forge.puppetlabs.com/tragiccode/nservicebusservicecontrol)
@@ -10,6 +9,8 @@
 1. [Setup requirements](#setup-requirements)
     * [Beginning with nservicebusservicecontrol](#beginning-with-nservicebusservicecontrol)
 1. [Usage - Configuration options and additional functionality](#usage)
+    * [Service Control Instances](#service-control-instances)
+    * [Service Control Monitoring Instances](#service-control-monitoring-instances)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 1. [Limitations - OS compatibility, etc.](#limitations)
 1. [Contributing](#contributing)
@@ -39,7 +40,7 @@ include nservicebusservicecontrol
 
 This example downloads, installs, and configures the latest version of servicecontrol.  After running this you should be able to begin to create service control instances and perform other tasks using the `nservicebusservicecontrol::instance` defined type.
 
-> NOTE: By default this module pulls the package from chocolatey (https://chocolatey.org/packages/servicecontrol).
+**NOTE: By default this module pulls the package from chocolatey (https://chocolatey.org/packages/servicecontrol)**
 
 ## Usage
 
@@ -53,7 +54,7 @@ class { 'nservicebusservicecontrol':
 }
 ```
 
-> NOTE: We recommend always specifying a specific version so that it's easily viewable and explicit in code.  The default value is present which just grabs whatever version happens to be the latest at the time your first puppet run happened with this code
+**NOTE: We recommend always specifying a specific version so that it's easily viewable and explicit in code.  The default value is present which just grabs whatever version happens to be the latest at the time your first puppet run happened with this code**
 
 ### Automatically install newer versions as they are released on chocolatey
 
@@ -81,90 +82,92 @@ class { 'nservicebusservicecontrol':
 }
 ```
 
-### Create a Service Control Instance using the RabbitMQ Conventional Routing Topology Transport
+### Service Control Instances
+
+#### Create a Service Control Instance using the MSMQ Transport
 
 ```puppet
-nservicebusservicecontrol::instance { 'Development':
+nservicebusservicecontrol::instance { 'Particular.ServiceControl.Development':
+  ensure    => 'present',
+  transport => 'MSMQ',
+}
+```
+
+**NOTE: Ensure the MSMQ Windows Feature is is already installed.  ServiceControl by default will take care of creating the tables for using as queues**
+
+#### Create a Service Control Instance using the RabbitMQ Conventional Routing Topology Transport
+
+```puppet
+nservicebusservicecontrol::instance { 'Particular.ServiceControl.Development':
   ensure            => 'present',
   transport         => 'RabbitMQ - Conventional routing topology',
   connection_string => 'host=localhost;username=guest;password=guest',
 }
 ```
 
-### Create a Service Control Instance using the SQLServer Transport ( SQL Authentication )
+#### Create a Service Control Instance using the SQLServer Transport ( SQL Authentication )
 
 ```puppet
-nservicebusservicecontrol::instance { 'Development':
+nservicebusservicecontrol::instance { 'Particular.ServiceControl.Development':
   ensure            => 'present',
   transport         => 'SQL Server',
-  connection_string => 'Data Source=.; Database=ServiceControl.Development; User Id=svc-servicecontrol; Password=super-secret-password;',
+  connection_string => 'Data Source=.; Database=Particular.ServiceControl.Development; User Id=svc-servicecontrol; Password=super-secret-password;',
 }
 ```
 
 **NOTE: Ensure the database is already created and the user can connect.  ServiceControl by default will take care of creating the tables for using as queues.**
 
-### Create a Service Control Instance using the SQLServer Transport ( Windows Authentication )
+#### Create a Service Control Instance using the SQLServer Transport ( Windows Authentication )
 
 ```puppet
-nservicebusservicecontrol::instance { 'Development':
+nservicebusservicecontrol::instance { 'Particular.ServiceControl.Development':
   ensure                   => 'present',
   transport                => 'SQL Server',
-  connection_string        => 'Data Source=.; Database=ServiceControl.Development; Trusted_Connection=True;',
+  connection_string        => 'Data Source=.; Database=Particular.ServiceControl.Development; Trusted_Connection=True;',
   service_account          => 'DOMAIN\svc-servicecontrol',
   service_account_password => 'super-secret-password',
 }
 ```
 
-> NOTE: Ensure the database is already created and the user can connect.  ServiceControl by default will take care of creating the tables for using as queues.
+**NOTE: Ensure the database is already created and the user can connect.  ServiceControl by default will take care of creating the tables for using as queues.**
 
-### Create a Service Control Instance using the MSMQ Transport
-
-```puppet
-nservicebusservicecontrol::instance { 'Development':
-  ensure    => 'present',
-  transport => 'MSMQ',
-}
-```
-
-> NOTE: Ensure the MSMQ Windows Feature is is already installed.  ServiceControl by default will take care of creating the tables for using as queues.
-
-### Create a Service Control Instance using the Azure Storage Queue Transport
+#### Create a Service Control Instance using the Azure Storage Queue Transport
 
 ```puppet
-nservicebusservicecontrol::instance { 'Development':
+nservicebusservicecontrol::instance { 'Particular.ServiceControl.Development':
   ensure            => 'present',
   transport         => 'Azure Storage Queue',
   # connection_string => 'UseDevelopmentStorage=true',
   connection_string => 'DefaultEndpointsProtocol=https;AccountName=[ACCOUNT];AccountKey=[KEY];',
-  ..
+  ...
 }
 ```
 
-### Create a Service Control Instance using the Azure Service Bus Transport
+#### Create a Service Control Instance using the Azure Service Bus Transport
 
 ```puppet
-nservicebusservicecontrol::instance { 'Development':
+nservicebusservicecontrol::instance { 'Particular.ServiceControl.Development':
   ensure            => 'present',
   transport         => 'Azure Service Bus',
   connection_string => 'Endpoint=sb://[NAMESPACE].servicebus.windows.net/;SharedAccessKeyName=[KEYNAME];SharedAccessKey=[KEY]',
-  ..
+  ...
 }
 ```
 
-### Create a Service Control Instance using the Amazon SQS Transport
+#### Create a Service Control Instance using the Amazon SQS Transport
 
 ```puppet
-nservicebusservicecontrol::instance { 'Development':
-  ensure            => 'present',
-  transport         => 'AmazonSQS',
-  ..
+nservicebusservicecontrol::instance { 'Particular.ServiceControl.Development':
+  ensure    => 'present',
+  transport => 'AmazonSQS',
+  ...
 }
 ```
 
-### Service Control Instance with forward error & audit queues
+#### Service Control Instance with forward error & audit queues
 
 ```puppet
-nservicebusservicecontrol::instance { 'Development':
+nservicebusservicecontrol::instance { 'Particular.ServiceControl.Development':
   ensure                 => 'present',
   transport              => 'RabbitMQ',
   connection_string      => 'host=localhost;username=guest;password=guest',
@@ -175,7 +178,89 @@ nservicebusservicecontrol::instance { 'Development':
 }
 ```
 
-> NOTE: If external integration is not required, it is highly recommend to turn forwarding queues off. Otherwise, messages will accumulate unprocessed in the forwarding queue until eventually all available disk space is consumed.
+**NOTE: If external integration is not required, it is highly recommend to turn forwarding queues off. Otherwise, messages will accumulate unprocessed in the forwarding queue until eventually all available disk space is consume**
+
+### Service Control Monitoring Instances
+
+#### Create a Service Control Monitoring Instance using the MSMQ Transport
+
+```puppet
+nservicebusservicecontrol::monitoring_instance { 'Particular.Monitoring.Development':
+  ensure    => 'present',
+  transport => 'MSMQ',
+}
+```
+
+**NOTE: Ensure the MSMQ Windows Feature is is already installed.  ServiceControl by default will take care of creating the tables for using as queues**
+
+#### Create a Service Control Monitoring Instance using the RabbitMQ Conventional Routing Topology Transport
+
+```puppet
+nservicebusservicecontrol::monitoring_instance { 'Particular.Monitoring.Development':
+  ensure            => 'present',
+  transport         => 'RabbitMQ - Conventional routing topology',
+  connection_string => 'host=localhost;username=guest;password=guest',
+}
+```
+
+#### Create a Service Control Monitoring Instance using the SQLServer Transport ( SQL Authentication )
+
+```puppet
+nservicebusservicecontrol::monitoring_instance { 'Particular.Monitoring.Development':
+  ensure            => 'present',
+  transport         => 'SQL Server',
+  connection_string => 'Data Source=.; Database=Particular.Monitoring.Development; User Id=svc-servicecontrol; Password=super-secret-password;',
+}
+```
+
+**NOTE: Ensure the database is already created and the user can connect.  ServiceControl by default will take care of creating the tables for using as queues.**
+
+#### Create a Service Control Monitoring Instance using the SQLServer Transport ( Windows Authentication )
+
+```puppet
+nservicebusservicecontrol::monitoring_instance { 'Particular.Monitoring.Development':
+  ensure                   => 'present',
+  transport                => 'SQL Server',
+  connection_string        => 'Data Source=.; Database=Particular.Monitoring.Development; Trusted_Connection=True;',
+  service_account          => 'DOMAIN\svc-servicecontrol',
+  service_account_password => 'super-secret-password',
+}
+```
+
+**NOTE: Ensure the database is already created and the user can connect.  ServiceControl by default will take care of creating the tables for using as queues.**
+
+#### Create a Service Control Monitoring Instance using the Azure Storage Queue Transport
+
+```puppet
+nservicebusservicecontrol::monitoring_instance { 'Particular.Monitoring.Development':
+  ensure            => 'present',
+  transport         => 'Azure Storage Queue',
+  # connection_string => 'UseDevelopmentStorage=true',
+  connection_string => 'DefaultEndpointsProtocol=https;AccountName=[ACCOUNT];AccountKey=[KEY];',
+  ..
+}
+```
+
+#### Create a Service Control Instance using the Azure Service Bus Transport
+
+```puppet
+nservicebusservicecontrol::monitoring_instance { 'Particular.Monitoring.Development':
+  ensure            => 'present',
+  transport         => 'Azure Service Bus',
+  connection_string => 'Endpoint=sb://[NAMESPACE].servicebus.windows.net/;SharedAccessKeyName=[KEYNAME];SharedAccessKey=[KEY]',
+  ...
+}
+```
+
+#### Create a Service Control Instance using the Amazon SQS Transport
+
+```puppet
+nservicebusservicecontrol::monitoring_instance { 'Particular.Monitoring.Development':
+  ensure    => 'present',
+  transport => 'AmazonSQS',
+  ...
+}
+```
 
 ## Reference
 

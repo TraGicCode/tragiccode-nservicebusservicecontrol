@@ -1,0 +1,25 @@
+<%- | String $endpoint_name,
+      Enum['Trace', 'Debug', 'Info', 'Warn', 'Error', 'Fatal', 'Off'] $instance_log_level,
+      String $host_name,
+      Integer[1, 49151] $port,
+      String $log_path,
+      String $error_queue,
+      String $_transport_type,
+      Optional[String] $connection_string, | -%>
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+    <appSettings>
+        <add key="Monitoring/EndpointName" value="<%= $endpoint_name %>" />
+        <add key="Monitoring/HttpPort" value="<%= $port %>" />
+        <add key="Monitoring/HttpHostName" value="<%= $host_name %>" />
+        <add key="Monitoring/LogPath" value="<%= $log_path %>" />
+        <add key="Monitoring/LogLevel" value="<%= $instance_log_level %>" />
+        <add key="Monitoring/TransportType" value="<%= $_transport_type %>" />
+        <add key="Monitoring/ErrorQueue" value="<%= $error_queue %>" />
+    </appSettings>
+    <% if $connection_string != undef { -%>
+    <connectionStrings>
+        <add name="NServiceBus/Transport" connectionString="<%= $connection_string %>" />
+    </connectionStrings>
+    <% } -%>
+</configuration>

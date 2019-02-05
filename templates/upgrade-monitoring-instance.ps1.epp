@@ -1,0 +1,4 @@
+<%- | String $instance_name,  | -%>
+Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\ServiceControlMgmt.psd1"
+
+Invoke-MonitoringInstanceUpgrade -Name '<%= $instance_name %>'

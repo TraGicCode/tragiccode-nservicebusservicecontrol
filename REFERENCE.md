@@ -17,6 +17,7 @@ _Private Classes_
 **Defined types**
 
 * [`nservicebusservicecontrol::instance`](#nservicebusservicecontrolinstance): Manages Service Control Instances.
+* [`nservicebusservicecontrol::monitoring_instance`](#nservicebusservicecontrolmonitoring_instance): Manages Service Control Monitoring Instances.
 
 ## Classes
 
@@ -364,6 +365,14 @@ Normally an instance will attempt to create the queues that it uses. If this fla
 
 Default value: `false`
 
+##### `automatic_instance_upgrades`
+
+Data type: `Boolean`
+
+Automatically upgrade the service control monitoring instance when a new version of servicecontrol is installed.
+
+Default value: `true`
+
 ##### `remove_db_on_delete`
 
 Data type: `Boolean`
@@ -380,11 +389,161 @@ Data type: `Boolean`
 
 Default value: `false`
 
+### nservicebusservicecontrol::monitoring_instance
+
+Manages Service Control Monitoring Instances.
+
+#### Parameters
+
+The following parameters are available in the `nservicebusservicecontrol::monitoring_instance` defined type.
+
+##### `ensure`
+
+Data type: `Enum['present', 'absent']`
+
+Specifies whether the monitoring instance should exist.
+
+##### `instance_name`
+
+Data type: `String`
+
+Specify the name of the ServiceControl Monitoring Instance (title).
+
+Default value: $title
+
+##### `install_path`
+
+Data type: `Stdlib::Absolutepath`
+
+Specify the directory to use for this ServiceControl Monitoring Instance.
+
+Default value: "C:\\Program Files (x86)\\Particular Software\\${instance_name}"
+
+##### `log_path`
+
+Data type: `Stdlib::Absolutepath`
+
+Specify the directory to use for this ServiceControl Monitoring Logs.
+
+Default value: "C:\\ProgramData\\Particular\\ServiceControl\\${instance_name}\\Logs"
+
+##### `instance_log_level`
+
+Data type: `Nservicebusservicecontrol::Log_level`
+
+Specify the level of logging that should be used in ServiceControl Monitoring logs.
+
+Default value: 'Warn'
+
+##### `host_name`
+
+Data type: `Stdlib::Fqdn`
+
+Specify the hostname to use in the URLACL.
+
+Default value: 'localhost'
+
+##### `port`
+
+Data type: `Stdlib::Port`
+
+Specify the port number to listen on. If this is the only ServiceControl Monitoring instance then 33633 is recommended.
+
+Default value: 33633
+
+##### `error_queue`
+
+Data type: `String`
+
+Specify the ErrorQueue name.
+
+Default value: 'error'
+
+##### `transport`
+
+Data type: `Nservicebusservicecontrol::Transport`
+
+Specify the NServiceBus Transport to use.
+
+Default value: 'MSMQ'
+
+##### `display_name`
+
+Data type: `String`
+
+Specify the Windows Service Display name. If unspecified the monitoring instance name will be used.
+
+Default value: $instance_name
+
+##### `connection_string`
+
+Data type: `Optional[String]`
+
+Specify the connection string to use to connect to the queuing system.
+
+Default value: `undef`
+
+##### `description`
+
+Data type: `String`
+
+Specify the description to use on the Windows Service for this instance.
+
+Default value: 'A Monitoring Instance'
+
+##### `service_account`
+
+Data type: `String`
+
+The Account to run the Windows service.
+
+Default value: 'LocalSystem'
+
+##### `service_account_password`
+
+Data type: `Optional[String]`
+
+The password for the ServiceAccount.
+
+Default value: `undef`
+
+##### `service_restart_on_config_change`
+
+Data type: `Boolean`
+
+Specify if the servicecontrol monitoring instance's windows service should be restarted to pick up changes to its configuration file.
+
+Default value: `true`
+
+##### `service_manage`
+
+Data type: `Boolean`
+
+Specifies whether or not to manage the desired state of the windows service for this instance.
+
+Default value: `true`
+
+##### `skip_queue_creation`
+
+Data type: `Boolean`
+
+Normally an instance will attempt to create the queues that it uses. If this flag is set, queue creation will be skipped.
+
+Default value: `false`
+
+##### `remove_logs_on_delete`
+
+Data type: `Boolean`
+
+Specifies if the service control logs should be deleted with the instance.
+
+Default value: `false`
+
 ##### `automatic_instance_upgrades`
 
 Data type: `Boolean`
 
-
+Automatically upgrade the service control monitoring instance when a new version of servicecontrol is installed.
 
 Default value: `true`
 
