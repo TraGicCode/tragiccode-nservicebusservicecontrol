@@ -275,11 +275,6 @@ to determine if the instance creation was successful or failed.  Therefore, fail
 
 https://github.com/Particular/ServiceControl/issues/1565
 
-### Upgrading of the package after initial install
-
-Currently there is no implementation to handle upgrading the package after intiail install via this module.  In the future it might be helpful to implement the ability to specify an internal chocolatey server
-the user can use as well as handle upgrades, if possible, when downloading the install file from the public internet.
-
 ### Module is missing some Service Control Instance Configuration settings
 
 Neither the Unattended file method or New-ServiceControlInstance powershell cmdlet ( which this modules uses ) cover all the many configuration settings that are available to a ServiceControl Instance.  The only mechanism that can be used to utilize all of the available customizations is by specifying them in the "ServiceControl.exe.config" file that resides in the service control instances install directory.  If you would like to be able to configure one of these please open up a Github issue.
