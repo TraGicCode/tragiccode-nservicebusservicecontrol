@@ -2,7 +2,16 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
-## [0.3.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/0.3.0) (2019-02-04)
+## [0.3.1](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/0.3.1) (2019-02-06)
+
+[Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/0.3.0...0.3.1)
+
+### Fixed
+
+- \(GH-12\) Remove instance config settings limitation from docs [\#13](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/13) ([TraGicCode](https://github.com/TraGicCode))
+- \(GH-10\) Remove package upgrade limitation from docs [\#11](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/11) ([TraGicCode](https://github.com/TraGicCode))
+
+## [0.3.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/0.3.0) (2019-02-05)
 
 [Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/0.2.1...0.3.0)
 
