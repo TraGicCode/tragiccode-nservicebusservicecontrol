@@ -275,12 +275,6 @@ to determine if the instance creation was successful or failed.  Therefore, fail
 
 https://github.com/Particular/ServiceControl/issues/1565
 
-### Module is missing some Service Control Instance Configuration settings
-
-Neither the Unattended file method or New-ServiceControlInstance powershell cmdlet ( which this modules uses ) cover all the many configuration settings that are available to a ServiceControl Instance.  The only mechanism that can be used to utilize all of the available customizations is by specifying them in the "ServiceControl.exe.config" file that resides in the service control instances install directory.  If you would like to be able to configure one of these please open up a Github issue.
-
-> All documented available settings ( https://docs.particular.net/servicecontrol/creating-config-file )
-
 ### Forwarding queues are created only at servicecontrol instance creation time only
 
 If you try and a forwarding queue ( error or audit ) after a service control instance is created these queues will not get created.  It's therefore your responsibility to manually create these and set them up if you
