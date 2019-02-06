@@ -1,7 +1,8 @@
 # nservicebusservicecontrol
 
-[![Puppet Forge](http://img.shields.io/puppetforge/v/tragiccode/nservicebusservicecontrol.svg)](https://forge.puppetlabs.com/tragiccode/nservicebusservicecontrol)
-[![Puppet Forge](http://img.shields.io/puppetforge/pdk-version/tragiccode/nservicebusservicecontrol.svg)](https://forge.puppetlabs.com/tragiccode/nservicebusservicecontrol)
+[![Puppet Forge Version](http://img.shields.io/puppetforge/v/tragiccode/nservicebusservicecontrol.svg)](https://forge.puppetlabs.com/tragiccode/nservicebusservicecontrol)
+[![Puppet Forge Downloads](https://img.shields.io/puppetforge/dt/tragiccode/nservicebusservicecontrol.svg)](https://forge.puppetlabs.com/tragiccode/nservicebusservicecontrol)
+[![Puppet Forge Pdk Version](http://img.shields.io/puppetforge/pdk-version/tragiccode/nservicebusservicecontrol.svg)](https://forge.puppetlabs.com/tragiccode/nservicebusservicecontrol)
 
 #### Table of Contents
 
