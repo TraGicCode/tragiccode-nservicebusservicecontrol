@@ -139,7 +139,7 @@ define nservicebusservicecontrol::instance (
   String $display_name                                     = $instance_name,
   Optional[String] $connection_string                      = undef,
   String $description                                      = 'A ServiceControl Instance',
-  Boolean $forward_audit_messages                          = true, # change to false when https://github.com/Particular/ServiceControl/issues/1567 is resolved
+  Boolean $forward_audit_messages                          = false,
   Boolean $forward_error_messages                          = false,
   String $service_account                                  = 'LocalSystem',
   Optional[String] $service_account_password               = undef,
