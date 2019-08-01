@@ -235,7 +235,7 @@ Data type: `Boolean`
 
 Specify if audit messages are forwarded to the queue specified by AuditLogQueue.
 
-Default value: `true`
+Default value: `false`
 
 ##### `forward_error_messages`
 
