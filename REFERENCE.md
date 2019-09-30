@@ -16,8 +16,14 @@ _Private Classes_
 
 **Defined types**
 
+* [`nservicebusservicecontrol::audit_instance`](#nservicebusservicecontrolaudit_instance): Manages Service Control Instances.
 * [`nservicebusservicecontrol::instance`](#nservicebusservicecontrolinstance): Manages Service Control Instances.
 * [`nservicebusservicecontrol::monitoring_instance`](#nservicebusservicecontrolmonitoring_instance): Manages Service Control Monitoring Instances.
+
+**Data types**
+
+* [`Nservicebusservicecontrol::Log_level`](#nservicebusservicecontrollog_level): 
+* [`Nservicebusservicecontrol::Transport`](#nservicebusservicecontroltransport): https://github.com/Particular/ServiceControl/blob/develop/src/ServiceControlInstaller.Engine/Instances/TransportNames.cs
 
 ## Classes
 
@@ -55,6 +61,282 @@ Default value: ''
 
 ## Defined types
 
+### nservicebusservicecontrol::audit_instance
+
+Manages Service Control Instances.
+
+#### Parameters
+
+The following parameters are available in the `nservicebusservicecontrol::audit_instance` defined type.
+
+##### `ensure`
+
+Data type: `Enum['present', 'absent']`
+
+Specifies whether the instance should exist.
+
+##### `service_control_queue_address`
+
+Data type: `String`
+
+The ServiceControl queue name to use for plugin messages (e.g. Heartbeats, Custom Checks, Saga Audit, etc ).
+
+##### `instance_name`
+
+Data type: `String`
+
+Specify the name of the ServiceControl Instance (title).
+
+Default value: $title
+
+##### `install_path`
+
+Data type: `Stdlib::Absolutepath`
+
+Specify the directory to use for this ServiceControl Instance.
+
+Default value: "C:\\Program Files (x86)\\Particular Software\\${instance_name}"
+
+##### `log_path`
+
+Data type: `Stdlib::Absolutepath`
+
+Specify the directory to use for this ServiceControl Logs.
+
+Default value: "C:\\ProgramData\\Particular\\ServiceControl\\${instance_name}\\Logs"
+
+##### `db_path`
+
+Data type: `Stdlib::Absolutepath`
+
+Specify the directory that will contain the nservicebusservicecontrol database for this ServiceControl Instance.
+
+Default value: "C:\\ProgramData\\Particular\\ServiceControl\\${instance_name}\\DB"
+
+##### `db_index_storage_path`
+
+Data type: `Stdlib::Absolutepath`
+
+Specify the path for the indexes on disk.
+
+Default value: "${db_path}\\Indexes"
+
+##### `db_logs_path`
+
+Data type: `Stdlib::Absolutepath`
+
+Specify the path for the Esent logs on disk.
+
+Default value: "${db_path}\\logs"
+
+##### `instance_log_level`
+
+Data type: `Nservicebusservicecontrol::Log_level`
+
+Specify the level of logging that should be used in ServiceControl logs.
+
+Default value: 'Warn'
+
+##### `host_name`
+
+Data type: `Stdlib::Fqdn`
+
+Specify the hostname to use in the URLACL.
+
+Default value: 'localhost'
+
+##### `port`
+
+Data type: `Stdlib::Port`
+
+Specify the port number to listen on. If this is the only ServiceControl instance then 44444 is recommended.
+
+Default value: 44444
+
+##### `database_maintenance_port`
+
+Data type: `Stdlib::Port`
+
+Specify the database maintenance port number to listen on. If this is the only ServiceControl instance then 44445 is recommended.
+
+Default value: 44445
+
+##### `expose_ravendb`
+
+Data type: `Boolean`
+
+Specify if the embedded ravendb database should be accessible outside of maintenance mode.
+
+Default value: `false`
+
+##### `ravendb_log_level`
+
+Data type: `Nservicebusservicecontrol::Log_level`
+
+Specify the level of logging that should be used in ravendb logs.
+
+Default value: 'Warn'
+
+##### `transport`
+
+Data type: `Nservicebusservicecontrol::Transport`
+
+Specify the NServiceBus Transport to use.
+
+Default value: 'MSMQ'
+
+##### `display_name`
+
+Data type: `String`
+
+Specify the Windows Service Display name. If unspecified the instance name will be used.
+
+Default value: $instance_name
+
+##### `connection_string`
+
+Data type: `Optional[String]`
+
+Specify the connection string to use to connect to the queuing system.
+
+Default value: `undef`
+
+##### `description`
+
+Data type: `String`
+
+Specify the description to use on the Windows Service for this instance.
+
+Default value: 'A ServiceControl Audit Instance'
+
+##### `service_account`
+
+Data type: `String`
+
+The Account to run the Windows service.
+
+Default value: 'LocalSystem'
+
+##### `service_account_password`
+
+Data type: `Optional[String]`
+
+The password for the ServiceAccount.
+
+Default value: `undef`
+
+##### `service_restart_on_config_change`
+
+Data type: `Boolean`
+
+Specify if the servicecontrol instance's windows service should be restarted to pick up changes to its configuration file.
+
+Default value: `true`
+
+##### `audit_retention_period`
+
+Data type: `String`
+
+Specify thd grace period that faulted messages are kept before they are deleted.
+
+Default value: '30.00:00:00'
+
+##### `expiration_process_timer_in_seconds`
+
+Data type: `Integer`
+
+Specifies the number of seconds to wait between checking for expired messages.
+
+Default value: 600
+
+##### `expiration_process_batch_size`
+
+Data type: `Integer`
+
+Specifies the batch size to use when checking for expired messages.
+
+Default value: 65512
+
+##### `max_body_size_to_store`
+
+Data type: `Integer`
+
+Specifies the upper limit on body size to be configured.
+
+Default value: 102400
+
+##### `http_default_connection_limit`
+
+Data type: `Integer`
+
+Specifies the maximum number of concurrent connections allowed by ServiceControl.
+
+Default value: 100
+
+##### `service_manage`
+
+Data type: `Boolean`
+
+Specifies whether or not to manage the desired state of the windows service for this instance.
+
+Default value: `true`
+
+##### `skip_queue_creation`
+
+Data type: `Boolean`
+
+Normally an instance will attempt to create the queues that it uses. If this flag is set, queue creation will be skipped.
+
+Default value: `false`
+
+##### `remove_db_on_delete`
+
+Data type: `Boolean`
+
+Remove service control instance ravendb database when instance is deleted.
+
+Default value: `false`
+
+##### `remove_logs_on_delete`
+
+Data type: `Boolean`
+
+Remove service control instance logs when instance is deleted.
+
+Default value: `false`
+
+##### `automatic_instance_upgrades`
+
+Data type: `Boolean`
+
+Automatically upgrade the service control monitoring instance when a new version of servicecontrol is installed.
+
+Default value: `true`
+
+##### `audit_queue`
+
+Data type: `String`
+
+
+
+Default value: 'audit'
+
+##### `audit_log_queue`
+
+Data type: `Optional[String]`
+
+
+
+Default value: 'audit.log'
+
+##### `forward_audit_messages`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
+
 ### nservicebusservicecontrol::instance
 
 Manages Service Control Instances.
@@ -85,6 +367,14 @@ Specify the directory to use for this ServiceControl Instance.
 
 Default value: "C:\\Program Files (x86)\\Particular Software\\${instance_name}"
 
+##### `log_path`
+
+Data type: `Stdlib::Absolutepath`
+
+Specify the directory to use for this ServiceControl Logs.
+
+Default value: "C:\\ProgramData\\Particular\\ServiceControl\\${instance_name}\\Logs"
+
 ##### `db_path`
 
 Data type: `Stdlib::Absolutepath`
@@ -108,14 +398,6 @@ Data type: `Stdlib::Absolutepath`
 Specify the path for the Esent logs on disk.
 
 Default value: "${db_path}\\logs"
-
-##### `log_path`
-
-Data type: `Stdlib::Absolutepath`
-
-Specify the directory to use for this ServiceControl Logs.
-
-Default value: "C:\\ProgramData\\Particular\\ServiceControl\\${instance_name}\\Logs"
 
 ##### `instance_log_level`
 
@@ -149,6 +431,14 @@ Specify the database maintenance port number to listen on. If this is the only S
 
 Default value: 33334
 
+##### `remote_instances`
+
+Data type: `Optional[Array[String]]`
+
+Specify an optional array of remote instances.
+
+Default value: []
+
 ##### `expose_ravendb`
 
 Data type: `Boolean`
@@ -173,14 +463,6 @@ Specify ErrorQueue name to consume messages from.
 
 Default value: 'error'
 
-##### `audit_queue`
-
-Data type: `String`
-
-Specify AuditQueue name to consume messages from.
-
-Default value: 'audit'
-
 ##### `error_log_queue`
 
 Data type: `Optional[String]`
@@ -188,14 +470,6 @@ Data type: `Optional[String]`
 Specify Queue name to forward error messages to.
 
 Default value: 'error.log'
-
-##### `audit_log_queue`
-
-Data type: `Optional[String]`
-
-Specify Queue name to forward eudit messages to.
-
-Default value: 'audit.log'
 
 ##### `transport`
 
@@ -229,14 +503,6 @@ Specify the description to use on the Windows Service for this instance.
 
 Default value: 'A ServiceControl Instance'
 
-##### `forward_audit_messages`
-
-Data type: `Boolean`
-
-Specify if audit messages are forwarded to the queue specified by AuditLogQueue.
-
-Default value: `false`
-
 ##### `forward_error_messages`
 
 Data type: `Boolean`
@@ -265,17 +531,9 @@ Default value: `undef`
 
 Data type: `Boolean`
 
-Specify if the servicecontrol instance's windows service should be restarted to pick up changes to its configuration file.
+Specify if the service control instance's windows service should be restarted to pick up changes to its configuration file.
 
 Default value: `true`
-
-##### `audit_retention_period`
-
-Data type: `String`
-
-Specify the period to keep an audit message before it is deleted.
-
-Default value: '30.00:00:00'
 
 ##### `error_retention_period`
 
@@ -308,22 +566,6 @@ Data type: `Integer`
 Specifies the batch size to use when checking for expired messages.
 
 Default value: 65512
-
-##### `hours_to_keep_messages_before_expiring`
-
-Data type: `Integer`
-
-Specifies the number of hours to keep a message before it is deleted.
-
-Default value: 720
-
-##### `maximum_message_throughput_per_second`
-
-Data type: `Integer`
-
-Specifies the maximum throughput of messages ServiceControl will handle per second and is necessary to avoid overloading the underlying messages database.
-
-Default value: 350
 
 ##### `max_body_size_to_store`
 
@@ -365,19 +607,11 @@ Normally an instance will attempt to create the queues that it uses. If this fla
 
 Default value: `false`
 
-##### `automatic_instance_upgrades`
-
-Data type: `Boolean`
-
-Automatically upgrade the service control monitoring instance when a new version of servicecontrol is installed.
-
-Default value: `true`
-
 ##### `remove_db_on_delete`
 
 Data type: `Boolean`
 
-
+Remove service control instance ravendb database when instance is deleted.
 
 Default value: `false`
 
@@ -385,9 +619,17 @@ Default value: `false`
 
 Data type: `Boolean`
 
-
+Remove service control instance logs when instance is deleted.
 
 Default value: `false`
+
+##### `automatic_instance_upgrades`
+
+Data type: `Boolean`
+
+Automatically upgrade the service control monitoring instance when a new version of servicecontrol is installed.
+
+Default value: `true`
 
 ### nservicebusservicecontrol::monitoring_instance
 
@@ -546,4 +788,18 @@ Data type: `Boolean`
 Automatically upgrade the service control monitoring instance when a new version of servicecontrol is installed.
 
 Default value: `true`
+
+## Data types
+
+### Nservicebusservicecontrol::Log_level
+
+The Nservicebusservicecontrol::Log_level data type.
+
+Alias of `Enum['Trace', 'Debug', 'Info', 'Warn', 'Error', 'Fatal', 'Off']`
+
+### Nservicebusservicecontrol::Transport
+
+https://github.com/Particular/ServiceControl/blob/develop/src/ServiceControlInstaller.Engine/Instances/TransportNames.cs
+
+Alias of `Enum['RabbitMQ - Conventional routing topology', 'SQL Server', 'MSMQ', 'Azure Storage Queue', 'Azure Service Bus', 'AmazonSQS']`
 

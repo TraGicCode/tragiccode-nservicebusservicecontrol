@@ -1,0 +1,21 @@
+<%- | String $instance_name,
+      String $install_path,  | -%>
+Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\ServiceControlMgmt.psd1"
+
+$modifiedInstallPath = Split-Path -Path '<%= $install_path %>'
+
+$deploymentCachePath = "$($modifiedInstallPath)\ServiceControl Management"
+
+$zipFile = Get-ChildItem -Path "$($deploymentCachePath)\Particular.ServiceControl-*.zip"
+
+$zipFileVersion = $zipFile.BaseName.Split("-")[1]
+$serviceControlInstanceVersion = (Get-ServiceControlAuditInstances | Where-Object -FilterScript { $PSItem.Name -eq '<%= $instance_name %>' }).Version.ToString()
+
+if($zipFileVersion -gt $serviceControlInstanceVersion)
+{
+  exit 0
+}
+else
+{
+  exit 1
+}

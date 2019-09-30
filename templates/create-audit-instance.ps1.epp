@@ -1,38 +1,40 @@
-<%- | String $instance_name,
+<%- | String $service_control_queue_address,
+      String $instance_name,
       String $install_path,
       String $db_path,
       String $log_path,
       String $host_name,
       Integer[1, 49151] $port,
       Integer[1, 49151] $database_maintenance_port,
-      String $error_queue,
-      Optional[String] $error_log_queue,
+      String $audit_queue,
+      Optional[String] $audit_log_queue,
       String $transport,
       String $display_name,
       Optional[String] $connection_string,
       String $description,
-      Boolean $forward_error_messages,
+      Boolean $forward_audit_messages,
       String $service_account,
       Optional[String] $service_account_password,
-      String $error_retention_period,
+      String $audit_retention_period,
       Boolean $skip_queue_creation,  | -%>
 Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\ServiceControlMgmt.psd1"
 
-New-ServiceControlInstance -Name "<%= $instance_name %>" `
+New-ServiceControlAuditInstance -Name "<%= $instance_name %>" `
                            -InstallPath "<%= $install_path %>" `
                            -DBPath "<%= $db_path %>" `
                            -LogPath "<%= $log_path %>" `
+                           -ServiceControlQueueAddress "<%= $service_control_queue_address %>" `
                            -HostName "<%= $host_name %>" `
                            -Port <%= $port %> `
                            -DatabaseMaintenancePort <%= $database_maintenance_port %> `
-                           -ErrorQueue "<%= $error_queue %>" `
-                           <% if $error_log_queue { %> -ErrorLogQueue "<%= $error_log_queue %>" <% } %> `
+                           -AuditQueue "<%= $audit_queue %>" `
+                           <% if $audit_log_queue { %> -AuditLogQueue "<%= $audit_log_queue %>" <% } %> `
                            -Transport "<%= $transport %>" `
                            -DisplayName "<%= $display_name %>" `
                            <% if $connection_string { %> -ConnectionString "<%= $connection_string %>" <% } %> `
                            -Description "<%= $description %>" `
-                           <% if $forward_error_messages { %> -ForwardErrorMessages <% } %> `
+                           <% if $forward_audit_messages { %> -ForwardAuditMessages <% } %> `
                            -ServiceAccount "<%= $service_account %>" `
                            <% if !($service_account.downcase() in ['localsystem', 'localservice']) { %> -ServiceAccountPassword "<%= $service_account_password %>" <% } %> `
-                           -ErrorRetentionPeriod "<%= $error_retention_period %>" `
+                           -AuditRetentionPeriod "<%= $audit_retention_period %>" `
                            <% if $skip_queue_creation { %> -SkipQueueCreation <% } %> `

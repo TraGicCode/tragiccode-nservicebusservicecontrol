@@ -3,6 +3,9 @@
 # @param ensure
 #   Specifies whether the instance should exist.
 #
+# @param service_control_queue_address
+#   The ServiceControl queue name to use for plugin messages (e.g. Heartbeats, Custom Checks, Saga Audit, etc ).
+#
 # @param instance_name
 #   Specify the name of the ServiceControl Instance (title).
 #
@@ -28,25 +31,16 @@
 #   Specify the hostname to use in the URLACL.
 #
 # @param port
-#   Specify the port number to listen on. If this is the only ServiceControl instance then 33333 is recommended.
+#   Specify the port number to listen on. If this is the only ServiceControl instance then 44444 is recommended.
 #
 # @param database_maintenance_port
-#   Specify the database maintenance port number to listen on. If this is the only ServiceControl instance then 33334 is recommended.
-#
-# @param remote_instances
-#   Specify an optional array of remote instances.
+#   Specify the database maintenance port number to listen on. If this is the only ServiceControl instance then 44445 is recommended.
 #
 # @param expose_ravendb
 #   Specify if the embedded ravendb database should be accessible outside of maintenance mode.
 #
 # @param ravendb_log_level
 #   Specify the level of logging that should be used in ravendb logs.
-#
-# @param error_queue
-#   Specify ErrorQueue name to consume messages from.
-#
-# @param error_log_queue
-#   Specify Queue name to forward error messages to.
 #
 # @param transport
 #   Specify the NServiceBus Transport to use.
@@ -60,9 +54,6 @@
 # @param description
 #   Specify the description to use on the Windows Service for this instance.
 #
-# @param forward_error_messages
-#   Specify if audit messages are forwarded to the queue specified by ErrorLogQueue.
-#
 # @param service_account
 #   The Account to run the Windows service.
 #
@@ -70,13 +61,10 @@
 #   The password for the ServiceAccount.
 #
 # @param service_restart_on_config_change
-#   Specify if the service control instance's windows service should be restarted to pick up changes to its configuration file.
+#   Specify if the servicecontrol instance's windows service should be restarted to pick up changes to its configuration file.
 #
-# @param error_retention_period
+# @param audit_retention_period
 #   Specify thd grace period that faulted messages are kept before they are deleted.
-#
-# @param event_retention_period
-#   Specifies the period to keep event logs before they are deleted.
 #
 # @param expiration_process_timer_in_seconds
 #   Specifies the number of seconds to wait between checking for expired messages.
@@ -89,9 +77,6 @@
 #
 # @param http_default_connection_limit
 #   Specifies the maximum number of concurrent connections allowed by ServiceControl.
-#
-# @param heartbeat_grace_period
-#   Specifies the period that defines whether an endpoint is considered alive or not since the last received heartbeat.
 #
 # @param service_manage
 #   Specifies whether or not to manage the desired state of the windows service for this instance.
@@ -108,8 +93,9 @@
 # @param automatic_instance_upgrades
 #   Automatically upgrade the service control monitoring instance when a new version of servicecontrol is installed.
 #
-define nservicebusservicecontrol::instance (
+define nservicebusservicecontrol::audit_instance (
   Enum['present', 'absent'] $ensure,
+  String $service_control_queue_address,
   String $instance_name                                    = $title,
   Stdlib::Absolutepath $install_path                       = "C:\\Program Files (x86)\\Particular Software\\${instance_name}",
   Stdlib::Absolutepath $log_path                           = "C:\\ProgramData\\Particular\\ServiceControl\\${instance_name}\\Logs",
@@ -118,28 +104,25 @@ define nservicebusservicecontrol::instance (
   Stdlib::Absolutepath $db_logs_path                       = "${db_path}\\logs",
   Nservicebusservicecontrol::Log_level $instance_log_level = 'Warn',
   Stdlib::Fqdn $host_name                                  = 'localhost',
-  Stdlib::Port $port                                       = 33333,
-  Stdlib::Port $database_maintenance_port                  = 33334,
-  Optional[Array[String]] $remote_instances                = [],
+  Stdlib::Port $port                                       = 44444,
+  Stdlib::Port $database_maintenance_port                  = 44445,
+  String $audit_queue                                      = 'audit',
+  Optional[String] $audit_log_queue                        = 'audit.log',
   Boolean $expose_ravendb                                  = false,
   Nservicebusservicecontrol::Log_level $ravendb_log_level  = 'Warn',
-  String $error_queue                                      = 'error',
-  Optional[String] $error_log_queue                        = 'error.log',
   Nservicebusservicecontrol::Transport $transport          = 'MSMQ',
   String $display_name                                     = $instance_name,
   Optional[String] $connection_string                      = undef,
-  String $description                                      = 'A ServiceControl Instance',
-  Boolean $forward_error_messages                          = false,
+  String $description                                      = 'A ServiceControl Audit Instance',
+  Boolean $forward_audit_messages                          = false,
   String $service_account                                  = 'LocalSystem',
   Optional[String] $service_account_password               = undef,
   Boolean $service_restart_on_config_change                = true,
-  String $error_retention_period                           = '15.00:00:00',
-  String $event_retention_period                           = '14.00:00:00',
+  String $audit_retention_period                           = '30.00:00:00',
   Integer $expiration_process_timer_in_seconds             = 600,
   Integer $expiration_process_batch_size                   = 65512,
   Integer $max_body_size_to_store                          = 102400,
   Integer $http_default_connection_limit                   = 100,
-  String $heartbeat_grace_period                           = '00:00:40',
   Boolean $service_manage                                  = true,
   Boolean $skip_queue_creation                             = false,
   Boolean $remove_db_on_delete                             = false,
@@ -159,27 +142,28 @@ define nservicebusservicecontrol::instance (
       # I could also maybe look at the following to determine idempotence of create
       # 1.) Does a service exist with the name of the instance
       # 2.) Does the following folder exist $install_path
-      command   => epp("${module_name}/create-instance.ps1.epp", {
-        'instance_name'             => $instance_name,
-        'install_path'              => $install_path,
-        'log_path'                  => $log_path,
-        'db_path'                   => $db_path,
-        'host_name'                 => $host_name,
-        'port'                      => $port,
-        'database_maintenance_port' => $database_maintenance_port,
-        'error_queue'               => $error_queue,
-        'error_log_queue'           => $error_log_queue,
-        'transport'                 => $transport,
-        'display_name'              => $display_name,
-        'connection_string'         => $connection_string,
-        'description'               => $description,
-        'forward_error_messages'    => $forward_error_messages,
-        'service_account'           => $service_account,
-        'service_account_password'  => $service_account_password,
-        'error_retention_period'    => $error_retention_period,
-        'skip_queue_creation'       => $skip_queue_creation,
+      command   => epp("${module_name}/create-audit-instance.ps1.epp", {
+        'service_control_queue_address' => $service_control_queue_address,
+        'instance_name'                 => $instance_name,
+        'install_path'                  => $install_path,
+        'db_path'                       => $db_path,
+        'log_path'                      => $log_path,
+        'host_name'                     => $host_name,
+        'port'                          => $port,
+        'database_maintenance_port'     => $database_maintenance_port,
+        'audit_queue'                   => $audit_queue,
+        'audit_log_queue'               => $audit_log_queue,
+        'transport'                     => $transport,
+        'display_name'                  => $display_name,
+        'connection_string'             => $connection_string,
+        'description'                   => $description,
+        'forward_audit_messages'        => $forward_audit_messages,
+        'service_account'               => $service_account,
+        'service_account_password'      => $service_account_password,
+        'audit_retention_period'        => $audit_retention_period,
+        'skip_queue_creation'           => $skip_queue_creation,
       }),
-      onlyif    => epp("${module_name}/query-instance.ps1.epp", {
+      onlyif    => epp("${module_name}/query-audit-instance.ps1.epp", {
         'instance_name' => $instance_name,
         }),
       logoutput => true,
@@ -188,10 +172,10 @@ define nservicebusservicecontrol::instance (
 
     if $automatic_instance_upgrades {
       exec { "automatic-instance-upgrade-${instance_name}":
-        command   => epp("${module_name}/upgrade-instance.ps1.epp", {
+        command   => epp("${module_name}/upgrade-audit-instance.ps1.epp", {
           'instance_name' => $instance_name,
         }),
-        onlyif    => epp("${module_name}/query-instance-upgrade.ps1.epp", {
+        onlyif    => epp("${module_name}/query-audit-instance-upgrade.ps1.epp", {
           'instance_name' => $instance_name,
           'install_path'  => $install_path,
         }),
@@ -213,9 +197,10 @@ define nservicebusservicecontrol::instance (
       # lint:endignore
     }
 
-  file { "${install_path}\\ServiceControl.exe.config":
+  file { "${install_path}\\ServiceControl.Audit.exe.config":
     ensure  => 'file',
-    content => unix2dos(epp("${module_name}/ServiceControl.exe.config.epp", {
+    content => unix2dos(epp("${module_name}/ServiceControl.Audit.exe.config.epp", {
+      'service_control_queue_address'       => $service_control_queue_address,
       'instance_log_level'                  => $instance_log_level,
       'db_path'                             => $db_path,
       'db_index_storage_path'               => $db_index_storage_path,
@@ -224,21 +209,18 @@ define nservicebusservicecontrol::instance (
       'host_name'                           => $host_name,
       'port'                                => $port,
       'database_maintenance_port'           => $database_maintenance_port,
-      'remote_instances'                    => $remote_instances,
+      'audit_queue'                         => $audit_queue,
+      'audit_log_queue'                     => $audit_log_queue,
       'expose_ravendb'                      => $expose_ravendb,
       'ravendb_log_level'                   => $ravendb_log_level,
-      'error_queue'                         => $error_queue,
-      'error_log_queue'                     => $error_log_queue,
       '_transport_type'                     => $_transport_type,
       'connection_string'                   => $connection_string,
-      'forward_error_messages'              => $forward_error_messages,
-      'error_retention_period'              => $error_retention_period,
-      'event_retention_period'              => $event_retention_period,
+      'forward_audit_messages'              => $forward_audit_messages,
+      'audit_retention_period'              => $audit_retention_period,
       'expiration_process_timer_in_seconds' => $expiration_process_timer_in_seconds,
       'expiration_process_batch_size'       => $expiration_process_batch_size,
       'max_body_size_to_store'              => $max_body_size_to_store,
       'http_default_connection_limit'       => $http_default_connection_limit,
-      'heartbeat_grace_period'              => $heartbeat_grace_period,
     })),
     require => Exec["create-service-control-instance-${instance_name}"],
   }
@@ -246,7 +228,7 @@ define nservicebusservicecontrol::instance (
   if $service_manage {
 
     if $service_restart_on_config_change {
-      File["${install_path}\\ServiceControl.exe.config"] ~> Exec["restart-slow-service-${instance_name}"]
+      File["${install_path}\\ServiceControl.Audit.exe.config"] ~> Exec["restart-slow-service-${instance_name}"]
     }
 
     exec { "restart-slow-service-${instance_name}":
@@ -256,7 +238,7 @@ define nservicebusservicecontrol::instance (
       logoutput   => true,
       refreshonly => true,
       provider    => 'powershell',
-      subscribe   => File["${install_path}\\ServiceControl.exe.config"],
+      subscribe   => File["${install_path}\\ServiceControl.Audit.exe.config"],
     }
 
     service { $instance_name:
@@ -267,12 +249,12 @@ define nservicebusservicecontrol::instance (
 
   } else {
     exec { "delete ServiceControl Instance ${instance_name}":
-      command   => epp("${module_name}/delete-instance.ps1.epp", {
+      command   => epp("${module_name}/delete-audit-instance.ps1.epp", {
         'instance_name'         => $instance_name,
         'remove_db_on_delete'   => $remove_db_on_delete,
         'remove_logs_on_delete' => $remove_logs_on_delete,
       }),
-      unless    => epp("${module_name}/query-instance.ps1.epp", {
+      unless    => epp("${module_name}/query-audit-instance.ps1.epp", {
         'instance_name' => $instance_name,
       }),
       logoutput => true,
