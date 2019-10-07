@@ -6,25 +6,20 @@
       String $host_name,
       Integer[1, 49151] $port,
       Integer[1, 49151] $database_maintenance_port,
+      Optional[Array[String]] $remote_instances,
       Boolean $expose_ravendb,
       Enum['Trace', 'Debug', 'Info', 'Warn', 'Error', 'Fatal', 'Off'] $ravendb_log_level,
       String $error_queue,
-      String $audit_queue,
       String $error_log_queue,
-      String $audit_log_queue,
       String $_transport_type,
       Optional[String] $connection_string,
-      Boolean $forward_audit_messages,
       Boolean $forward_error_messages,
-      String $audit_retention_period,
       String $error_retention_period,
       String $event_retention_period,
       Integer $expiration_process_timer_in_seconds,
-      Integer $expiration_process_batch_size, 
-      Integer $hours_to_keep_messages_before_expiring,
-      Integer $maximum_message_throughput_per_second, 
+      Integer $expiration_process_batch_size,
       Integer $max_body_size_to_store,
-      Integer $http_default_connection_limit, 
+      Integer $http_default_connection_limit,
       String $heartbeat_grace_period, | -%>
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
@@ -37,27 +32,22 @@
         <add key="ServiceControl/DatabaseMaintenancePort" value="<%= $database_maintenance_port %>" />
         <add key="ServiceControl/ExposeRavenDB" value="<%= $expose_ravendb %>" />
         <add key="ServiceBus/ErrorQueue" value="<%= $error_queue %>" />
-        <add key="ServiceBus/AuditQueue" value="<%= $audit_queue %>" />
         <% if $forward_error_messages { -%>
         <add key="ServiceBus/ErrorLogQueue" value="<%= $error_log_queue %>" />
         <% } -%>
-        <% if $forward_audit_messages { -%>
-        <add key="ServiceBus/AuditLogQueue" value="<%= $audit_log_queue %>" />
-        <% } -%>
         <add key="ServiceControl/TransportType" value="<%= $_transport_type %>" />
-        <add key="ServiceControl/ForwardAuditMessages" value="<%= $forward_audit_messages %>" />
         <add key="ServiceControl/ForwardErrorMessages" value="<%= $forward_error_messages %>" />
-        <add key="ServiceControl/AuditRetentionPeriod" value="<%= $audit_retention_period %>" />
         <add key="ServiceControl/ErrorRetentionPeriod" value="<%= $error_retention_period %>" />
         <add key="ServiceControl/EventRetentionPeriod" value="<%= $event_retention_period %>" />
         <add key="ServiceControl/ExpirationProcessTimerInSeconds" value="<%= $expiration_process_timer_in_seconds %>" />
         <add key="ServiceControl/ExpirationProcessBatchSize" value="<%= $expiration_process_batch_size %>" />
-        <add key="ServiceControl/HoursToKeepMessagesBeforeExpiring" value="<%= $hours_to_keep_messages_before_expiring %>" />
-        <add key="ServiceControl/MaximumMessageThroughputPerSecond" value="<%= $maximum_message_throughput_per_second %>" />
         <add key="ServiceControl/MaxBodySizeToStore" value="<%= $max_body_size_to_store %>" />
         <add key="ServiceControl/HttpDefaultConnectionLimit" value="<%= $http_default_connection_limit %>" />
         <add key="ServiceControl/HeartbeatGracePeriod" value="<%= $heartbeat_grace_period %>" />
         <add key="ServiceControl/RavenDBLogLevel" value="<%= $ravendb_log_level %>" />
+        <% if $remote_instances { -%>
+        <add key="ServiceControl/RemoteInstances" value="[<% $remote_instances.each | $index, $remote | { -%>{'api_uri':'<%= $remote %>'}<% if $index != $remote_instances.size() -1 { %>,<% } %><% } -%>]"/>
+        <% } -%>
         <add key="Raven/Esent/MaxVerPages" value="2048" />
         <add key="Raven/Esent/LogsPath" value="<%= $db_logs_path %>" />
         <add key="Raven/IndexStoragePath" value="<%= $db_index_storage_path %>" />
