@@ -15,5 +15,9 @@ Rakefile:
 spec/spec_helper.rb:
   mock_with: ':rspec'
 
+spec/default_facts.yml:
+  extra_facts:
+    ipaddress6: FE80:0000:0000:0000:AAAA:AAAA:AAAA
+
 .gitlab-ci.yml:
   delete: true

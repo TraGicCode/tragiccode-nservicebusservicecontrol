@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v1.0.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v1.0.0) (2019-10-07)
+
+[Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/0.3.1...v1.0.0)
+
+### Changed
+
+- Implement v4 breaking changes [\#26](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/26) ([TraGicCode](https://github.com/TraGicCode))
+
+### Fixed
+
+- \(GH-23\) Set forward\_audit\_messages parameter to false as default [\#24](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/24) ([TraGicCode](https://github.com/TraGicCode))
+
 ## [0.3.1](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/0.3.1) (2019-02-06)
 
 [Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/0.3.0...0.3.1)
