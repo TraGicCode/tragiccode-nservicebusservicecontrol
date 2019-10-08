@@ -591,6 +591,14 @@ Specifies the period that defines whether an endpoint is considered alive or not
 
 Default value: '00:00:40'
 
+##### `allow_message_editing`
+
+Data type: `Boolean`
+
+Enables the ability for servicepulse to allow users to edit failed messages before being retried.
+
+Default value: `false`
+
 ##### `service_manage`
 
 Data type: `Boolean`

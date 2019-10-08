@@ -20,7 +20,8 @@
       Integer $expiration_process_batch_size,
       Integer $max_body_size_to_store,
       Integer $http_default_connection_limit,
-      String $heartbeat_grace_period, | -%>
+      String $heartbeat_grace_period,
+      Boolean $allow_message_editing, | -%>
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
     <appSettings>
@@ -44,6 +45,7 @@
         <add key="ServiceControl/MaxBodySizeToStore" value="<%= $max_body_size_to_store %>" />
         <add key="ServiceControl/HttpDefaultConnectionLimit" value="<%= $http_default_connection_limit %>" />
         <add key="ServiceControl/HeartbeatGracePeriod" value="<%= $heartbeat_grace_period %>" />
+        <add key="ServiceControl/AllowMessageEditing" value="<%= $allow_message_editing %>" />
         <add key="ServiceControl/RavenDBLogLevel" value="<%= $ravendb_log_level %>" />
         <% if $remote_instances { -%>
         <add key="ServiceControl/RemoteInstances" value="[<% $remote_instances.each | $index, $remote | { -%>{'api_uri':'<%= $remote %>'}<% if $index != $remote_instances.size() -1 { %>,<% } %><% } -%>]"/>
