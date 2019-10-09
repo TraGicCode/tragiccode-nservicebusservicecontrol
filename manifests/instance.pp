@@ -93,6 +93,9 @@
 # @param heartbeat_grace_period
 #   Specifies the period that defines whether an endpoint is considered alive or not since the last received heartbeat.
 #
+# @param allow_message_editing
+#   Enables the ability for servicepulse to allow users to edit failed messages before being retried.
+#
 # @param service_manage
 #   Specifies whether or not to manage the desired state of the windows service for this instance.
 #
@@ -140,6 +143,7 @@ define nservicebusservicecontrol::instance (
   Integer $max_body_size_to_store                          = 102400,
   Integer $http_default_connection_limit                   = 100,
   String $heartbeat_grace_period                           = '00:00:40',
+  Boolean $allow_message_editing                           = false,
   Boolean $service_manage                                  = true,
   Boolean $skip_queue_creation                             = false,
   Boolean $remove_db_on_delete                             = false,
@@ -239,6 +243,7 @@ define nservicebusservicecontrol::instance (
       'max_body_size_to_store'              => $max_body_size_to_store,
       'http_default_connection_limit'       => $http_default_connection_limit,
       'heartbeat_grace_period'              => $heartbeat_grace_period,
+      'allow_message_editing'               => $allow_message_editing,
     })),
     require => Exec["create-service-control-instance-${instance_name}"],
   }

@@ -282,6 +282,17 @@ nservicebusservicecontrol::instance { 'Particular.ServiceControl.Development':
 
 **NOTE: If external integration is not required, it is highly recommend to turn forwarding queues off. Otherwise, messages will accumulate unprocessed in the forwarding queue until eventually all available disk space is consume**
 
+#### Enable ability to edit message body & headers in Service Pulse
+
+```puppet
+nservicebusservicecontrol::instance { 'Particular.ServiceControl.Development':
+  ensure                 => 'present',
+  transport              => 'RabbitMQ - Conventional routing topology',
+  connection_string      => 'host=localhost;username=guest;password=guest',
+  allow_message_editing  => true,
+}
+```
+
 ### Service Control Audit Instances
 
 This represents the 1 or more service control audit instance that ingests messages from your centralized audit queue.  This is also needed if you plan on utilizing the Particular
