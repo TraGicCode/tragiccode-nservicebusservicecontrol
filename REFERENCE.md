@@ -241,6 +241,14 @@ Specify thd grace period that faulted messages are kept before they are deleted.
 
 Default value: '30.00:00:00'
 
+##### `time_to_restart_audit_ingestion_after_failure`
+
+Data type: `String`
+
+Specify the maximum time delay to wait before restarting the audit ingestion pipeline after detecting a connection problem. This setting was introduced in ServiceControl version 4.4.1.
+
+Default value: '00.00:01:00'
+
 ##### `expiration_process_timer_in_seconds`
 
 Data type: `Integer`
@@ -542,6 +550,14 @@ Data type: `String`
 Specify thd grace period that faulted messages are kept before they are deleted.
 
 Default value: '15.00:00:00'
+
+##### `time_to_restart_error_ingestion_after_failure`
+
+Data type: `String`
+
+Specify the maximum time delay to wait before restarting the error ingestion pipeline after detecting a connection problem. This setting was introduced in ServiceControl version 4.4.1.
+
+Default value: '00.00:01:00'
 
 ##### `event_retention_period`
 
