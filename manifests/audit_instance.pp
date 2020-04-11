@@ -66,6 +66,9 @@
 # @param audit_retention_period
 #   Specify thd grace period that faulted messages are kept before they are deleted.
 #
+# @param time_to_restart_audit_ingestion_after_failure
+#   Specify the maximum time delay to wait before restarting the audit ingestion pipeline after detecting a connection problem. This setting was introduced in ServiceControl version 4.4.1.
+#
 # @param expiration_process_timer_in_seconds
 #   Specifies the number of seconds to wait between checking for expired messages.
 #
@@ -119,6 +122,7 @@ define nservicebusservicecontrol::audit_instance (
   Optional[String] $service_account_password               = undef,
   Boolean $service_restart_on_config_change                = true,
   String $audit_retention_period                           = '30.00:00:00',
+  String $time_to_restart_audit_ingestion_after_failure    = '00.00:01:00',
   Integer $expiration_process_timer_in_seconds             = 600,
   Integer $expiration_process_batch_size                   = 65512,
   Integer $max_body_size_to_store                          = 102400,
@@ -216,7 +220,8 @@ define nservicebusservicecontrol::audit_instance (
       '_transport_type'                     => $_transport_type,
       'connection_string'                   => $connection_string,
       'forward_audit_messages'              => $forward_audit_messages,
-      'audit_retention_period'              => $audit_retention_period,
+      'audit_retention_period'                        => $audit_retention_period,
+      'time_to_restart_audit_ingestion_after_failure' => $time_to_restart_audit_ingestion_after_failure,
       'expiration_process_timer_in_seconds' => $expiration_process_timer_in_seconds,
       'expiration_process_batch_size'       => $expiration_process_batch_size,
       'max_body_size_to_store'              => $max_body_size_to_store,

@@ -75,6 +75,9 @@
 # @param error_retention_period
 #   Specify thd grace period that faulted messages are kept before they are deleted.
 #
+# @param time_to_restart_error_ingestion_after_failure
+#   Specify the maximum time delay to wait before restarting the error ingestion pipeline after detecting a connection problem. This setting was introduced in ServiceControl version 4.4.1.
+#
 # @param event_retention_period
 #   Specifies the period to keep event logs before they are deleted.
 #
@@ -137,6 +140,7 @@ define nservicebusservicecontrol::instance (
   Optional[String] $service_account_password               = undef,
   Boolean $service_restart_on_config_change                = true,
   String $error_retention_period                           = '15.00:00:00',
+  String $time_to_restart_error_ingestion_after_failure    = '00.00:01:00',
   String $event_retention_period                           = '14.00:00:00',
   Integer $expiration_process_timer_in_seconds             = 600,
   Integer $expiration_process_batch_size                   = 65512,
@@ -237,6 +241,7 @@ define nservicebusservicecontrol::instance (
       'connection_string'                   => $connection_string,
       'forward_error_messages'              => $forward_error_messages,
       'error_retention_period'              => $error_retention_period,
+      'time_to_restart_error_ingestion_after_failure' => $time_to_restart_error_ingestion_after_failure,
       'event_retention_period'              => $event_retention_period,
       'expiration_process_timer_in_seconds' => $expiration_process_timer_in_seconds,
       'expiration_process_batch_size'       => $expiration_process_batch_size,
