@@ -22,8 +22,8 @@ plan nservicebusservicecontrol::import_failed_messages (
   # 2. Wait for existing run to finish if one is in progress
   # 3. Perform work ('Steps to import' from above)
   # X. Enable agent again
-  $target_objects = get_targets($targets)
-
+  # $target_objects = get_targets($targets)
+ # C:\ProgramData\PuppetLabs\puppet\cache\state\agent_disabled.lock
   run_task('agent_disenable', $targets, action => 'disable', message => 'Importing failed messages.')
   run_task('agent_disenable', $targets, action => 'enable')
 
