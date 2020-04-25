@@ -9,6 +9,10 @@
   "issues_url": "https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/issues",
   "dependencies": [
     {
+      "name": "gabe/agent_disenable",
+      "version_requirement": ">= 1.0.0 < 2.0.0"
+    },
+    {
       "name": "puppetlabs/chocolatey",
       "version_requirement": ">= 3.0.0 < 4.0.0"
     },
