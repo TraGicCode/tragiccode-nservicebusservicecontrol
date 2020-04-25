@@ -24,7 +24,7 @@ plan nservicebusservicecontrol::import_failed_messages (
   # X. Enable agent again
   $target_objects = get_targets($targets)
 
-  run_task('agent_disenable', $targets, action => 'disable')
+  run_task('agent_disenable', $targets, action => 'disable', message => 'Importing failed messages.')
   run_task('agent_disenable', $targets, action => 'enable')
 
 }
