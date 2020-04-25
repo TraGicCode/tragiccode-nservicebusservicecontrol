@@ -1,15 +1,12 @@
 # Reboots targets and waits for them to be available again.
 #
-# @param targets Targets to reboot.
-# @param message Message to log with the reboot (for platforms that support it).
-# @param reboot_delay How long (in seconds) to wait before rebooting. Defaults to 1.
-# @param disconnect_wait How long (in seconds) to wait before checking whether the server has rebooted. Defaults to 10.
-# @param reconnect_timeout How long (in seconds) to attempt to reconnect before giving up. Defaults to 180.
-# @param retry_interval How long (in seconds) to wait between retries. Defaults to 1.
-# @param fail_plan_on_errors Raise an error if any targets do not successfully reboot. Defaults to true.
+# @param targets Targets to import failed messags on.
+# @param instance_name The name of the servicecontrol instance.
+# @param instance_type The servicecontrol instance type (Audit or Error).
 plan nservicebusservicecontrol::import_failed_messages (
   TargetSpec $targets,
   String $instance_name,
+  Enum['error', 'audit'] $instance_type,
 ) {
 
   # Steps to import
@@ -23,8 +20,30 @@ plan nservicebusservicecontrol::import_failed_messages (
   # 3. Perform work ('Steps to import' from above)
   # X. Enable agent again
   # $target_objects = get_targets($targets)
- # C:\ProgramData\PuppetLabs\puppet\cache\state\agent_disabled.lock
+  # C:\ProgramData\PuppetLabs\puppet\cache\state\agent_disabled.lock
   run_task('agent_disenable', $targets, action => 'disable', message => 'Importing failed messages.')
+  run_task('service::windows', $targets, action => 'stop', name => $instance_name)
+    # Loop until items in the pipeline stage are done
+  ctrl::do_until( 'limit' => 5 ) || {
+    $results = run_task('service::windows', $targets, action => 'status', name => $instance_name)
+    $results.each |$result| {
+      if $result['status'] == 'Stopped' {
+        true
+      }
+      else {
+        false
+      }
+    }
+  }
+  ctrl::sleep(10)
+  if $instance_type == 'audit' {
+    $root_command = "C:\\Program Files (x86)\\Particular Software\\Particular.ServiceControl.Audit\\ServiceControl.Audit.exe"
+  } else {
+    $root_command = "C:\\Program Files (x86)\\Particular Software\\Particular.ServiceControl\\ServiceControl.exe"
+  }
+
+  run_command("& '${root_command}' --serviceName=${instance_name} --import-failed-${instance_type}s", $targets)
+  run_task('service::windows', $targets, action => 'start', name => $instance_name)
   run_task('agent_disenable', $targets, action => 'enable')
 
 }
