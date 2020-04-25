@@ -87,6 +87,9 @@
 # @param expiration_process_batch_size
 #   Specifies the batch size to use when checking for expired messages.
 #
+# @param data_space_remaining_threshold
+#   The percentage threshold for the Message database storage space check. If the remaining hard drive space drops below this threshold (as a percentage of the total space on the drive), then the check will fail, alerting the user.
+#
 # @param max_body_size_to_store
 #   Specifies the upper limit on body size to be configured.
 #
@@ -144,6 +147,7 @@ define nservicebusservicecontrol::instance (
   String $event_retention_period                           = '14.00:00:00',
   Integer $expiration_process_timer_in_seconds             = 600,
   Integer $expiration_process_batch_size                   = 65512,
+  Integer $data_space_remaining_threshold                  = 20,
   Integer $max_body_size_to_store                          = 102400,
   Integer $http_default_connection_limit                   = 100,
   String $heartbeat_grace_period                           = '00:00:40',
@@ -245,6 +249,7 @@ define nservicebusservicecontrol::instance (
       'event_retention_period'                        => $event_retention_period,
       'expiration_process_timer_in_seconds'           => $expiration_process_timer_in_seconds,
       'expiration_process_batch_size'                 => $expiration_process_batch_size,
+      'data_space_remaining_threshold'                => $data_space_remaining_threshold,
       'max_body_size_to_store'                        => $max_body_size_to_store,
       'http_default_connection_limit'                 => $http_default_connection_limit,
       'heartbeat_grace_period'                        => $heartbeat_grace_period,
