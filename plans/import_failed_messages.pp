@@ -1,4 +1,4 @@
-# Reboots targets and waits for them to be available again.
+# Imports failed error or audit message.
 #
 # @param targets Targets to import failed messags on.
 # @param instance_name The name of the servicecontrol instance.
@@ -36,7 +36,6 @@ plan nservicebusservicecontrol::import_failed_messages (
       }
     }
     run_task('service::windows', $targets, action => 'stop', name => $instance_name)
-      # Loop until items in the pipeline stage are done
     ctrl::do_until( 'limit' => 5 ) || {
       $results = run_task('service::windows', $targets, action => 'status', name => $instance_name)
       $results.each |$result| {
