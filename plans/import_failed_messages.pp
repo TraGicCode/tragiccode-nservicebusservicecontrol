@@ -9,18 +9,6 @@ plan nservicebusservicecontrol::import_failed_messages (
   Enum['error', 'audit'] $instance_type,
 ) {
 
-  # Steps to import
-  # 1. StopServiceControl Service
-  # 2. run servicecontrol from cli with --import-failed-errors or --import-failed-audits
-  # 3. Start Service
-
-  # Full workflow
-  # X. Disable agent with hardcoded message
-  # 2. Wait for existing run to finish if one is in progress
-  # 3. Perform work ('Steps to import' from above)
-  # X. Enable agent again
-  # $target_objects = get_targets($targets)
-  # C:\ProgramData\PuppetLabs\puppet\cache\state\agent_disabled.lock
   get_targets($targets).each |$target| {
     run_task('agent_disenable', $target, action => 'disable', message => 'Importing failed messages.')
     ctrl::do_until( 'limit' => 20 ) || {

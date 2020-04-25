@@ -14,6 +14,7 @@
     * [Service Control Instances](#service-control-instances)
     * [Service Control Audit Instances](#service-control-audit-instances)
     * [Service Control Monitoring Instances](#service-control-monitoring-instances)
+    * [Reimport failed errror/audit messages](#reimport-failed-error/audit-messages)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 1. [Limitations - OS compatibility, etc.](#limitations)
 1. [Contributing](#contributing)
@@ -482,6 +483,40 @@ nservicebusservicecontrol::monitoring_instance { 'Particular.Monitoring.Developm
   ...
 }
 ```
+
+### Reimport failed errror/audit messages
+
+When you have messages that fail to be imported you can easily re-import them in an automated and painless way using the `nservicebusservicecontrol::import_failed_messages` bolt plan.
+
+**NOTE: This plan requires the puppet agent installed on the remote.**
+
+```
+$ bolt plan show nservicebusservicecontrol::import_failed_messages
+
+nservicebusservicecontrol::import_failed_messages - Imports failed error or audit message.
+
+USAGE:
+bolt plan run nservicebusservicecontrol::import_failed_messages targets=<value> instance_name=<value> instance_type=<value>
+
+PARAMETERS:
+- targets: TargetSpec
+    Targets to import failed messags on.
+- instance_name: String
+    The name of the servicecontrol instance.
+- instance_type: Enum['error', 'audit']
+    The servicecontrol instance type (Audit or Error).
+```
+
+#### Workflow followed by plan
+
+Below is the documented workflow of the above `nservicebusservicecontrol::import_failed_messages` plan so that you, as an administrator, have a better understanding on what to expect and what is happening.
+
+1. Disable the puppet agent
+1. Wait for any currently active puppet agent runs to finish
+1. Stop the specificed service control instance
+1. Import the failed error or audit messages
+1. Start the specified service control instance
+2. Enable the puppet agent
 
 ## Reference
 
