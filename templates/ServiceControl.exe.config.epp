@@ -20,7 +20,6 @@
       Integer $expiration_process_timer_in_seconds,
       Integer $expiration_process_batch_size,
       Integer $data_space_remaining_threshold,
-      Integer $max_body_size_to_store,
       Integer $http_default_connection_limit,
       String $heartbeat_grace_period,
       Boolean $allow_message_editing, | -%>
@@ -46,7 +45,6 @@
         <add key="ServiceControl/ExpirationProcessTimerInSeconds" value="<%= $expiration_process_timer_in_seconds %>" />
         <add key="ServiceControl/ExpirationProcessBatchSize" value="<%= $expiration_process_batch_size %>" />
         <add key="ServiceControl/DataSpaceRemainingThreshold" value="<%= $data_space_remaining_threshold %>" />
-        <add key="ServiceControl/MaxBodySizeToStore" value="<%= $max_body_size_to_store %>" />
         <add key="ServiceControl/HttpDefaultConnectionLimit" value="<%= $http_default_connection_limit %>" />
         <add key="ServiceControl/HeartbeatGracePeriod" value="<%= $heartbeat_grace_period %>" />
         <add key="ServiceControl/AllowMessageEditing" value="<%= $allow_message_editing %>" />

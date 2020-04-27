@@ -90,9 +90,6 @@
 # @param data_space_remaining_threshold
 #   The percentage threshold for the Message database storage space check. If the remaining hard drive space drops below this threshold (as a percentage of the total space on the drive), then the check will fail, alerting the user.
 #
-# @param max_body_size_to_store
-#   Specifies the upper limit on body size to be configured.
-#
 # @param http_default_connection_limit
 #   Specifies the maximum number of concurrent connections allowed by ServiceControl.
 #
@@ -148,7 +145,6 @@ define nservicebusservicecontrol::instance (
   Integer $expiration_process_timer_in_seconds             = 600,
   Integer $expiration_process_batch_size                   = 65512,
   Integer $data_space_remaining_threshold                  = 20,
-  Integer $max_body_size_to_store                          = 102400,
   Integer $http_default_connection_limit                   = 100,
   String $heartbeat_grace_period                           = '00:00:40',
   Boolean $allow_message_editing                           = false,
@@ -250,7 +246,6 @@ define nservicebusservicecontrol::instance (
       'expiration_process_timer_in_seconds'           => $expiration_process_timer_in_seconds,
       'expiration_process_batch_size'                 => $expiration_process_batch_size,
       'data_space_remaining_threshold'                => $data_space_remaining_threshold,
-      'max_body_size_to_store'                        => $max_body_size_to_store,
       'http_default_connection_limit'                 => $http_default_connection_limit,
       'heartbeat_grace_period'                        => $heartbeat_grace_period,
       'allow_message_editing'                         => $allow_message_editing,
