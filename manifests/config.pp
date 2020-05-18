@@ -5,14 +5,19 @@
 #
 class nservicebusservicecontrol::config {
 
-  $_registry_key_ensure = $nservicebusservicecontrol::license_xml ? {
+  $_license_ensure = $nservicebusservicecontrol::license_xml ? {
     ''      => 'absent',
     default => 'present'
   }
 
   registry_value { 'HKLM\SOFTWARE\ParticularSoftware\License':
-    ensure => $_registry_key_ensure,
+    ensure => $_license_ensure,
     type   => string,
     data   => $nservicebusservicecontrol::license_xml,
+  }
+
+  file { 'C:\ProgramData\ParticularSoftware\license.xml':
+    ensure  => $_license_ensure,
+    content => $nservicebusservicecontrol::license_xml,
   }
 }

@@ -52,6 +52,11 @@ describe 'nservicebusservicecontrol' do
             is_expected.to contain_registry_value('HKLM\SOFTWARE\ParticularSoftware\License')
               .with(ensure: 'absent')
           }
+
+          it {
+            is_expected.to contain_file('C:\ProgramData\ParticularSoftware\license.xml')
+              .with(ensure: 'absent')
+          }
         end
 
         context 'with license_xml => <license>...</license>' do
@@ -66,6 +71,12 @@ describe 'nservicebusservicecontrol' do
               .with(ensure: 'present',
                     type: 'string',
                     data: '<license>...</license>')
+          }
+
+          it {
+            is_expected.to contain_file('C:\ProgramData\ParticularSoftware\license.xml')
+              .with(ensure: 'present',
+                    content: '<license>...</license>')
           }
         end
       end
