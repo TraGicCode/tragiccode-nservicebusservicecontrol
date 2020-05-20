@@ -1,4 +1,4 @@
-# Imports failed error or audit message.
+# Imports failed error or audit messages.
 #
 # @param targets Targets to import failed messags on.
 # @param instance_name The name of the servicecontrol instance.
@@ -57,7 +57,7 @@ plan nservicebusservicecontrol::import_failed_messages (
     # will throw an unhandled exception on import...
     ctrl::sleep(10)
 
-    run_command("& '${found_instance[0]['ExecutablePath']}' --portable --serviceName=${found_instance[0]['Name']} --import-failed-${found_instance[0]['Type']}s", $target)
+    run_command("& '${found_instance[0]['ExecutablePath']}' --serviceName=${found_instance[0]['Name']} --import-failed-${found_instance[0]['Type']}s", $target)
     run_task('service::windows', $target, action => 'start', name => $instance_name)
     run_task('agent_disenable', $target, action => 'enable')
   }
