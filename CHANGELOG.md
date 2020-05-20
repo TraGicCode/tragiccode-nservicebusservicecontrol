@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v1.3.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v1.3.0) (2020-05-20)
+
+[Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v1.2.0...v1.3.0)
+
+### Added
+
+- Improve validation and handling of user input in failed audit/error import bolt plan [\#41](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/41) ([TraGicCode](https://github.com/TraGicCode))
+- \(GH-39\) Add license to filesystem along with registry [\#40](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/40) ([TraGicCode](https://github.com/TraGicCode))
+- \(GH-36\) Removed maxbodysize from error servicecontrol instance [\#37](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/37) ([TraGicCode](https://github.com/TraGicCode))
+- \(GH-14\) Bolt plan to import failed audit and error [\#35](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/35) ([TraGicCode](https://github.com/TraGicCode))
+- \(GH-25\) Added DataSpaceRemainingThreshold setting [\#34](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/34) ([TraGicCode](https://github.com/TraGicCode))
+
 ## [v1.2.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v1.2.0) (2020-04-11)
 
 [Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v1.1.0...v1.2.0)

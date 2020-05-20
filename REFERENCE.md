@@ -25,6 +25,14 @@ _Private Classes_
 * [`Nservicebusservicecontrol::Log_level`](#nservicebusservicecontrollog_level): 
 * [`Nservicebusservicecontrol::Transport`](#nservicebusservicecontroltransport): https://github.com/Particular/ServiceControl/blob/develop/src/ServiceControlInstaller.Engine/Instances/TransportNames.cs
 
+**Tasks**
+
+* [`get_instances`](#get_instances): Gets all servicecontrol instances.
+
+**Plans**
+
+* [`nservicebusservicecontrol::import_failed_messages`](#nservicebusservicecontrolimport_failed_messages): Imports failed error or audit messages.
+
 ## Classes
 
 ### nservicebusservicecontrol
@@ -264,6 +272,14 @@ Data type: `Integer`
 Specifies the batch size to use when checking for expired messages.
 
 Default value: 65512
+
+##### `data_space_remaining_threshold`
+
+Data type: `Integer`
+
+The percentage threshold for the Message database storage space check. If the remaining hard drive space drops below this threshold (as a percentage of the total space on the drive), then the check will fail, alerting the user.
+
+Default value: 20
 
 ##### `max_body_size_to_store`
 
@@ -583,13 +599,13 @@ Specifies the batch size to use when checking for expired messages.
 
 Default value: 65512
 
-##### `max_body_size_to_store`
+##### `data_space_remaining_threshold`
 
 Data type: `Integer`
 
-Specifies the upper limit on body size to be configured.
+The percentage threshold for the Message database storage space check. If the remaining hard drive space drops below this threshold (as a percentage of the total space on the drive), then the check will fail, alerting the user.
 
-Default value: 102400
+Default value: 20
 
 ##### `http_default_connection_limit`
 
@@ -826,4 +842,40 @@ Alias of `Enum['Trace', 'Debug', 'Info', 'Warn', 'Error', 'Fatal', 'Off']`
 https://github.com/Particular/ServiceControl/blob/develop/src/ServiceControlInstaller.Engine/Instances/TransportNames.cs
 
 Alias of `Enum['RabbitMQ - Conventional routing topology', 'SQL Server', 'MSMQ', 'Azure Storage Queue', 'Azure Service Bus', 'AmazonSQS']`
+
+## Tasks
+
+### get_instances
+
+Gets all servicecontrol instances.
+
+**Supports noop?** false
+
+## Plans
+
+### nservicebusservicecontrol::import_failed_messages
+
+Imports failed error or audit messages.
+
+#### Parameters
+
+The following parameters are available in the `nservicebusservicecontrol::import_failed_messages` plan.
+
+##### `targets`
+
+Data type: `TargetSpec`
+
+Targets to import failed messags on.
+
+##### `instance_name`
+
+Data type: `String[1]`
+
+The name of the servicecontrol instance.
+
+##### `instance_type`
+
+Data type: `Enum['error', 'audit']`
+
+The servicecontrol instance type (Audit or Error).
 

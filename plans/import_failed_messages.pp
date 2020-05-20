@@ -1,4 +1,4 @@
-# Imports failed error or audit message.
+# Imports failed error or audit messages.
 #
 # @param targets Targets to import failed messags on.
 # @param instance_name The name of the servicecontrol instance.
