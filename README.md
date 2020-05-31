@@ -72,10 +72,12 @@ class { 'nservicebusservicecontrol':
 
 ### Install your license
 
+Installing your commercial license is a piece of cake as shown below.
+
 ```puppet
 $license_xml = @(LICENSE)
 <?xml version="1.0" encoding="utf-8"?>
-<license type="Commercial" DeploymentType="Elastic Cloud" Quantity="4" Edition="Enterprise" Applications="All" RenewalType="Subscription" expiration="2020-01-23" Notes="BlueSnap" id="7d26ad59-8805-4da6-8dad-f3540213ca">
+<license type="Commercial" ..>
 ...
 </license>
 LICENSE
@@ -85,6 +87,8 @@ class { 'nservicebusservicecontrol':
   license_xml        => $license_xml,
 }
 ```
+
+**NOTE: Installing or Updating the license will cause the main servicecontrol instance ( error ) to automatically restart.  This is to immediately reflect the license change in servicepulse.  Since servicecontrol is like any other message based application you can expect no disruptions for your production systems.**
 
 ### Service Control Deployment Topologies
 
