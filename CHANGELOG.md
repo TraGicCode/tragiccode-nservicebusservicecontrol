@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v1.4.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v1.4.0) (2020-06-08)
+
+[Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v1.3.0...v1.4.0)
+
+### Added
+
+- \(GH-44\) Automatically restart main servicecontrol instance upon license install/update [\#46](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/46) ([TraGicCode](https://github.com/TraGicCode))
+
+### Fixed
+
+- \(GH-47\) Properly compare version numbers when doing automatic instance upgrade [\#48](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/48) ([TraGicCode](https://github.com/TraGicCode))
+
 ## [v1.3.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v1.3.0) (2020-05-20)
 
 [Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v1.2.0...v1.3.0)
