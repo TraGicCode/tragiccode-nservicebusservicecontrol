@@ -11,7 +11,7 @@ $zipFile = Get-ChildItem -Path "$($deploymentCachePath)\Particular.ServiceContro
 $zipFileVersion = $zipFile.BaseName.Split("-")[1]
 $serviceControlMonitoringInstanceVersion = (Get-MonitoringInstances | Where-Object -FilterScript { $PSItem.Name -eq '<%= $instance_name %>' }).Version.ToString()
 
-if($zipFileVersion -gt $serviceControlMonitoringInstanceVersion)
+if([Version] $zipFileVersion -gt [Version] $serviceControlMonitoringInstanceVersion)
 {
   exit 0
 }
