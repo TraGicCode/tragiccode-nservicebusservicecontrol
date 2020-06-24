@@ -16,6 +16,10 @@ class nservicebusservicecontrol::config {
     data   => $nservicebusservicecontrol::license_xml,
   }
 
+  file { 'C:\ProgramData\ParticularSoftware':
+    ensure => 'directory',
+  }
+
   file { 'C:\ProgramData\ParticularSoftware\license.xml':
     ensure  => $_license_ensure,
     content => $nservicebusservicecontrol::license_xml,
