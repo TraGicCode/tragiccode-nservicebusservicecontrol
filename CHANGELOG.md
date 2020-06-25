@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v1.4.1](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v1.4.1) (2020-06-25)
+
+[Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v1.4.0...v1.4.1)
+
+### Fixed
+
+- \(GH-51\) Create license folder to license installation doesn't blow up! [\#52](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/52) ([TraGicCode](https://github.com/TraGicCode))
+
 ## [v1.4.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v1.4.0) (2020-06-08)
 
 [Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v1.3.0...v1.4.0)
