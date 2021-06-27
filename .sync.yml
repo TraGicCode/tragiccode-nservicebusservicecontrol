@@ -12,3 +12,6 @@ spec/default_facts.yml:
 
 .gitlab-ci.yml:
   delete: true
+
+appveyor.yml:
+  unmanaged: true
