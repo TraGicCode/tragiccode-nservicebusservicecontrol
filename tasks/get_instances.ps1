@@ -1,4 +1,4 @@
-Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\ServiceControlMgmt.psd1" 4>$null
+Import-Module "${env:ProgramFiles(x86)}\Particular Software\ServiceControl Management\ServiceControlMgmt"  4>$null
 
 $result = @()
 
