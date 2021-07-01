@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v1.4.2](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v1.4.2) (2021-07-01)
+
+[Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v1.4.1...v1.4.2)
+
+### Fixed
+
+- \(GH-57\) Fix module import causing bolt task to output non-json [\#58](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/58) ([TraGicCode](https://github.com/TraGicCode))
+
 ## [v1.4.1](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v1.4.1) (2020-06-25)
 
 [Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v1.4.0...v1.4.1)
