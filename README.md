@@ -14,7 +14,8 @@
     * [Service Control Instances](#service-control-instances)
     * [Service Control Audit Instances](#service-control-audit-instances)
     * [Service Control Monitoring Instances](#service-control-monitoring-instances)
-    * [Reimport failed errror/audit messages](#reimport-failed-error/audit-messages)
+    * [Reimport failed errror/audit messages](#reimport-failed-erroraudit-messages)
+    * [Compact RavenDB Database](#compact-ravendb-database)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 1. [Limitations - OS compatibility, etc.](#limitations)
 1. [Contributing](#contributing)
@@ -497,18 +498,22 @@ When you have messages that fail to be imported you can easily re-import them in
 ```
 $ bolt plan show nservicebusservicecontrol::import_failed_messages
 
-nservicebusservicecontrol::import_failed_messages - Imports failed error or audit message.
+nservicebusservicecontrol::import_failed_messages
+  Imports failed error or audit messages.
 
-USAGE:
-bolt plan run nservicebusservicecontrol::import_failed_messages targets=<value> instance_name=<value> instance_type=<value>
+Usage
+  Invoke-BoltPlan -Name nservicebusservicecontrol::import_failed_messages
+  instance_name=<value> instance_type=<value> targets=<value>
 
-PARAMETERS:
-- targets: TargetSpec
-    Targets to import failed messags on.
-- instance_name: String
+Parameters
+  instance_name  String[1]
     The name of the servicecontrol instance.
-- instance_type: Enum['error', 'audit']
+
+  instance_type  Enum['error', 'audit']
     The servicecontrol instance type (Audit or Error).
+
+  targets  TargetSpec
+    Targets to import failed messages on.
 ```
 
 #### Workflow followed by plan
@@ -519,6 +524,38 @@ Below is the documented workflow of the above `nservicebusservicecontrol::import
 1. Wait for any currently active puppet agent runs to finish
 1. Stop the specificed service control instance
 1. Import the failed error or audit messages
+1. Start the specified service control instance
+2. Enable the puppet agent
+
+### Compact RavenDB Database
+
+To compact the RavenDB Database for a given servicecontrol instance you can simply use the `nservicebusservicecontrol::compact_database` bolt plan.
+
+**NOTE: This plan requires the puppet agent installed on the remote.**
+
+```
+$ bolt plan show nservicebusservicecontrol::compact_database
+
+nservicebusservicecontrol::compact_database                                                                                                                                                                                                                                                                                                                                                 Compacts the servicecontrol instance's RavenDB Database.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Usage                                                                                                                                                                                                                                                                                                                                                                                       Invoke-BoltPlan -Name nservicebusservicecontrol::compact_database
+  instance_name=<value> targets=<value>
+
+Parameters
+  instance_name  String[1]
+    The name of the servicecontrol instance.
+
+  targets  TargetSpec
+    Targets to compact databases.
+```
+
+#### Workflow followed by plan
+
+Below is the documented workflow of the above `nservicebusservicecontrol::compact_database` plan so that you, as an administrator, have a better understanding on what to expect and what is happening.
+
+1. Disable the puppet agent
+1. Wait for any currently active puppet agent runs to finish
+1. Stop the specificed service control instance
+1. Check to ensure database is in a consistent state and ready for defragmentation
+1. Defragment the database
 1. Start the specified service control instance
 2. Enable the puppet agent
 

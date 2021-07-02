@@ -8,6 +8,7 @@ foreach($instance in $errorInstances)
     $result += [PSCustomObject] @{
         Name        = $instance.Name
         InstallPath = $instance.InstallPath
+        DBPath      = $instance.DBPath
         ExecutablePath = Join-Path -Path $instance.InstallPath -ChildPath "ServiceControl.exe"
         Type = 'error'
     }
@@ -19,6 +20,7 @@ foreach($instance in $auditInstances)
     $result += [PSCustomObject] @{
         Name        = $instance.Name
         InstallPath = $instance.InstallPath
+        DBPath      = $instance.DBPath
         ExecutablePath = Join-Path -Path $instance.InstallPath -ChildPath "ServiceControl.Audit.exe"
         Type = 'audit'
     }
@@ -29,7 +31,7 @@ foreach($instance in $monitoringInstances)
 {
     $result += [PSCustomObject] @{
         Name        = $instance.Name
-        InstallPath = $instance.InstallPath 
+        InstallPath = $instance.InstallPath
         ExecutablePath = Join-Path -Path $instance.InstallPath -ChildPath "ServiceControl.Monitoring.exe"
         Type = 'monitor'
     }

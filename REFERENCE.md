@@ -32,6 +32,7 @@
 
 ### Plans
 
+* [`nservicebusservicecontrol::compact_database`](#nservicebusservicecontrolcompact_database): Compacts the servicecontrol instance's RavenDB Database.
 * [`nservicebusservicecontrol::import_failed_messages`](#nservicebusservicecontrolimport_failed_messages): Imports failed error or audit messages.
 
 ## Classes
@@ -962,6 +963,29 @@ Gets all servicecontrol instances.
 
 ## Plans
 
+### <a name="nservicebusservicecontrolcompact_database"></a>`nservicebusservicecontrol::compact_database`
+
+Compacts the servicecontrol instance's RavenDB Database.
+
+#### Parameters
+
+The following parameters are available in the `nservicebusservicecontrol::compact_database` plan:
+
+* [`targets`](#targets)
+* [`instance_name`](#instance_name)
+
+##### <a name="targets"></a>`targets`
+
+Data type: `TargetSpec`
+
+Targets to compact databases.
+
+##### <a name="instance_name"></a>`instance_name`
+
+Data type: `String[1]`
+
+The name of the servicecontrol instance.
+
 ### <a name="nservicebusservicecontrolimport_failed_messages"></a>`nservicebusservicecontrol::import_failed_messages`
 
 Imports failed error or audit messages.
@@ -978,7 +1002,7 @@ The following parameters are available in the `nservicebusservicecontrol::import
 
 Data type: `TargetSpec`
 
-Targets to import failed messags on.
+Targets to import failed messages on.
 
 ##### <a name="instance_name"></a>`instance_name`
 
