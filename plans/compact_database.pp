@@ -1,12 +1,10 @@
-# Imports failed error or audit messages.
+# Compacts the servicecontrol instance's RavenDB Database.
 #
-# @param targets Targets to import failed messages on.
+# @param targets Targets to compact databases.
 # @param instance_name The name of the servicecontrol instance.
-# @param instance_type The servicecontrol instance type (Audit or Error).
-plan nservicebusservicecontrol::import_failed_messages (
+plan nservicebusservicecontrol::compact_database (
   TargetSpec $targets,
   String[1] $instance_name,
-  Enum['error', 'audit'] $instance_type,
 ) {
 
   get_targets($targets).each |$target| {
@@ -20,9 +18,9 @@ plan nservicebusservicecontrol::import_failed_messages (
     }
 
     if $found_instance.empty() {
-      fail_plan("A servicecontrol instance with the name of '${instance_name}' and type of '${instance_type}' could not be found.", 'nservicebusservicecontrol/servicecontrol-instance-not-found')
+      fail_plan("A servicecontrol instance with the name of '${instance_name}' could not be found.", 'nservicebusservicecontrol/servicecontrol-instance-not-found')
     }
-    out::message("Probing Complete. Found the servicecontrol instance with the name of '${instance_name}' and type of '${instance_type}'.")
+    out::message("Probing Complete. Found the servicecontrol instance with the name of '${instance_name}'.")
     # Shortcircuit if monitoring instance
     if $found_instance[0]['Type'] == 'monitor' {
       fail_plan('Importing of failed messages cannot be done for monitoring instances.', 'nservicebusservicecontrol/servicecontrol-instance-operation-not-allowed')
@@ -53,11 +51,15 @@ plan nservicebusservicecontrol::import_failed_messages (
         }
       }
     }
-    # For some reason if you don't wait just a little bit servicecontrol
-    # will throw an unhandled exception on import...
-    ctrl::sleep(10)
+    # Check database is in a consistent state and ready for defragmentation
+    out::message('Checking to ensure database is in a consistent state and ready for defragmentation.')
+    run_command("cd '${found_instance[0]['DBPath']}'; & esentutl.exe /r RVN /l logs /s system", $target)
+    out::message('Check completed.  Database is ready for defragmentation.')
 
-    run_command("& '${found_instance[0]['ExecutablePath']}' --serviceName=${found_instance[0]['Name']} --import-failed-${found_instance[0]['Type']}s", $target)
+    out::message('Starting defragmentation.')
+    run_command("cd '${found_instance[0]['DBPath']}'; & esentutl.exe /d Data", $target)
+    out::message('Defragmentation completed.')
+
     run_task('service::windows', $target, action => 'start', name => $instance_name)
     run_task('agent_disenable', $target, action => 'enable')
   }
