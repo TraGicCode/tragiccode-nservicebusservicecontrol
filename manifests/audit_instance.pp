@@ -69,6 +69,9 @@
 # @param time_to_restart_audit_ingestion_after_failure
 #   Specify the maximum time delay to wait before restarting the audit ingestion pipeline after detecting a connection problem. This setting was introduced in ServiceControl version 4.4.1.
 #
+# @param enable_full_text_search_on_bodies
+#   Allows full text searches to happen on the body of messages. This setting was introduced in ServiceControl version 4.17.0.
+#
 # @param expiration_process_timer_in_seconds
 #   Specifies the number of seconds to wait between checking for expired messages.
 #
@@ -126,6 +129,7 @@ define nservicebusservicecontrol::audit_instance (
   Boolean $service_restart_on_config_change                = true,
   String $audit_retention_period                           = '30.00:00:00',
   String $time_to_restart_audit_ingestion_after_failure    = '00.00:01:00',
+  Boolean $enable_full_text_search_on_bodies               = true,
   Integer $expiration_process_timer_in_seconds             = 600,
   Integer $expiration_process_batch_size                   = 65512,
   Integer $data_space_remaining_threshold                  = 20,
@@ -151,25 +155,26 @@ define nservicebusservicecontrol::audit_instance (
       # 1.) Does a service exist with the name of the instance
       # 2.) Does the following folder exist $install_path
       command   => epp("${module_name}/create-audit-instance.ps1.epp", {
-        'service_control_queue_address' => $service_control_queue_address,
-        'instance_name'                 => $instance_name,
-        'install_path'                  => $install_path,
-        'db_path'                       => $db_path,
-        'log_path'                      => $log_path,
-        'host_name'                     => $host_name,
-        'port'                          => $port,
-        'database_maintenance_port'     => $database_maintenance_port,
-        'audit_queue'                   => $audit_queue,
-        'audit_log_queue'               => $audit_log_queue,
-        'transport'                     => $transport,
-        'display_name'                  => $display_name,
-        'connection_string'             => $connection_string,
-        'description'                   => $description,
-        'forward_audit_messages'        => $forward_audit_messages,
-        'service_account'               => $service_account,
-        'service_account_password'      => $service_account_password,
-        'audit_retention_period'        => $audit_retention_period,
-        'skip_queue_creation'           => $skip_queue_creation,
+        'service_control_queue_address'     => $service_control_queue_address,
+        'instance_name'                     => $instance_name,
+        'install_path'                      => $install_path,
+        'db_path'                           => $db_path,
+        'log_path'                          => $log_path,
+        'host_name'                         => $host_name,
+        'port'                              => $port,
+        'database_maintenance_port'         => $database_maintenance_port,
+        'audit_queue'                       => $audit_queue,
+        'audit_log_queue'                   => $audit_log_queue,
+        'transport'                         => $transport,
+        'display_name'                      => $display_name,
+        'connection_string'                 => $connection_string,
+        'description'                       => $description,
+        'forward_audit_messages'            => $forward_audit_messages,
+        'service_account'                   => $service_account,
+        'service_account_password'          => $service_account_password,
+        'audit_retention_period'            => $audit_retention_period,
+        'skip_queue_creation'               => $skip_queue_creation,
+        'enable_full_text_search_on_bodies' => $enable_full_text_search_on_bodies,
       }),
       onlyif    => epp("${module_name}/query-audit-instance.ps1.epp", {
         'instance_name' => $instance_name,
@@ -225,6 +230,7 @@ define nservicebusservicecontrol::audit_instance (
       'connection_string'                             => $connection_string,
       'forward_audit_messages'                        => $forward_audit_messages,
       'audit_retention_period'                        => $audit_retention_period,
+      'enable_full_text_search_on_bodies'             => $enable_full_text_search_on_bodies,
       'time_to_restart_audit_ingestion_after_failure' => $time_to_restart_audit_ingestion_after_failure,
       'expiration_process_timer_in_seconds'           => $expiration_process_timer_in_seconds,
       'expiration_process_batch_size'                 => $expiration_process_batch_size,

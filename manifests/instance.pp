@@ -78,6 +78,9 @@
 # @param time_to_restart_error_ingestion_after_failure
 #   Specify the maximum time delay to wait before restarting the error ingestion pipeline after detecting a connection problem. This setting was introduced in ServiceControl version 4.4.1.
 #
+# @param enable_full_text_search_on_bodies
+#   Allows full text searches to happen on the body of messages. This setting was introduced in ServiceControl version 4.17.0.
+#
 # @param event_retention_period
 #   Specifies the period to keep event logs before they are deleted.
 #
@@ -142,6 +145,7 @@ define nservicebusservicecontrol::instance (
   String $error_retention_period                           = '15.00:00:00',
   String $time_to_restart_error_ingestion_after_failure    = '00.00:01:00',
   String $event_retention_period                           = '14.00:00:00',
+  Boolean $enable_full_text_search_on_bodies               = true,
   Integer $expiration_process_timer_in_seconds             = 600,
   Integer $expiration_process_batch_size                   = 65512,
   Integer $data_space_remaining_threshold                  = 20,
@@ -168,24 +172,25 @@ define nservicebusservicecontrol::instance (
       # 1.) Does a service exist with the name of the instance
       # 2.) Does the following folder exist $install_path
       command   => epp("${module_name}/create-instance.ps1.epp", {
-        'instance_name'             => $instance_name,
-        'install_path'              => $install_path,
-        'log_path'                  => $log_path,
-        'db_path'                   => $db_path,
-        'host_name'                 => $host_name,
-        'port'                      => $port,
-        'database_maintenance_port' => $database_maintenance_port,
-        'error_queue'               => $error_queue,
-        'error_log_queue'           => $error_log_queue,
-        'transport'                 => $transport,
-        'display_name'              => $display_name,
-        'connection_string'         => $connection_string,
-        'description'               => $description,
-        'forward_error_messages'    => $forward_error_messages,
-        'service_account'           => $service_account,
-        'service_account_password'  => $service_account_password,
-        'error_retention_period'    => $error_retention_period,
-        'skip_queue_creation'       => $skip_queue_creation,
+        'instance_name'                     => $instance_name,
+        'install_path'                      => $install_path,
+        'log_path'                          => $log_path,
+        'db_path'                           => $db_path,
+        'host_name'                         => $host_name,
+        'port'                              => $port,
+        'database_maintenance_port'         => $database_maintenance_port,
+        'error_queue'                       => $error_queue,
+        'error_log_queue'                   => $error_log_queue,
+        'transport'                         => $transport,
+        'display_name'                      => $display_name,
+        'connection_string'                 => $connection_string,
+        'description'                       => $description,
+        'forward_error_messages'            => $forward_error_messages,
+        'service_account'                   => $service_account,
+        'service_account_password'          => $service_account_password,
+        'error_retention_period'            => $error_retention_period,
+        'skip_queue_creation'               => $skip_queue_creation,
+        'enable_full_text_search_on_bodies' => $enable_full_text_search_on_bodies,
       }),
       onlyif    => epp("${module_name}/query-instance.ps1.epp", {
         'instance_name' => $instance_name,
@@ -241,6 +246,7 @@ define nservicebusservicecontrol::instance (
       'connection_string'                             => $connection_string,
       'forward_error_messages'                        => $forward_error_messages,
       'error_retention_period'                        => $error_retention_period,
+      'enable_full_text_search_on_bodies'             => $enable_full_text_search_on_bodies,
       'time_to_restart_error_ingestion_after_failure' => $time_to_restart_error_ingestion_after_failure,
       'event_retention_period'                        => $event_retention_period,
       'expiration_process_timer_in_seconds'           => $expiration_process_timer_in_seconds,

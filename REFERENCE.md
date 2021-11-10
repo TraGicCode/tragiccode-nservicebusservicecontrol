@@ -106,6 +106,7 @@ The following parameters are available in the `nservicebusservicecontrol::audit_
 * [`service_restart_on_config_change`](#service_restart_on_config_change)
 * [`audit_retention_period`](#audit_retention_period)
 * [`time_to_restart_audit_ingestion_after_failure`](#time_to_restart_audit_ingestion_after_failure)
+* [`enable_full_text_search_on_bodies`](#enable_full_text_search_on_bodies)
 * [`expiration_process_timer_in_seconds`](#expiration_process_timer_in_seconds)
 * [`expiration_process_batch_size`](#expiration_process_batch_size)
 * [`data_space_remaining_threshold`](#data_space_remaining_threshold)
@@ -300,6 +301,14 @@ Specify the maximum time delay to wait before restarting the audit ingestion pip
 
 Default value: `'00.00:01:00'`
 
+##### <a name="enable_full_text_search_on_bodies"></a>`enable_full_text_search_on_bodies`
+
+Data type: `Boolean`
+
+Allows full text searches to happen on the body of messages. This setting was introduced in ServiceControl version 4.17.0.
+
+Default value: ``true``
+
 ##### <a name="expiration_process_timer_in_seconds"></a>`expiration_process_timer_in_seconds`
 
 Data type: `Integer`
@@ -438,6 +447,7 @@ The following parameters are available in the `nservicebusservicecontrol::instan
 * [`service_restart_on_config_change`](#service_restart_on_config_change)
 * [`error_retention_period`](#error_retention_period)
 * [`time_to_restart_error_ingestion_after_failure`](#time_to_restart_error_ingestion_after_failure)
+* [`enable_full_text_search_on_bodies`](#enable_full_text_search_on_bodies)
 * [`event_retention_period`](#event_retention_period)
 * [`expiration_process_timer_in_seconds`](#expiration_process_timer_in_seconds)
 * [`expiration_process_batch_size`](#expiration_process_batch_size)
@@ -656,6 +666,14 @@ Data type: `String`
 Specify the maximum time delay to wait before restarting the error ingestion pipeline after detecting a connection problem. This setting was introduced in ServiceControl version 4.4.1.
 
 Default value: `'00.00:01:00'`
+
+##### <a name="enable_full_text_search_on_bodies"></a>`enable_full_text_search_on_bodies`
+
+Data type: `Boolean`
+
+Allows full text searches to happen on the body of messages. This setting was introduced in ServiceControl version 4.17.0.
+
+Default value: ``true``
 
 ##### <a name="event_retention_period"></a>`event_retention_period`
 
