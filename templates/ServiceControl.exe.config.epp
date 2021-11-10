@@ -15,6 +15,7 @@
       Optional[String] $connection_string,
       Boolean $forward_error_messages,
       String $error_retention_period,
+      Boolean $enable_full_text_search_on_bodies,
       String $time_to_restart_error_ingestion_after_failure,
       String $event_retention_period,
       Integer $expiration_process_timer_in_seconds,
@@ -40,6 +41,7 @@
         <add key="ServiceControl/TransportType" value="<%= $_transport_type %>" />
         <add key="ServiceControl/ForwardErrorMessages" value="<%= $forward_error_messages %>" />
         <add key="ServiceControl/ErrorRetentionPeriod" value="<%= $error_retention_period %>" />
+        <add key="ServiceControl/EnableFullTextSearchOnBodies" value="<%= $enable_full_text_search_on_bodies %>" />
         <add key="ServiceControl/TimeToRestartErrorIngestionAfterFailure" value="<%= $time_to_restart_error_ingestion_after_failure %>" />
         <add key="ServiceControl/EventRetentionPeriod" value="<%= $event_retention_period %>" />
         <add key="ServiceControl/ExpirationProcessTimerInSeconds" value="<%= $expiration_process_timer_in_seconds %>" />

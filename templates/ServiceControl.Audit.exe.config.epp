@@ -15,6 +15,7 @@
       Optional[String] $connection_string,
       Boolean $forward_audit_messages,
       String $audit_retention_period,
+      Boolean $enable_full_text_search_on_bodies,
       String $time_to_restart_audit_ingestion_after_failure,
       Integer $expiration_process_timer_in_seconds,
       Integer $expiration_process_batch_size,
@@ -39,6 +40,7 @@
         <add key="ServiceControl.Audit/TransportType" value="<%= $_transport_type %>" />
         <add key="ServiceControl.Audit/ForwardAuditMessages" value="<%= $forward_audit_messages %>" />
         <add key="ServiceControl.Audit/AuditRetentionPeriod" value="<%= $audit_retention_period %>" />
+        <add key="ServiceControl.Audit/EnableFullTextSearchOnBodies" value="<%= $enable_full_text_search_on_bodies %>" />
         <add key="ServiceControl.Audit/TimeToRestartAuditIngestionAfterFailure" value="<%= $time_to_restart_audit_ingestion_after_failure %>" />
         <add key="ServiceControl.Audit/ExpirationProcessTimerInSeconds" value="<%= $expiration_process_timer_in_seconds %>" />
         <add key="ServiceControl.Audit/ExpirationProcessBatchSize" value="<%= $expiration_process_batch_size %>" />

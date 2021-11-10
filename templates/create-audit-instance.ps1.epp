@@ -16,7 +16,8 @@
       String $service_account,
       Optional[String] $service_account_password,
       String $audit_retention_period,
-      Boolean $skip_queue_creation,  | -%>
+      Boolean $skip_queue_creation,
+      Boolean $enable_full_text_search_on_bodies,  | -%>
 Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\ServiceControlMgmt.psd1"
 
 New-ServiceControlAuditInstance -Name "<%= $instance_name %>" `
@@ -38,3 +39,4 @@ New-ServiceControlAuditInstance -Name "<%= $instance_name %>" `
                            <% if !($service_account.downcase() in ['localsystem', 'localservice']) { %> -ServiceAccountPassword "<%= $service_account_password %>" <% } %> `
                            -AuditRetentionPeriod "<%= $audit_retention_period %>" `
                            <% if $skip_queue_creation { %> -SkipQueueCreation <% } %> `
+                           <% if $enable_full_text_search_on_bodies { %> -EnableFullTextSearchOnBodies <% } %> `
