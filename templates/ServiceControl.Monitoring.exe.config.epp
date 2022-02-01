@@ -2,6 +2,8 @@
       Enum['Trace', 'Debug', 'Info', 'Warn', 'Error', 'Fatal', 'Off'] $instance_log_level,
       String $host_name,
       Integer[1, 49151] $port,
+      Integer $maximum_concurrency_level,
+      String $endpoint_uptime_grace_period,
       String $log_path,
       String $error_queue,
       String $_transport_type,
@@ -12,6 +14,8 @@
         <add key="Monitoring/EndpointName" value="<%= $endpoint_name %>" />
         <add key="Monitoring/HttpPort" value="<%= $port %>" />
         <add key="Monitoring/HttpHostName" value="<%= $host_name %>" />
+        <add key="Monitoring/MaximumConcurrencyLevel" value="<%= $maximum_concurrency_level %>" />
+        <add key="Monitoring/EndpointUptimeGracePeriod" value="<%= $endpoint_uptime_grace_period %>" />
         <add key="Monitoring/LogPath" value="<%= $log_path %>" />
         <add key="Monitoring/LogLevel" value="<%= $instance_log_level %>" />
         <add key="Monitoring/TransportType" value="<%= $_transport_type %>" />

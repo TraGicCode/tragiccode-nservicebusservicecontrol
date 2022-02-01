@@ -414,7 +414,6 @@ nservicebusservicecontrol::audit_instance { 'Particular.ServiceControl.Developme
 nservicebusservicecontrol::monitoring_instance { 'Particular.Monitoring.Development':
   ensure                        => 'present',
   transport                     => 'MSMQ',
-  service_control_queue_address => 'Particular.ServiceControl.Development' # the name of the control queue
 }
 ```
 

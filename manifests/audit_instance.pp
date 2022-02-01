@@ -36,6 +36,9 @@
 # @param database_maintenance_port
 #   Specify the database maintenance port number to listen on. If this is the only ServiceControl instance then 44445 is recommended.
 #
+# @param maximum_concurrency_level
+#   This setting controls how many messages can be processed concurrently (in parallel) by ServiceControl.
+#
 # @param expose_ravendb
 #   Specify if the embedded ravendb database should be accessible outside of maintenance mode.
 #
@@ -87,6 +90,9 @@
 # @param http_default_connection_limit
 #   Specifies the maximum number of concurrent connections allowed by ServiceControl.
 #
+# @param disable_ravendb_performance_counters
+#   Specify if RavenDB Performance counters should be disabled.
+#
 # @param service_manage
 #   Specifies whether or not to manage the desired state of the windows service for this instance.
 #
@@ -115,6 +121,7 @@ define nservicebusservicecontrol::audit_instance (
   Stdlib::Fqdn $host_name                                  = 'localhost',
   Stdlib::Port $port                                       = 44444,
   Stdlib::Port $database_maintenance_port                  = 44445,
+  Integer $maximum_concurrency_level                       = 32,
   String $audit_queue                                      = 'audit',
   Optional[String] $audit_log_queue                        = 'audit.log',
   Boolean $expose_ravendb                                  = false,
@@ -135,6 +142,7 @@ define nservicebusservicecontrol::audit_instance (
   Integer $data_space_remaining_threshold                  = 20,
   Integer $max_body_size_to_store                          = 102400,
   Integer $http_default_connection_limit                   = 100,
+  Boolean $disable_ravendb_performance_counters            = true,
   Boolean $service_manage                                  = true,
   Boolean $skip_queue_creation                             = false,
   Boolean $remove_db_on_delete                             = false,
@@ -222,6 +230,7 @@ define nservicebusservicecontrol::audit_instance (
       'host_name'                                     => $host_name,
       'port'                                          => $port,
       'database_maintenance_port'                     => $database_maintenance_port,
+      'maximum_concurrency_level'                     => $maximum_concurrency_level,
       'audit_queue'                                   => $audit_queue,
       'audit_log_queue'                               => $audit_log_queue,
       'expose_ravendb'                                => $expose_ravendb,
@@ -237,6 +246,7 @@ define nservicebusservicecontrol::audit_instance (
       'data_space_remaining_threshold'                => $data_space_remaining_threshold,
       'max_body_size_to_store'                        => $max_body_size_to_store,
       'http_default_connection_limit'                 => $http_default_connection_limit,
+      'disable_ravendb_performance_counters'          => $disable_ravendb_performance_counters,
     })),
     require => Exec["create-service-control-instance-${instance_name}"],
   }
