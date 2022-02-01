@@ -95,6 +95,7 @@ The following parameters are available in the `nservicebusservicecontrol::audit_
 * [`host_name`](#host_name)
 * [`port`](#port)
 * [`database_maintenance_port`](#database_maintenance_port)
+* [`maximum_concurrency_level`](#maximum_concurrency_level)
 * [`expose_ravendb`](#expose_ravendb)
 * [`ravendb_log_level`](#ravendb_log_level)
 * [`transport`](#transport)
@@ -112,6 +113,7 @@ The following parameters are available in the `nservicebusservicecontrol::audit_
 * [`data_space_remaining_threshold`](#data_space_remaining_threshold)
 * [`max_body_size_to_store`](#max_body_size_to_store)
 * [`http_default_connection_limit`](#http_default_connection_limit)
+* [`disable_ravendb_performance_counters`](#disable_ravendb_performance_counters)
 * [`service_manage`](#service_manage)
 * [`skip_queue_creation`](#skip_queue_creation)
 * [`remove_db_on_delete`](#remove_db_on_delete)
@@ -212,6 +214,14 @@ Data type: `Stdlib::Port`
 Specify the database maintenance port number to listen on. If this is the only ServiceControl instance then 44445 is recommended.
 
 Default value: `44445`
+
+##### <a name="maximum_concurrency_level"></a>`maximum_concurrency_level`
+
+Data type: `Integer`
+
+This setting controls how many messages can be processed concurrently (in parallel) by ServiceControl.
+
+Default value: `32`
 
 ##### <a name="expose_ravendb"></a>`expose_ravendb`
 
@@ -349,6 +359,14 @@ Specifies the maximum number of concurrent connections allowed by ServiceControl
 
 Default value: `100`
 
+##### <a name="disable_ravendb_performance_counters"></a>`disable_ravendb_performance_counters`
+
+Data type: `Boolean`
+
+Specify if RavenDB Performance counters should be disabled.
+
+Default value: ``true``
+
 ##### <a name="service_manage"></a>`service_manage`
 
 Data type: `Boolean`
@@ -432,6 +450,7 @@ The following parameters are available in the `nservicebusservicecontrol::instan
 * [`host_name`](#host_name)
 * [`port`](#port)
 * [`database_maintenance_port`](#database_maintenance_port)
+* [`maximum_concurrency_level`](#maximum_concurrency_level)
 * [`remote_instances`](#remote_instances)
 * [`expose_ravendb`](#expose_ravendb)
 * [`ravendb_log_level`](#ravendb_log_level)
@@ -453,6 +472,7 @@ The following parameters are available in the `nservicebusservicecontrol::instan
 * [`expiration_process_batch_size`](#expiration_process_batch_size)
 * [`data_space_remaining_threshold`](#data_space_remaining_threshold)
 * [`http_default_connection_limit`](#http_default_connection_limit)
+* [`disable_ravendb_performance_counters`](#disable_ravendb_performance_counters)
 * [`heartbeat_grace_period`](#heartbeat_grace_period)
 * [`allow_message_editing`](#allow_message_editing)
 * [`service_manage`](#service_manage)
@@ -546,6 +566,14 @@ Data type: `Stdlib::Port`
 Specify the database maintenance port number to listen on. If this is the only ServiceControl instance then 33334 is recommended.
 
 Default value: `33334`
+
+##### <a name="maximum_concurrency_level"></a>`maximum_concurrency_level`
+
+Data type: `Integer`
+
+This setting controls how many messages can be processed concurrently (in parallel) by ServiceControl.
+
+Default value: `10`
 
 ##### <a name="remote_instances"></a>`remote_instances`
 
@@ -715,6 +743,14 @@ Specifies the maximum number of concurrent connections allowed by ServiceControl
 
 Default value: `100`
 
+##### <a name="disable_ravendb_performance_counters"></a>`disable_ravendb_performance_counters`
+
+Data type: `Boolean`
+
+Specify if RavenDB Performance counters should be disabled.
+
+Default value: ``true``
+
 ##### <a name="heartbeat_grace_period"></a>`heartbeat_grace_period`
 
 Data type: `String`
@@ -786,6 +822,8 @@ The following parameters are available in the `nservicebusservicecontrol::monito
 * [`instance_log_level`](#instance_log_level)
 * [`host_name`](#host_name)
 * [`port`](#port)
+* [`maximum_concurrency_level`](#maximum_concurrency_level)
+* [`endpoint_uptime_grace_period`](#endpoint_uptime_grace_period)
 * [`error_queue`](#error_queue)
 * [`transport`](#transport)
 * [`display_name`](#display_name)
@@ -852,6 +890,22 @@ Data type: `Stdlib::Port`
 Specify the port number to listen on. If this is the only ServiceControl Monitoring instance then 33633 is recommended.
 
 Default value: `33633`
+
+##### <a name="maximum_concurrency_level"></a>`maximum_concurrency_level`
+
+Data type: `Integer`
+
+This setting controls how many messages can be processed concurrently (in parallel) by ServiceControl.
+
+Default value: `32`
+
+##### <a name="endpoint_uptime_grace_period"></a>`endpoint_uptime_grace_period`
+
+Data type: `String`
+
+The grace period for endpoint uptime.
+
+Default value: `'00:00:40'`
 
 ##### <a name="error_queue"></a>`error_queue`
 
