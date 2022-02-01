@@ -33,6 +33,9 @@
 # @param database_maintenance_port
 #   Specify the database maintenance port number to listen on. If this is the only ServiceControl instance then 33334 is recommended.
 #
+# @param maximum_concurrency_level
+#   This setting controls how many messages can be processed concurrently (in parallel) by ServiceControl.
+#
 # @param remote_instances
 #   Specify an optional array of remote instances.
 #
@@ -78,6 +81,9 @@
 # @param time_to_restart_error_ingestion_after_failure
 #   Specify the maximum time delay to wait before restarting the error ingestion pipeline after detecting a connection problem. This setting was introduced in ServiceControl version 4.4.1.
 #
+# @param enable_full_text_search_on_bodies
+#   Allows full text searches to happen on the body of messages. This setting was introduced in ServiceControl version 4.17.0.
+#
 # @param event_retention_period
 #   Specifies the period to keep event logs before they are deleted.
 #
@@ -92,6 +98,9 @@
 #
 # @param http_default_connection_limit
 #   Specifies the maximum number of concurrent connections allowed by ServiceControl.
+#
+# @param disable_ravendb_performance_counters
+#   Specify if RavenDB Performance counters should be disabled.
 #
 # @param heartbeat_grace_period
 #   Specifies the period that defines whether an endpoint is considered alive or not since the last received heartbeat.
@@ -126,6 +135,7 @@ define nservicebusservicecontrol::instance (
   Stdlib::Fqdn $host_name                                  = 'localhost',
   Stdlib::Port $port                                       = 33333,
   Stdlib::Port $database_maintenance_port                  = 33334,
+  Integer $maximum_concurrency_level                       = 10,
   Optional[Array[String]] $remote_instances                = [],
   Boolean $expose_ravendb                                  = false,
   Nservicebusservicecontrol::Log_level $ravendb_log_level  = 'Warn',
@@ -142,10 +152,12 @@ define nservicebusservicecontrol::instance (
   String $error_retention_period                           = '15.00:00:00',
   String $time_to_restart_error_ingestion_after_failure    = '00.00:01:00',
   String $event_retention_period                           = '14.00:00:00',
+  Boolean $enable_full_text_search_on_bodies               = true,
   Integer $expiration_process_timer_in_seconds             = 600,
   Integer $expiration_process_batch_size                   = 65512,
   Integer $data_space_remaining_threshold                  = 20,
   Integer $http_default_connection_limit                   = 100,
+  Boolean $disable_ravendb_performance_counters            = true,
   String $heartbeat_grace_period                           = '00:00:40',
   Boolean $allow_message_editing                           = false,
   Boolean $service_manage                                  = true,
@@ -168,24 +180,25 @@ define nservicebusservicecontrol::instance (
       # 1.) Does a service exist with the name of the instance
       # 2.) Does the following folder exist $install_path
       command   => epp("${module_name}/create-instance.ps1.epp", {
-        'instance_name'             => $instance_name,
-        'install_path'              => $install_path,
-        'log_path'                  => $log_path,
-        'db_path'                   => $db_path,
-        'host_name'                 => $host_name,
-        'port'                      => $port,
-        'database_maintenance_port' => $database_maintenance_port,
-        'error_queue'               => $error_queue,
-        'error_log_queue'           => $error_log_queue,
-        'transport'                 => $transport,
-        'display_name'              => $display_name,
-        'connection_string'         => $connection_string,
-        'description'               => $description,
-        'forward_error_messages'    => $forward_error_messages,
-        'service_account'           => $service_account,
-        'service_account_password'  => $service_account_password,
-        'error_retention_period'    => $error_retention_period,
-        'skip_queue_creation'       => $skip_queue_creation,
+        'instance_name'                     => $instance_name,
+        'install_path'                      => $install_path,
+        'log_path'                          => $log_path,
+        'db_path'                           => $db_path,
+        'host_name'                         => $host_name,
+        'port'                              => $port,
+        'database_maintenance_port'         => $database_maintenance_port,
+        'error_queue'                       => $error_queue,
+        'error_log_queue'                   => $error_log_queue,
+        'transport'                         => $transport,
+        'display_name'                      => $display_name,
+        'connection_string'                 => $connection_string,
+        'description'                       => $description,
+        'forward_error_messages'            => $forward_error_messages,
+        'service_account'                   => $service_account,
+        'service_account_password'          => $service_account_password,
+        'error_retention_period'            => $error_retention_period,
+        'skip_queue_creation'               => $skip_queue_creation,
+        'enable_full_text_search_on_bodies' => $enable_full_text_search_on_bodies,
       }),
       onlyif    => epp("${module_name}/query-instance.ps1.epp", {
         'instance_name' => $instance_name,
@@ -232,6 +245,7 @@ define nservicebusservicecontrol::instance (
       'host_name'                                     => $host_name,
       'port'                                          => $port,
       'database_maintenance_port'                     => $database_maintenance_port,
+      'maximum_concurrency_level'                     => $maximum_concurrency_level,
       'remote_instances'                              => $remote_instances,
       'expose_ravendb'                                => $expose_ravendb,
       'ravendb_log_level'                             => $ravendb_log_level,
@@ -241,12 +255,14 @@ define nservicebusservicecontrol::instance (
       'connection_string'                             => $connection_string,
       'forward_error_messages'                        => $forward_error_messages,
       'error_retention_period'                        => $error_retention_period,
+      'enable_full_text_search_on_bodies'             => $enable_full_text_search_on_bodies,
       'time_to_restart_error_ingestion_after_failure' => $time_to_restart_error_ingestion_after_failure,
       'event_retention_period'                        => $event_retention_period,
       'expiration_process_timer_in_seconds'           => $expiration_process_timer_in_seconds,
       'expiration_process_batch_size'                 => $expiration_process_batch_size,
       'data_space_remaining_threshold'                => $data_space_remaining_threshold,
       'http_default_connection_limit'                 => $http_default_connection_limit,
+      'disable_ravendb_performance_counters'          => $disable_ravendb_performance_counters,
       'heartbeat_grace_period'                        => $heartbeat_grace_period,
       'allow_message_editing'                         => $allow_message_editing,
     })),

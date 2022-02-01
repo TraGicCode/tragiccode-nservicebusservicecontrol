@@ -15,8 +15,9 @@
       String $service_account,
       Optional[String] $service_account_password,
       String $error_retention_period,
-      Boolean $skip_queue_creation,  | -%>
-Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\ServiceControlMgmt.psd1"
+      Boolean $skip_queue_creation,
+      Boolean $enable_full_text_search_on_bodies,  | -%>
+Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\\ServiceControlMgmt"
 
 New-ServiceControlInstance -Name "<%= $instance_name %>" `
                            -InstallPath "<%= $install_path %>" `
@@ -36,3 +37,4 @@ New-ServiceControlInstance -Name "<%= $instance_name %>" `
                            <% if !($service_account.downcase() in ['localsystem', 'localservice']) { %> -ServiceAccountPassword "<%= $service_account_password %>" <% } %> `
                            -ErrorRetentionPeriod "<%= $error_retention_period %>" `
                            <% if $skip_queue_creation { %> -SkipQueueCreation <% } %> `
+                           <% if $enable_full_text_search_on_bodies { %> -EnableFullTextSearchOnBodies <% } %> `
