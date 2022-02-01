@@ -33,6 +33,9 @@
 # @param database_maintenance_port
 #   Specify the database maintenance port number to listen on. If this is the only ServiceControl instance then 33334 is recommended.
 #
+# @param maximum_concurrency_level
+#   This setting controls how many messages can be processed concurrently (in parallel) by ServiceControl.
+#
 # @param remote_instances
 #   Specify an optional array of remote instances.
 #
@@ -96,6 +99,9 @@
 # @param http_default_connection_limit
 #   Specifies the maximum number of concurrent connections allowed by ServiceControl.
 #
+# @param disable_ravendb_performance_counters
+#   Specify if RavenDB Performance counters should be disabled.
+#
 # @param heartbeat_grace_period
 #   Specifies the period that defines whether an endpoint is considered alive or not since the last received heartbeat.
 #
@@ -129,6 +135,7 @@ define nservicebusservicecontrol::instance (
   Stdlib::Fqdn $host_name                                  = 'localhost',
   Stdlib::Port $port                                       = 33333,
   Stdlib::Port $database_maintenance_port                  = 33334,
+  Integer $maximum_concurrency_level                       = 10,
   Optional[Array[String]] $remote_instances                = [],
   Boolean $expose_ravendb                                  = false,
   Nservicebusservicecontrol::Log_level $ravendb_log_level  = 'Warn',
@@ -150,6 +157,7 @@ define nservicebusservicecontrol::instance (
   Integer $expiration_process_batch_size                   = 65512,
   Integer $data_space_remaining_threshold                  = 20,
   Integer $http_default_connection_limit                   = 100,
+  Boolean $disable_ravendb_performance_counters            = true,
   String $heartbeat_grace_period                           = '00:00:40',
   Boolean $allow_message_editing                           = false,
   Boolean $service_manage                                  = true,
@@ -237,6 +245,7 @@ define nservicebusservicecontrol::instance (
       'host_name'                                     => $host_name,
       'port'                                          => $port,
       'database_maintenance_port'                     => $database_maintenance_port,
+      'maximum_concurrency_level'                     => $maximum_concurrency_level,
       'remote_instances'                              => $remote_instances,
       'expose_ravendb'                                => $expose_ravendb,
       'ravendb_log_level'                             => $ravendb_log_level,
@@ -253,6 +262,7 @@ define nservicebusservicecontrol::instance (
       'expiration_process_batch_size'                 => $expiration_process_batch_size,
       'data_space_remaining_threshold'                => $data_space_remaining_threshold,
       'http_default_connection_limit'                 => $http_default_connection_limit,
+      'disable_ravendb_performance_counters'          => $disable_ravendb_performance_counters,
       'heartbeat_grace_period'                        => $heartbeat_grace_period,
       'allow_message_editing'                         => $allow_message_editing,
     })),

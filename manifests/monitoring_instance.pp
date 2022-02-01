@@ -21,6 +21,12 @@
 # @param port
 #   Specify the port number to listen on. If this is the only ServiceControl Monitoring instance then 33633 is recommended.
 #
+# @param maximum_concurrency_level
+#   This setting controls how many messages can be processed concurrently (in parallel) by ServiceControl.
+#
+# @param endpoint_uptime_grace_period
+#   The grace period for endpoint uptime.
+#
 # @param error_queue
 #   Specify the ErrorQueue name.
 #
@@ -65,6 +71,8 @@ define nservicebusservicecontrol::monitoring_instance (
   Nservicebusservicecontrol::Log_level $instance_log_level = 'Warn',
   Stdlib::Fqdn $host_name                                  = 'localhost',
   Stdlib::Port $port                                       = 33633,
+  Integer $maximum_concurrency_level                       = 32,
+  String $endpoint_uptime_grace_period                     = '00:00:40',
   String $error_queue                                      = 'error',
   Nservicebusservicecontrol::Transport $transport          = 'MSMQ',
   String $display_name                                     = $instance_name,
@@ -143,14 +151,16 @@ define nservicebusservicecontrol::monitoring_instance (
   file { "${install_path}\\ServiceControl.Monitoring.exe.config":
     ensure  => 'file',
     content => unix2dos(epp("${module_name}/ServiceControl.Monitoring.exe.config.epp", {
-      'endpoint_name'      => $instance_name,
-      'host_name'          => $host_name,
-      'port'               => $port,
-      'log_path'           => $log_path,
-      'instance_log_level' => $instance_log_level,
-      'error_queue'        => $error_queue,
-      '_transport_type'    => $_transport_type,
-      'connection_string'  => $connection_string,
+      'endpoint_name'                => $instance_name,
+      'host_name'                    => $host_name,
+      'port'                         => $port,
+      'maximum_concurrency_level'    => $maximum_concurrency_level,
+      'endpoint_uptime_grace_period' => $endpoint_uptime_grace_period,
+      'log_path'                     => $log_path,
+      'instance_log_level'           => $instance_log_level,
+      'error_queue'                  => $error_queue,
+      '_transport_type'              => $_transport_type,
+      'connection_string'            => $connection_string,
     })),
     require => Exec["create-service-control-monitoring-instance-${instance_name}"],
   }
