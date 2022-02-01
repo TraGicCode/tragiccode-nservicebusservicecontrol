@@ -106,7 +106,10 @@ The following parameters are available in the `nservicebusservicecontrol::audit_
 * [`service_restart_on_config_change`](#service_restart_on_config_change)
 * [`audit_retention_period`](#audit_retention_period)
 * [`time_to_restart_audit_ingestion_after_failure`](#time_to_restart_audit_ingestion_after_failure)
+<<<<<<< HEAD
+=======
 * [`enable_full_text_search_on_bodies`](#enable_full_text_search_on_bodies)
+>>>>>>> f963fc131f15a5d7b963de25de4d4f17cbd4b374
 * [`expiration_process_timer_in_seconds`](#expiration_process_timer_in_seconds)
 * [`expiration_process_batch_size`](#expiration_process_batch_size)
 * [`data_space_remaining_threshold`](#data_space_remaining_threshold)
@@ -301,6 +304,8 @@ Specify the maximum time delay to wait before restarting the audit ingestion pip
 
 Default value: `'00.00:01:00'`
 
+<<<<<<< HEAD
+=======
 ##### <a name="enable_full_text_search_on_bodies"></a>`enable_full_text_search_on_bodies`
 
 Data type: `Boolean`
@@ -309,6 +314,7 @@ Allows full text searches to happen on the body of messages. This setting was in
 
 Default value: ``true``
 
+>>>>>>> f963fc131f15a5d7b963de25de4d4f17cbd4b374
 ##### <a name="expiration_process_timer_in_seconds"></a>`expiration_process_timer_in_seconds`
 
 Data type: `Integer`
@@ -447,7 +453,10 @@ The following parameters are available in the `nservicebusservicecontrol::instan
 * [`service_restart_on_config_change`](#service_restart_on_config_change)
 * [`error_retention_period`](#error_retention_period)
 * [`time_to_restart_error_ingestion_after_failure`](#time_to_restart_error_ingestion_after_failure)
+<<<<<<< HEAD
+=======
 * [`enable_full_text_search_on_bodies`](#enable_full_text_search_on_bodies)
+>>>>>>> f963fc131f15a5d7b963de25de4d4f17cbd4b374
 * [`event_retention_period`](#event_retention_period)
 * [`expiration_process_timer_in_seconds`](#expiration_process_timer_in_seconds)
 * [`expiration_process_batch_size`](#expiration_process_batch_size)
@@ -667,6 +676,8 @@ Specify the maximum time delay to wait before restarting the error ingestion pip
 
 Default value: `'00.00:01:00'`
 
+<<<<<<< HEAD
+=======
 ##### <a name="enable_full_text_search_on_bodies"></a>`enable_full_text_search_on_bodies`
 
 Data type: `Boolean`
@@ -675,6 +686,7 @@ Allows full text searches to happen on the body of messages. This setting was in
 
 Default value: ``true``
 
+>>>>>>> f963fc131f15a5d7b963de25de4d4f17cbd4b374
 ##### <a name="event_retention_period"></a>`event_retention_period`
 
 Data type: `String`
@@ -956,11 +968,19 @@ Default value: ``true``
 The Nservicebusservicecontrol::Log_level data type.
 
 Alias of
+<<<<<<< HEAD
 
 ```puppet
 Enum['Trace', 'Debug', 'Info', 'Warn', 'Error', 'Fatal', 'Off']
 ```
 
+=======
+
+```puppet
+Enum['Trace', 'Debug', 'Info', 'Warn', 'Error', 'Fatal', 'Off']
+```
+
+>>>>>>> f963fc131f15a5d7b963de25de4d4f17cbd4b374
 ### <a name="nservicebusservicecontroltransport"></a>`Nservicebusservicecontrol::Transport`
 
 https://github.com/Particular/ServiceControl/blob/develop/src/ServiceControlInstaller.Engine/Instances/TransportNames.cs
@@ -981,6 +1001,8 @@ Gets all servicecontrol instances.
 
 ## Plans
 
+<<<<<<< HEAD
+=======
 ### <a name="nservicebusservicecontrolcompact_database"></a>`nservicebusservicecontrol::compact_database`
 
 Compacts the servicecontrol instance's RavenDB Database.
@@ -1004,6 +1026,7 @@ Data type: `String[1]`
 
 The name of the servicecontrol instance.
 
+>>>>>>> f963fc131f15a5d7b963de25de4d4f17cbd4b374
 ### <a name="nservicebusservicecontrolimport_failed_messages"></a>`nservicebusservicecontrol::import_failed_messages`
 
 Imports failed error or audit messages.
