@@ -7,3 +7,4 @@ fixtures:
     chocolatey:   'puppetlabs/chocolatey'
     powershell:   'puppetlabs/powershell'
     registry:     'puppetlabs/registry'
+    pwshlib:      'puppetlabs/pwshlib'
