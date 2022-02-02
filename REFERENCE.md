@@ -23,8 +23,8 @@
 
 ### Data types
 
-* [`Nservicebusservicecontrol::Log_level`](#nservicebusservicecontrollog_level)
-* [`Nservicebusservicecontrol::Transport`](#nservicebusservicecontroltransport): https://github.com/Particular/ServiceControl/blob/develop/src/ServiceControlInstaller.Engine/Instances/TransportNames.cs
+* [`Nservicebusservicecontrol::Log_level`](#nservicebusservicecontrollog_level): Supported log levels for servicecontrol
+* [`Nservicebusservicecontrol::Transport`](#nservicebusservicecontroltransport): Supported NServicebus transports
 
 ### Tasks
 
@@ -1007,7 +1007,7 @@ Default value: ``true``
 
 ### <a name="nservicebusservicecontrollog_level"></a>`Nservicebusservicecontrol::Log_level`
 
-The Nservicebusservicecontrol::Log_level data type.
+Supported log levels for servicecontrol
 
 Alias of
 
@@ -1017,7 +1017,7 @@ Enum['Trace', 'Debug', 'Info', 'Warn', 'Error', 'Fatal', 'Off']
 
 ### <a name="nservicebusservicecontroltransport"></a>`Nservicebusservicecontrol::Transport`
 
-https://github.com/Particular/ServiceControl/blob/develop/src/ServiceControlInstaller.Engine/Instances/TransportNames.cs
+Supported NServicebus transports
 
 Alias of
 
