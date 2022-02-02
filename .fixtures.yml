@@ -3,15 +3,7 @@
 ---
 fixtures:
   forge_modules:
-    chocolatey:
-      repo: "puppetlabs/chocolatey"
-      ref:  "3.1.1"
-    powershell:
-      repo: "puppetlabs/powershell"
-      ref:  "2.1.5"
-    registry:
-      repo: "puppetlabs/registry"
-      ref:  "2.0.2"
-    stdlib: 
-      repo: "puppetlabs/stdlib"
-      ref:  "5.0.0"
+    stdlib:       'puppetlabs/stdlib'
+    chocolatey:   'puppetlabs/chocolatey'
+    powershell:   'puppetlabs/powershell'
+    registry:     'puppetlabs/registry'
