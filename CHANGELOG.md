@@ -2,13 +2,17 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
-## [v1.7.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v1.7.0) (2022-02-01)
+## [v1.8.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v1.8.0) (2022-02-02)
 
-[Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v1.6.0...v1.7.0)
+[Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v1.6.0...v1.8.0)
 
 ### Added
 
 - \(GH-65\) Implement new audit, error, and monitoring app.config settings [\#66](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/66) ([TraGicCode](https://github.com/TraGicCode))
+
+### UNCATEGORIZED PRS; LABEL THEM ON GITHUB
+
+- WIP [\#69](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/69) ([TraGicCode](https://github.com/TraGicCode))
 
 ## [v1.6.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v1.6.0) (2021-11-10)
 
