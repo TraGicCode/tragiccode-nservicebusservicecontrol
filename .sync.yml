@@ -22,3 +22,9 @@ spec/default_facts.yml:
 
 appveyor.yml:
   unmanaged: true
+
+.github/workflows/auto_release.yml:
+  unmanaged: false
+
+.github/workflows/release.yml:
+  unmanaged: true
