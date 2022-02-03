@@ -21,10 +21,20 @@ spec/default_facts.yml:
   delete: true
 
 appveyor.yml:
-  unmanaged: true
+  delete: true
+  
+.travis.yml:
+  delete: true
 
 .github/workflows/auto_release.yml:
   unmanaged: false
 
 .github/workflows/release.yml:
-  unmanaged: true
+  unmanaged: false
+
+.github/workflows/pr_test.yml:
+  unmanaged: false
+
+.github/workflows/spec.yml:
+  checks: 'syntax lint metadata_lint check:symlinks check:git_ignore check:dot_underscore check:test_file rubocop'
+  unmanaged: false
