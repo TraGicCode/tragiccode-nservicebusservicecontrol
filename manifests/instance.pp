@@ -36,6 +36,9 @@
 # @param maximum_concurrency_level
 #   This setting controls how many messages can be processed concurrently (in parallel) by ServiceControl.
 #
+# @param retry_history_depth
+#   The depth of retry history.
+#
 # @param remote_instances
 #   Specify an optional array of remote instances.
 #
@@ -81,6 +84,9 @@
 # @param time_to_restart_error_ingestion_after_failure
 #   Specify the maximum time delay to wait before restarting the error ingestion pipeline after detecting a connection problem. This setting was introduced in ServiceControl version 4.4.1.
 #
+# @param disable_external_integrations_publishing
+#   Disable external integrations publishing.
+#
 # @param enable_full_text_search_on_bodies
 #   Allows full text searches to happen on the body of messages. This setting was introduced in ServiceControl version 4.17.0.
 #
@@ -107,6 +113,9 @@
 #
 # @param allow_message_editing
 #   Enables the ability for servicepulse to allow users to edit failed messages before being retried.
+#
+# @param notifications_filter
+#   Configures notificaiton filters.
 #
 # @param service_manage
 #   Specifies whether or not to manage the desired state of the windows service for this instance.
@@ -136,6 +145,7 @@ define nservicebusservicecontrol::instance (
   Stdlib::Port $port                                       = 33333,
   Stdlib::Port $database_maintenance_port                  = 33334,
   Integer $maximum_concurrency_level                       = 10,
+  Integer $retry_history_depth                             = 10,
   Optional[Array[String]] $remote_instances                = [],
   Boolean $expose_ravendb                                  = false,
   Nservicebusservicecontrol::Log_level $ravendb_log_level  = 'Warn',
@@ -151,6 +161,7 @@ define nservicebusservicecontrol::instance (
   Boolean $service_restart_on_config_change                = true,
   String $error_retention_period                           = '15.00:00:00',
   String $time_to_restart_error_ingestion_after_failure    = '00.00:01:00',
+  Boolean $disable_external_integrations_publishing        = false,
   String $event_retention_period                           = '14.00:00:00',
   Boolean $enable_full_text_search_on_bodies               = true,
   Integer $expiration_process_timer_in_seconds             = 600,
@@ -160,6 +171,7 @@ define nservicebusservicecontrol::instance (
   Boolean $disable_ravendb_performance_counters            = true,
   String $heartbeat_grace_period                           = '00:00:40',
   Boolean $allow_message_editing                           = false,
+  String $notifications_filter                             = '',
   Boolean $service_manage                                  = true,
   Boolean $skip_queue_creation                             = false,
   Boolean $remove_db_on_delete                             = false,
@@ -246,6 +258,7 @@ define nservicebusservicecontrol::instance (
       'port'                                          => $port,
       'database_maintenance_port'                     => $database_maintenance_port,
       'maximum_concurrency_level'                     => $maximum_concurrency_level,
+      'retry_history_depth'                           => $retry_history_depth,
       'remote_instances'                              => $remote_instances,
       'expose_ravendb'                                => $expose_ravendb,
       'ravendb_log_level'                             => $ravendb_log_level,
@@ -257,6 +270,7 @@ define nservicebusservicecontrol::instance (
       'error_retention_period'                        => $error_retention_period,
       'enable_full_text_search_on_bodies'             => $enable_full_text_search_on_bodies,
       'time_to_restart_error_ingestion_after_failure' => $time_to_restart_error_ingestion_after_failure,
+      'disable_external_integrations_publishing'      => $disable_external_integrations_publishing,
       'event_retention_period'                        => $event_retention_period,
       'expiration_process_timer_in_seconds'           => $expiration_process_timer_in_seconds,
       'expiration_process_batch_size'                 => $expiration_process_batch_size,
@@ -265,6 +279,7 @@ define nservicebusservicecontrol::instance (
       'disable_ravendb_performance_counters'          => $disable_ravendb_performance_counters,
       'heartbeat_grace_period'                        => $heartbeat_grace_period,
       'allow_message_editing'                         => $allow_message_editing,
+      'notifications_filter'                          => $notifications_filter,
     })),
     require => Exec["create-service-control-instance-${instance_name}"],
   }
