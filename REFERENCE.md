@@ -23,8 +23,8 @@
 
 ### Data types
 
-* [`Nservicebusservicecontrol::Log_level`](#nservicebusservicecontrollog_level)
-* [`Nservicebusservicecontrol::Transport`](#nservicebusservicecontroltransport): https://github.com/Particular/ServiceControl/blob/develop/src/ServiceControlInstaller.Engine/Instances/TransportNames.cs
+* [`Nservicebusservicecontrol::Log_level`](#nservicebusservicecontrollog_level): Supported log levels for servicecontrol
+* [`Nservicebusservicecontrol::Transport`](#nservicebusservicecontroltransport): Supported NServicebus transports
 
 ### Tasks
 
@@ -451,6 +451,7 @@ The following parameters are available in the `nservicebusservicecontrol::instan
 * [`port`](#port)
 * [`database_maintenance_port`](#database_maintenance_port)
 * [`maximum_concurrency_level`](#maximum_concurrency_level)
+* [`retry_history_depth`](#retry_history_depth)
 * [`remote_instances`](#remote_instances)
 * [`expose_ravendb`](#expose_ravendb)
 * [`ravendb_log_level`](#ravendb_log_level)
@@ -466,6 +467,7 @@ The following parameters are available in the `nservicebusservicecontrol::instan
 * [`service_restart_on_config_change`](#service_restart_on_config_change)
 * [`error_retention_period`](#error_retention_period)
 * [`time_to_restart_error_ingestion_after_failure`](#time_to_restart_error_ingestion_after_failure)
+* [`disable_external_integrations_publishing`](#disable_external_integrations_publishing)
 * [`enable_full_text_search_on_bodies`](#enable_full_text_search_on_bodies)
 * [`event_retention_period`](#event_retention_period)
 * [`expiration_process_timer_in_seconds`](#expiration_process_timer_in_seconds)
@@ -475,6 +477,7 @@ The following parameters are available in the `nservicebusservicecontrol::instan
 * [`disable_ravendb_performance_counters`](#disable_ravendb_performance_counters)
 * [`heartbeat_grace_period`](#heartbeat_grace_period)
 * [`allow_message_editing`](#allow_message_editing)
+* [`notifications_filter`](#notifications_filter)
 * [`service_manage`](#service_manage)
 * [`skip_queue_creation`](#skip_queue_creation)
 * [`remove_db_on_delete`](#remove_db_on_delete)
@@ -572,6 +575,14 @@ Default value: `33334`
 Data type: `Integer`
 
 This setting controls how many messages can be processed concurrently (in parallel) by ServiceControl.
+
+Default value: `10`
+
+##### <a name="retry_history_depth"></a>`retry_history_depth`
+
+Data type: `Integer`
+
+The depth of retry history.
 
 Default value: `10`
 
@@ -695,6 +706,14 @@ Specify the maximum time delay to wait before restarting the error ingestion pip
 
 Default value: `'00.00:01:00'`
 
+##### <a name="disable_external_integrations_publishing"></a>`disable_external_integrations_publishing`
+
+Data type: `Boolean`
+
+Disable external integrations publishing.
+
+Default value: ``false``
+
 ##### <a name="enable_full_text_search_on_bodies"></a>`enable_full_text_search_on_bodies`
 
 Data type: `Boolean`
@@ -766,6 +785,14 @@ Data type: `Boolean`
 Enables the ability for servicepulse to allow users to edit failed messages before being retried.
 
 Default value: ``false``
+
+##### <a name="notifications_filter"></a>`notifications_filter`
+
+Data type: `String`
+
+Configures notificaiton filters.
+
+Default value: `''`
 
 ##### <a name="service_manage"></a>`service_manage`
 
@@ -1007,7 +1034,7 @@ Default value: ``true``
 
 ### <a name="nservicebusservicecontrollog_level"></a>`Nservicebusservicecontrol::Log_level`
 
-The Nservicebusservicecontrol::Log_level data type.
+Supported log levels for servicecontrol
 
 Alias of
 
@@ -1017,7 +1044,7 @@ Enum['Trace', 'Debug', 'Info', 'Warn', 'Error', 'Fatal', 'Off']
 
 ### <a name="nservicebusservicecontroltransport"></a>`Nservicebusservicecontrol::Transport`
 
-https://github.com/Particular/ServiceControl/blob/develop/src/ServiceControlInstaller.Engine/Instances/TransportNames.cs
+Supported NServicebus transports
 
 Alias of
 
