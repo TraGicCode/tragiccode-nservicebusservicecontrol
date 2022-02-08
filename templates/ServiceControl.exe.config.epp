@@ -7,6 +7,7 @@
       Integer[1, 49151] $port,
       Integer[1, 49151] $database_maintenance_port,
       Integer $maximum_concurrency_level,
+      Integer $retry_history_depth,
       Optional[Array[String]] $remote_instances,
       Boolean $expose_ravendb,
       Enum['Trace', 'Debug', 'Info', 'Warn', 'Error', 'Fatal', 'Off'] $ravendb_log_level,
@@ -18,6 +19,7 @@
       String $error_retention_period,
       Boolean $enable_full_text_search_on_bodies,
       String $time_to_restart_error_ingestion_after_failure,
+      Boolean $disable_external_integrations_publishing,
       String $event_retention_period,
       Integer $expiration_process_timer_in_seconds,
       Integer $expiration_process_batch_size,
@@ -25,7 +27,8 @@
       Integer $http_default_connection_limit,
       Boolean $disable_ravendb_performance_counters,
       String $heartbeat_grace_period,
-      Boolean $allow_message_editing, | -%>
+      Boolean $allow_message_editing,
+      String $notifications_filter, | -%>
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
     <appSettings>
@@ -36,6 +39,7 @@
         <add key="ServiceControl/Port" value="<%= $port %>" />
         <add key="ServiceControl/DatabaseMaintenancePort" value="<%= $database_maintenance_port %>" />
         <add key="ServiceControl/MaximumConcurrencyLevel" value="<%= $maximum_concurrency_level %>" />
+        <add key="ServiceControl/RetryHistoryDepth" value="<%= $retry_history_depth %>" />
         <add key="ServiceControl/ExposeRavenDB" value="<%= $expose_ravendb %>" />
         <add key="ServiceBus/ErrorQueue" value="<%= $error_queue %>" />
         <% if $forward_error_messages { -%>
@@ -46,6 +50,7 @@
         <add key="ServiceControl/ErrorRetentionPeriod" value="<%= $error_retention_period %>" />
         <add key="ServiceControl/EnableFullTextSearchOnBodies" value="<%= $enable_full_text_search_on_bodies %>" />
         <add key="ServiceControl/TimeToRestartErrorIngestionAfterFailure" value="<%= $time_to_restart_error_ingestion_after_failure %>" />
+        <add key="ServiceControl/DisableExternalIntegrationsPublishing" value="<%= $disable_external_integrations_publishing %>" />
         <add key="ServiceControl/EventRetentionPeriod" value="<%= $event_retention_period %>" />
         <add key="ServiceControl/ExpirationProcessTimerInSeconds" value="<%= $expiration_process_timer_in_seconds %>" />
         <add key="ServiceControl/ExpirationProcessBatchSize" value="<%= $expiration_process_batch_size %>" />
@@ -54,6 +59,7 @@
         <add key="ServiceControl/HttpDefaultConnectionLimit" value="<%= $http_default_connection_limit %>" />
         <add key="ServiceControl/HeartbeatGracePeriod" value="<%= $heartbeat_grace_period %>" />
         <add key="ServiceControl/AllowMessageEditing" value="<%= $allow_message_editing %>" />
+        <add key="ServiceControl/NotificationsFilter" value="<%= $notifications_filter %>" />
         <add key="ServiceControl/RavenDBLogLevel" value="<%= $ravendb_log_level %>" />
         <% if $remote_instances { -%>
         <add key="ServiceControl/RemoteInstances" value="[<% $remote_instances.each | $index, $remote | { -%>{'api_uri':'<%= $remote %>'}<% if $index != $remote_instances.size() -1 { %>,<% } %><% } -%>]"/>
