@@ -18,7 +18,7 @@
       String $audit_retention_period,
       Boolean $skip_queue_creation,
       Boolean $enable_full_text_search_on_bodies,  | -%>
-Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\\ServiceControlMgmt"
+Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\ServiceControlMgmt"
 
 New-ServiceControlAuditInstance -Name "<%= $instance_name %>" `
                            -InstallPath "<%= $install_path %>" `

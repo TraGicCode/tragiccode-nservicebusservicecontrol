@@ -1,6 +1,6 @@
 <%- | String $instance_name,
       String $install_path,  | -%>
-Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\ServiceControlMgmt.psd1"
+Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\ServiceControlMgmt"
 
 $modifiedInstallPath = Split-Path -Path '<%= $install_path %>'
 
