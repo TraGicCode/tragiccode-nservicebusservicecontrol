@@ -1,0 +1,35 @@
+name: Acceptance Tests
+
+on: [pull_request]
+
+jobs:
+  run-tests:
+    name: "Acceptance Tests"
+    runs-on: windows-2019
+
+    steps:
+      - name: Git Checkout
+        uses: actions/checkout@v2
+
+      - name: Install Ruby 3.0
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7'
+          bundler-cache: true
+
+      - name: Install puppet agent
+        shell: pwsh
+        run: |
+          choco install puppet-agent -y
+
+      - name: Install RabbitMQ
+        shell: pwsh
+        run: |
+          choco install rabbitmq -y
+
+      - name: Run Acceptance Tests
+        shell: pwsh
+        run: |
+          bundle exec rake spec_prep
+          $env:TARGET_HOST = 'localhost'
+          bundle exec rspec ./spec/acceptance
