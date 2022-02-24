@@ -11,7 +11,7 @@
       String $service_account,
       Optional[String] $service_account_password,
       Boolean $skip_queue_creation,  | -%>
-Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\\ServiceControlMgmt"
+Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\ServiceControlMgmt"
 
 New-MonitoringInstance -Name "<%= $instance_name %>" `
                        -InstallPath "<%= $install_path %>" `

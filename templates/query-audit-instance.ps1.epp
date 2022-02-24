@@ -1,5 +1,5 @@
 <%- | String $instance_name,  | -%>
-Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\ServiceControlMgmt.psd1"
+Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\ServiceControlMgmt"
 $result = (Get-ServiceControlAuditInstances | Where-Object -FilterScript { $PSItem.Name -like '<%= $instance_name %>' })
 If ($result -eq $null)
 {
