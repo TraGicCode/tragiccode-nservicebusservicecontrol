@@ -124,14 +124,14 @@ describe 'Installing ServiceControl and configuring Error, Audit, and Monitoring
     # it 'applies idempotently' do
     #   retry_on_error_matching(60, 5, %r{Autofac}) do
     #     # A sleep to give docker time to execute properly
-    #     # sleep 15
+    #     # sleep 20
     #     idempotent_apply(pp)
     #     # apply_manifest_on(swarm_manager, install_code, catch_failures: true)
     #   end
     # end
     it 'applies idempotently' do
       # A sleep to give docker time to execute properly
-      sleep 15
+      sleep 20
       idempotent_apply(pp)
     end
 
