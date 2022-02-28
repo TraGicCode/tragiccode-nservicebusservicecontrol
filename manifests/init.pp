@@ -18,10 +18,19 @@ class nservicebusservicecontrol(
   contain nservicebusservicecontrol::install
   contain nservicebusservicecontrol::config
 
-  Class['nservicebusservicecontrol::install']
-  -> Class['nservicebusservicecontrol::config']
-  ~> Nservicebusservicecontrol::Instance <| |>
-  -> Nservicebusservicecontrol::Audit_instance <| |>
-  -> Nservicebusservicecontrol::Monitoring_instance <| |>
+  if $package_ensure != 'absent' {
+    Class['nservicebusservicecontrol::install']
+    -> Class['nservicebusservicecontrol::config']
+    ~> Nservicebusservicecontrol::Instance <| |>
+    -> Nservicebusservicecontrol::Audit_instance <| |>
+    -> Nservicebusservicecontrol::Monitoring_instance <| |>
+  }
+  else {
+    Nservicebusservicecontrol::Instance <| |>
+    -> Nservicebusservicecontrol::Audit_instance <| |>
+    -> Nservicebusservicecontrol::Monitoring_instance <| |>
+    -> Class['nservicebusservicecontrol::config']
+    -> Class['nservicebusservicecontrol::install']
+  }
 
 }
