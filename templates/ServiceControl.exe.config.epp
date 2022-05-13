@@ -33,24 +33,16 @@
 <configuration>
     <appSettings>
         <add key="ServiceControl/LogLevel" value="<%= $instance_log_level %>" />
-        <add key="ServiceControl/DBPath" value="<%= $db_path %>" />
-        <add key="ServiceControl/LogPath" value="<%= $log_path %>" />
-        <add key="ServiceControl/HostName" value="<%= $host_name %>" />
-        <add key="ServiceControl/Port" value="<%= $port %>" />
-        <add key="ServiceControl/DatabaseMaintenancePort" value="<%= $database_maintenance_port %>" />
         <add key="ServiceControl/MaximumConcurrencyLevel" value="<%= $maximum_concurrency_level %>" />
         <add key="ServiceControl/RetryHistoryDepth" value="<%= $retry_history_depth %>" />
         <add key="ServiceControl/ExposeRavenDB" value="<%= $expose_ravendb %>" />
-        <add key="ServiceBus/ErrorQueue" value="<%= $error_queue %>" />
-        <% if $forward_error_messages { -%>
+<%- if $forward_error_messages { -%>
         <add key="ServiceBus/ErrorLogQueue" value="<%= $error_log_queue %>" />
-        <% } -%>
-        <add key="ServiceControl/TransportType" value="<%= $_transport_type %>" />
-        <add key="ServiceControl/ForwardErrorMessages" value="<%= $forward_error_messages %>" />
-        <add key="ServiceControl/ErrorRetentionPeriod" value="<%= $error_retention_period %>" />
-        <add key="ServiceControl/EnableFullTextSearchOnBodies" value="<%= $enable_full_text_search_on_bodies %>" />
-        <add key="ServiceControl/TimeToRestartErrorIngestionAfterFailure" value="<%= $time_to_restart_error_ingestion_after_failure %>" />
-        <add key="ServiceControl/DisableExternalIntegrationsPublishing" value="<%= $disable_external_integrations_publishing %>" />
+<%- } -%>
+        <add key="ServiceControl/TimeToRestartErrorIngestionAfterFailure"
+            value="<%= $time_to_restart_error_ingestion_after_failure %>" />
+        <add key="ServiceControl/DisableExternalIntegrationsPublishing"
+            value="<%= $disable_external_integrations_publishing %>" />
         <add key="ServiceControl/EventRetentionPeriod" value="<%= $event_retention_period %>" />
         <add key="ServiceControl/ExpirationProcessTimerInSeconds" value="<%= $expiration_process_timer_in_seconds %>" />
         <add key="ServiceControl/ExpirationProcessBatchSize" value="<%= $expiration_process_batch_size %>" />
@@ -61,18 +53,28 @@
         <add key="ServiceControl/AllowMessageEditing" value="<%= $allow_message_editing %>" />
         <add key="ServiceControl/NotificationsFilter" value="<%= $notifications_filter %>" />
         <add key="ServiceControl/RavenDBLogLevel" value="<%= $ravendb_log_level %>" />
-        <% if $remote_instances { -%>
-        <add key="ServiceControl/RemoteInstances" value="[<% $remote_instances.each | $index, $remote | { -%>{'api_uri':'<%= $remote %>'}<% if $index != $remote_instances.size() -1 { %>,<% } %><% } -%>]"/>
-        <% } -%>
         <add key="Raven/Esent/MaxVerPages" value="2048" />
         <add key="Raven/Esent/LogsPath" value="<%= $db_logs_path %>" />
         <add key="Raven/IndexStoragePath" value="<%= $db_index_storage_path %>" />
+        <add key="ServiceControl/DBPath" value="<%= $db_path %>" />
+        <add key="ServiceControl/TransportType" value="<%= $_transport_type %>" />
+        <add key="ServiceControl/HostName" value="<%= $host_name %>" />
+        <add key="ServiceControl/Port" value="<%= $port %>" />
+        <add key="ServiceControl/DatabaseMaintenancePort" value="<%= $database_maintenance_port %>" />
+        <add key="ServiceControl/LogPath" value="<%= $log_path %>" />
+        <add key="ServiceControl/ForwardErrorMessages" value="<%= String($forward_error_messages).capitalize() %>" />
+        <add key="ServiceControl/ErrorRetentionPeriod" value="<%= $error_retention_period %>" />
+        <add key="ServiceBus/ErrorQueue" value="<%= $error_queue %>" />
+        <add key="ServiceControl/EnableFullTextSearchOnBodies" value="<%= String($enable_full_text_search_on_bodies).capitalize() %>" />
+<%- if $remote_instances { -%>
+        <add key="ServiceControl/RemoteInstances" value="[<% $remote_instances.each | $index, $remote | { -%>{&quot;api_uri&quot;:&quot;<%= $remote %>&quot;}<% if $index != $remote_instances.size() -1 { %>,<% } %><% } -%>]" />
+<%- } -%>
     </appSettings>
-    <% if $connection_string != undef { -%>
+<%- if $connection_string != undef { -%>
     <connectionStrings>
         <add name="NServiceBus/Transport" connectionString="<%= $connection_string %>" />
     </connectionStrings>
-    <% } -%>
+<%- } -%>
     <runtime>
         <gcServer enabled="true" />
     </runtime>
