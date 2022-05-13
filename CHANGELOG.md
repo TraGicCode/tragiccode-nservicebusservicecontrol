@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v1.8.2](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v1.8.2) (2022-05-13)
+
+[Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v1.8.1...v1.8.2)
+
+### Fixed
+
+- \(GH-95\) Fix config file not being idempotent after instance upgrades [\#96](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/96) ([TraGicCode](https://github.com/TraGicCode))
+
 ## [v1.8.1](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v1.8.1) (2022-02-24)
 
 [Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v1.8.0...v1.8.1)
