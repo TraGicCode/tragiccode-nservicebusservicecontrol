@@ -106,7 +106,7 @@ $primary_service_control_instance = 'Particular.ServiceControl.Development'
 
 nservicebusservicecontrol::instance { $primary_service_control_instance:
   ensure            => 'present',
-  transport         => 'RabbitMQ - Conventional routing topology',
+  transport         => 'RabbitMQ - Conventional routing topology (quorum queues)',
   connection_string => 'host=localhost;username=guest;password=guest',
   remote_instances  => ['http://localhost:44444/api'],
 }
@@ -114,7 +114,7 @@ nservicebusservicecontrol::instance { $primary_service_control_instance:
 nservicebusservicecontrol::audit_instance { "${primary_service_control_instance}.Audit":
   ensure                        => 'present',
   port                          => 44444, # This is the default but added here for clarity
-  transport                     => 'RabbitMQ - Conventional routing topology',
+  transport                     => 'RabbitMQ - Conventional routing topology (quorum queues)',
   connection_string             => 'host=localhost;username=guest;password=guest',
   service_control_queue_address => $primary_service_control_instance,
 }
@@ -131,7 +131,7 @@ $primary_service_control_instance = 'Particular.ServiceControl.Development'
 
 nservicebusservicecontrol::instance { $primary_service_control_instance:
   ensure            => 'present',
-  transport         => 'RabbitMQ - Conventional routing topology',
+  transport         => 'RabbitMQ - Conventional routing topology (quorum queues)',
   connection_string => 'host=localhost;username=guest;password=guest',
   remote_instances  => ['http://localhost:44444/api', 'http://localhost:44445/api'],
 }
@@ -139,7 +139,7 @@ nservicebusservicecontrol::instance { $primary_service_control_instance:
 nservicebusservicecontrol::audit_instance { "${primary_service_control_instance}.Audit":
   ensure                        => 'present',
   port                          => 44444, # This is the default but added here for clarity
-  transport                     => 'RabbitMQ - Conventional routing topology',
+  transport                     => 'RabbitMQ - Conventional routing topology (quorum queues)',
   connection_string             => 'host=localhost;username=guest;password=guest',
   service_control_queue_address => $primary_service_control_instance,
 }
@@ -148,7 +148,7 @@ nservicebusservicecontrol::audit_instance { "${primary_service_control_instance}
   ensure                        => 'present',
   port                          => 44445,
   database_maintenance_port     => 44446,
-  transport                     => 'RabbitMQ - Conventional routing topology',
+  transport                     => 'RabbitMQ - Conventional routing topology (quorum queues)',
   connection_string             => 'host=localhost;username=guest;password=guest',
   service_control_queue_address => $primary_service_control_instance,
 }
@@ -163,7 +163,7 @@ $primary_service_control_instance = 'Particular.ServiceControl.Development'
 
 nservicebusservicecontrol::instance { $primary_service_control_instance:
   ensure            => 'present',
-  transport         => 'RabbitMQ - Conventional routing topology',
+  transport         => 'RabbitMQ - Conventional routing topology (quorum queues)',
   connection_string => 'host=localhost;username=guest;password=guest',
   remote_instances  => ['http://localhost:44444/api', 'http://localhost:44445/api'],
 }
@@ -171,7 +171,7 @@ nservicebusservicecontrol::instance { $primary_service_control_instance:
 nservicebusservicecontrol::audit_instance { "${primary_service_control_instance}.Audit":
   ensure                        => 'present',
   port                          => 44444, # This is the default but added here for clarity
-  transport                     => 'RabbitMQ - Conventional routing topology',
+  transport                     => 'RabbitMQ - Conventional routing topology (quorum queues)',
   connection_string             => 'host=localhost;username=guest;password=guest',
   service_control_queue_address => $primary_service_control_instance,
 }
@@ -180,7 +180,7 @@ nservicebusservicecontrol::audit_instance { "${primary_service_control_instance}
   ensure                        => 'present',
   port                          => 44445,
   database_maintenance_port     => 44446,
-  transport                     => 'RabbitMQ - Conventional routing topology',
+  transport                     => 'RabbitMQ - Conventional routing topology (quorum queues)',
   connection_string             => 'host=localhost;username=guest;password=guest',
   audit_queue                   => 'audit.customerrelations',
   service_control_queue_address => $primary_service_control_instance,
@@ -205,12 +205,22 @@ nservicebusservicecontrol::instance { 'Particular.ServiceControl.Development':
 
 **NOTE: Ensure the MSMQ Windows Feature is is already installed.  ServiceControl by default will take care of creating the tables for using as queues**
 
-#### Create a Service Control Instance using the RabbitMQ Conventional Routing Topology Transport
+#### Create a Service Control Instance using the RabbitMQ Conventional Routing Topology (quorum queues) Transport
 
 ```puppet
 nservicebusservicecontrol::instance { 'Particular.ServiceControl.Development':
   ensure            => 'present',
-  transport         => 'RabbitMQ - Conventional routing topology',
+  transport         => 'RabbitMQ - Conventional routing topology (quorum queues)',
+  connection_string => 'host=localhost;username=guest;password=guest',
+}
+```
+
+#### Create a Service Control Instance using the RabbitMQ Conventional Routing Topology (classic queues) Transport
+
+```puppet
+nservicebusservicecontrol::instance { 'Particular.ServiceControl.Development':
+  ensure            => 'present',
+  transport         => 'RabbitMQ - Conventional routing topology (classic queues)',
   connection_string => 'host=localhost;username=guest;password=guest',
 }
 ```
@@ -279,7 +289,7 @@ nservicebusservicecontrol::instance { 'Particular.ServiceControl.Development':
 ```puppet
 nservicebusservicecontrol::instance { 'Particular.ServiceControl.Development':
   ensure                 => 'present',
-  transport              => 'RabbitMQ - Conventional routing topology',
+  transport              => 'RabbitMQ - Conventional routing topology (quorum queues)',
   connection_string      => 'host=localhost;username=guest;password=guest',
   forward_error_messages => true,
   error_log_queue        => 'error.log',
@@ -293,7 +303,7 @@ nservicebusservicecontrol::instance { 'Particular.ServiceControl.Development':
 ```puppet
 nservicebusservicecontrol::instance { 'Particular.ServiceControl.Development':
   ensure                 => 'present',
-  transport              => 'RabbitMQ - Conventional routing topology',
+  transport              => 'RabbitMQ - Conventional routing topology (quorum queues)',
   connection_string      => 'host=localhost;username=guest;password=guest',
   allow_message_editing  => true,
 }
@@ -321,7 +331,7 @@ nservicebusservicecontrol::audit_instance { 'Particular.ServiceControl.Developme
 ```puppet
 nservicebusservicecontrol::audit_instance { 'Particular.ServiceControl.Development.Audit':
   ensure                        => 'present',
-  transport                     => 'RabbitMQ - Conventional routing topology',
+  transport                     => 'RabbitMQ - Conventional routing topology (quorum queues)',
   connection_string             => 'host=localhost;username=guest;password=guest',
   service_control_queue_address => 'Particular.ServiceControl.Development', # The queue name of the primary/main service control instance
 }
@@ -396,7 +406,7 @@ nservicebusservicecontrol::audit_instance { 'Particular.ServiceControl.Developme
 ```puppet
 nservicebusservicecontrol::audit_instance { 'Particular.ServiceControl.Development.Audit':
   ensure                        => 'present',
-  transport                     => 'RabbitMQ - Conventional routing topology',
+  transport                     => 'RabbitMQ - Conventional routing topology (quorum queues)',
   connection_string             => 'host=localhost;username=guest;password=guest',
   forward_audit_messages        => true,
   audit_log_queue               => 'audit.log',
@@ -424,7 +434,7 @@ nservicebusservicecontrol::monitoring_instance { 'Particular.Monitoring.Developm
 ```puppet
 nservicebusservicecontrol::monitoring_instance { 'Particular.Monitoring.Development':
   ensure            => 'present',
-  transport         => 'RabbitMQ - Conventional routing topology',
+  transport         => 'RabbitMQ - Conventional routing topology (quorum queues)',
   connection_string => 'host=localhost;username=guest;password=guest',
 }
 ```

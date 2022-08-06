@@ -108,6 +108,9 @@
 # @param automatic_instance_upgrades
 #   Automatically upgrade the service control monitoring instance when a new version of servicecontrol is installed.
 #
+# @param instance_create_and_upgrade_acknowledgements
+#   Acknowledge mandatory requirements have been met during instance creation and upgrades.
+#
 define nservicebusservicecontrol::audit_instance (
   Enum['present', 'absent'] $ensure,
   String $service_control_queue_address,
@@ -148,6 +151,7 @@ define nservicebusservicecontrol::audit_instance (
   Boolean $remove_db_on_delete                             = false,
   Boolean $remove_logs_on_delete                           = false,
   Boolean $automatic_instance_upgrades                     = true,
+  Optional[String] $instance_create_and_upgrade_acknowledgements = undef,
   ) {
 
   if $ensure == 'present' {
@@ -194,7 +198,8 @@ define nservicebusservicecontrol::audit_instance (
     if $automatic_instance_upgrades {
       exec { "automatic-instance-upgrade-${instance_name}":
         command   => epp("${module_name}/upgrade-audit-instance.ps1.epp", {
-          'instance_name' => $instance_name,
+          'instance_name'                                => $instance_name,
+          'instance_create_and_upgrade_acknowledgements' => $instance_create_and_upgrade_acknowledgements,
         }),
         onlyif    => epp("${module_name}/query-audit-instance-upgrade.ps1.epp", {
           'instance_name' => $instance_name,
@@ -207,14 +212,16 @@ define nservicebusservicecontrol::audit_instance (
     }
 
     $_transport_type = $transport ? {
-      'RabbitMQ - Conventional routing topology' => 'ServiceControl.Transports.RabbitMQ.RabbitMQConventionalRoutingTransportCustomization, ServiceControl.Transports.RabbitMQ',
-      'SQL Server'                               => 'ServiceControl.Transports.SqlServer.SqlServerTransportCustomization, ServiceControl.Transports.SqlServer',
-      'MSMQ'                                     => 'ServiceControl.Transports.Msmq.MsmqTransportCustomization, ServiceControl.Transports.Msmq',
-      'Azure Storage Queue'                      => 'ServiceControl.Transports.ASQ.ASQTransportCustomization, ServiceControl.Transports.ASQ',
-      'Azure Service Bus'                        => 'ServiceControl.Transports.ASBS.ASBSTransportCustomization, ServiceControl.Transports.ASBS',
-      'AmazonSQS'                                => 'ServiceControl.Transports.SQS.SQSTransportCustomization, ServiceControl.Transports.SQS',
+      'RabbitMQ - Conventional routing topology'                  => 'ServiceControl.Transports.RabbitMQ.RabbitMQConventionalRoutingTransportCustomization, ServiceControl.Transports.RabbitMQ',
+      'RabbitMQ - Conventional routing topology (classic queues)' => 'ServiceControl.Transports.RabbitMQ.RabbitMQClassicConventionalRoutingTransportCustomization, ServiceControl.Transports.RabbitMQ',
+      'RabbitMQ - Conventional routing topology (quorum queues)'  => 'ServiceControl.Transports.RabbitMQ.RabbitMQQuorumConventionalRoutingTransportCustomization, ServiceControl.Transports.RabbitMQ',
+      'SQL Server'                                                => 'ServiceControl.Transports.SqlServer.SqlServerTransportCustomization, ServiceControl.Transports.SqlServer',
+      'MSMQ'                                                      => 'ServiceControl.Transports.Msmq.MsmqTransportCustomization, ServiceControl.Transports.Msmq',
+      'Azure Storage Queue'                                       => 'ServiceControl.Transports.ASQ.ASQTransportCustomization, ServiceControl.Transports.ASQ',
+      'Azure Service Bus'                                         => 'ServiceControl.Transports.ASBS.ASBSTransportCustomization, ServiceControl.Transports.ASBS',
+      'AmazonSQS'                                                 => 'ServiceControl.Transports.SQS.SQSTransportCustomization, ServiceControl.Transports.SQS',
       # lint:ignore:140chars
-      default                                    => fail("${transport} is not a known or valid transport that can be used with this module.  If this is a mistake please open a ticket on github."),
+      default                                                     => fail("${transport} is not a known or valid transport that can be used with this module.  If this is a mistake please open a ticket on github."),
       # lint:endignore
     }
 
