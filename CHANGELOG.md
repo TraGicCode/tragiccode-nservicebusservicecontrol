@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v2.0.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v2.0.0) (2022-08-06)
+
+[Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v1.9.0...v2.0.0)
+
+### Changed
+
+- \(GH-103\) add new rabbitmq transport types [\#104](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/104) ([TraGicCode](https://github.com/TraGicCode))
+
 ## [v1.9.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v1.9.0) (2022-08-04)
 
 [Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v1.8.2...v1.9.0)

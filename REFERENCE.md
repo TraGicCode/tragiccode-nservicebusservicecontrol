@@ -119,6 +119,7 @@ The following parameters are available in the `nservicebusservicecontrol::audit_
 * [`remove_db_on_delete`](#remove_db_on_delete)
 * [`remove_logs_on_delete`](#remove_logs_on_delete)
 * [`automatic_instance_upgrades`](#automatic_instance_upgrades)
+* [`instance_create_and_upgrade_acknowledgements`](#instance_create_and_upgrade_acknowledgements)
 * [`audit_queue`](#audit_queue)
 * [`audit_log_queue`](#audit_log_queue)
 * [`forward_audit_messages`](#forward_audit_messages)
@@ -407,6 +408,14 @@ Automatically upgrade the service control monitoring instance when a new version
 
 Default value: ``true``
 
+##### <a name="instance_create_and_upgrade_acknowledgements"></a>`instance_create_and_upgrade_acknowledgements`
+
+Data type: `Optional[String]`
+
+Acknowledge mandatory requirements have been met during instance creation and upgrades.
+
+Default value: ``undef``
+
 ##### <a name="audit_queue"></a>`audit_queue`
 
 Data type: `String`
@@ -483,6 +492,7 @@ The following parameters are available in the `nservicebusservicecontrol::instan
 * [`remove_db_on_delete`](#remove_db_on_delete)
 * [`remove_logs_on_delete`](#remove_logs_on_delete)
 * [`automatic_instance_upgrades`](#automatic_instance_upgrades)
+* [`instance_create_and_upgrade_acknowledgements`](#instance_create_and_upgrade_acknowledgements)
 
 ##### <a name="ensure"></a>`ensure`
 
@@ -834,6 +844,14 @@ Automatically upgrade the service control monitoring instance when a new version
 
 Default value: ``true``
 
+##### <a name="instance_create_and_upgrade_acknowledgements"></a>`instance_create_and_upgrade_acknowledgements`
+
+Data type: `Optional[String]`
+
+Acknowledge mandatory requirements have been met during instance creation and upgrades.
+
+Default value: ``undef``
+
 ### <a name="nservicebusservicecontrolmonitoring_instance"></a>`nservicebusservicecontrol::monitoring_instance`
 
 Manages Service Control Monitoring Instances.
@@ -863,6 +881,7 @@ The following parameters are available in the `nservicebusservicecontrol::monito
 * [`skip_queue_creation`](#skip_queue_creation)
 * [`remove_logs_on_delete`](#remove_logs_on_delete)
 * [`automatic_instance_upgrades`](#automatic_instance_upgrades)
+* [`instance_create_and_upgrade_acknowledgements`](#instance_create_and_upgrade_acknowledgements)
 
 ##### <a name="ensure"></a>`ensure`
 
@@ -1030,6 +1049,14 @@ Automatically upgrade the service control monitoring instance when a new version
 
 Default value: ``true``
 
+##### <a name="instance_create_and_upgrade_acknowledgements"></a>`instance_create_and_upgrade_acknowledgements`
+
+Data type: `Optional[String]`
+
+Acknowledge mandatory requirements have been met during instance creation and upgrades.
+
+Default value: ``undef``
+
 ## Data types
 
 ### <a name="nservicebusservicecontrollog_level"></a>`Nservicebusservicecontrol::Log_level`
@@ -1049,7 +1076,7 @@ Supported NServicebus transports
 Alias of
 
 ```puppet
-Enum['RabbitMQ - Conventional routing topology', 'SQL Server', 'MSMQ', 'Azure Storage Queue', 'Azure Service Bus', 'AmazonSQS']
+Enum['RabbitMQ - Conventional routing topology', 'RabbitMQ - Conventional routing topology (classic queues)', 'RabbitMQ - Conventional routing topology (quorum queues)', 'SQL Server', 'MSMQ', 'Azure Storage Queue', 'Azure Service Bus', 'AmazonSQS']
 ```
 
 ## Tasks
