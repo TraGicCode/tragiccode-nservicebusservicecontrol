@@ -1,0 +1,9 @@
+<%- | String $source_queue,
+      String $destination_queue,
+      String $service_control_url,  | -%>
+
+$results = Invoke-RestMethod -Method Get -Uri '<%= $service_control_url %>/api/redirects'
+
+$target = $results.Where({$_.from_physical_address -eq '<%= $source_queue %>' -and $_.to_physical_address -eq '<%= $destination_queue %>'})
+
+Invoke-RestMethod -Method Delete -Uri "<%= $service_control_url %>/api/redirects/$($target.message_redirect_id)"

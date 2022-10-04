@@ -14,6 +14,7 @@
     * [Service Control Instances](#service-control-instances)
     * [Service Control Audit Instances](#service-control-audit-instances)
     * [Service Control Monitoring Instances](#service-control-monitoring-instances)
+    * [Retry Redirects](#retry-redirects)
     * [Reimport failed errror/audit messages](#reimport-failed-erroraudit-messages)
     * [Compact RavenDB Database](#compact-ravendb-database)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
@@ -495,6 +496,18 @@ nservicebusservicecontrol::monitoring_instance { 'Particular.Monitoring.Developm
   ensure    => 'present',
   transport => 'AmazonSQS',
   ...
+}
+```
+
+### Create a Retry Redirect
+
+When a failed message needs to be retried, but the destination endpoint no longer exists, and the message needs to be routed to a different endpoint.  This is where retry redirects comes in and those can be managed using the `nservicebusservicecontrol::retry_redirect` resource as shown below.
+
+```puppet
+nservicebusservicecontrol::retry_redirect { 'Ordering.Endpoint':
+  ensure => present,
+  destination_queue => 'SomeDestinationEndpoint',
+  service_control_url => 'http://localhost:33333',
 }
 ```
 
