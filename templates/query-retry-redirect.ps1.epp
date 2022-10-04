@@ -1,0 +1,21 @@
+<%- | String $source_queue,
+      String $destination_queue,
+      String $service_control_url,  | -%>
+
+
+$results = Invoke-RestMethod -Method Get -Uri '<%= $service_control_url %>/api/redirects'
+
+$target = $results.Where({$_.from_physical_address -eq '<%= $source_queue %>'})
+
+# Create
+if ($target.Count -eq 0) {
+    exit 0
+}
+
+# Update
+if($target.from_physical_address -eq '<%= $source_queue %>' -and $target.to_physical_address -ne '<%= $destination_queue %>') {
+    exit 0
+}
+
+exit 1
+

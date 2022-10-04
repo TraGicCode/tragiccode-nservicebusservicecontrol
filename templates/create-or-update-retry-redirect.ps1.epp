@@ -1,0 +1,28 @@
+<%- | String $source_queue,
+      String $destination_queue,
+      String $service_control_url,  | -%>
+
+
+$results = Invoke-RestMethod -Method Get -Uri '<%= $service_control_url %>/api/redirects'
+
+# Check if it exists
+$target = $results.Where({$_.from_physical_address -eq '<%= $source_queue %>'})
+
+if($target.Count -eq 0) {
+
+  $payload = @{
+      fromphysicaladdress='<%= $source_queue %>'
+      tophysicaladdress='<%= $destination_queue %>'
+  }
+  Invoke-RestMethod -Method Post -Uri '<%= $service_control_url %>/api/redirects' -ContentType application/json -Body $(ConvertTo-Json $payload)
+} else {
+  $payload = @{
+      fromphysicaladdress='<%= $source_queue %>'
+      tophysicaladdress='<%= $destination_queue %>'
+      id=$target.message_redirect_id
+  }
+  Write-Host $target.message_redirect_id
+  Write-Host "<%= $service_control_url %>/api/redirects/$($target.message_redirect_id)"
+  Invoke-RestMethod -Method Put -Uri "<%= $service_control_url %>/api/redirects/$($target.message_redirect_id)" -ContentType application/json -Body $(ConvertTo-Json $payload)
+
+}

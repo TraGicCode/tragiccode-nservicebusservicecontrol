@@ -41,6 +41,13 @@ describe 'Installing ServiceControl and configuring Error, Audit, and Monitoring
       transport         => 'RabbitMQ - Conventional routing topology',
       connection_string => 'host=localhost;username=guest;password=guest',
     }
+
+    nservicebusservicecontrol::retry_redirect { 'Ordering.Endpoint':
+      ensure => present,
+      destination_queue => 'SomeOtherEndpoint',
+      service_control_url => 'http://localhost:33333',
+    }
+
     MANIFEST
   end
 
@@ -120,6 +127,12 @@ describe 'Installing ServiceControl and configuring Error, Audit, and Monitoring
         transport                                    => 'RabbitMQ - Conventional routing topology (quorum queues)',
         instance_create_and_upgrade_acknowledgements => 'RabbitMQBrokerVersion310',
         connection_string                            => 'host=localhost;username=guest;password=guest',
+      }
+
+      nservicebusservicecontrol::retry_redirect { 'Ordering.Endpoint':
+        ensure => present,
+        destination_queue => 'SomeOtherEndpoint',
+        service_control_url => 'http://localhost:33333',
       }
       MANIFEST
     end
