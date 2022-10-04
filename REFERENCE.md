@@ -20,6 +20,7 @@
 * [`nservicebusservicecontrol::audit_instance`](#nservicebusservicecontrolaudit_instance): Manages Service Control Instances.
 * [`nservicebusservicecontrol::instance`](#nservicebusservicecontrolinstance): Manages Service Control Instances.
 * [`nservicebusservicecontrol::monitoring_instance`](#nservicebusservicecontrolmonitoring_instance): Manages Service Control Monitoring Instances.
+* [`nservicebusservicecontrol::retry_redirect`](#nservicebusservicecontrolretry_redirect): Manages Retry Redirects.
 
 ### Data types
 
@@ -1056,6 +1057,45 @@ Data type: `Optional[String]`
 Acknowledge mandatory requirements have been met during instance creation and upgrades.
 
 Default value: ``undef``
+
+### <a name="nservicebusservicecontrolretry_redirect"></a>`nservicebusservicecontrol::retry_redirect`
+
+Manages Retry Redirects.
+
+#### Parameters
+
+The following parameters are available in the `nservicebusservicecontrol::retry_redirect` defined type:
+
+* [`ensure`](#ensure)
+* [`source_queue`](#source_queue)
+* [`destination_queue`](#destination_queue)
+* [`service_control_url`](#service_control_url)
+
+##### <a name="ensure"></a>`ensure`
+
+Data type: `Enum['present', 'absent']`
+
+Specifies whether the retry redirect should exist.
+
+##### <a name="source_queue"></a>`source_queue`
+
+Data type: `String`
+
+Specify the queue for which this redirect will be applied.
+
+Default value: `$title`
+
+##### <a name="destination_queue"></a>`destination_queue`
+
+Data type: `String`
+
+Specify the queue that will be the new destination when retrying.
+
+##### <a name="service_control_url"></a>`service_control_url`
+
+Data type: `String`
+
+
 
 ## Data types
 
