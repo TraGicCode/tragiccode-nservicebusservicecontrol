@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v2.2.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v2.2.0) (2022-10-04)
+
+[Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v2.1.0...v2.2.0)
+
+### Added
+
+- \(GH-99\) Add retry redirect resource [\#110](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/110) ([TraGicCode](https://github.com/TraGicCode))
+
 ## [v2.1.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v2.1.0) (2022-08-08)
 
 [Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v2.0.0...v2.1.0)
