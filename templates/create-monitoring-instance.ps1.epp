@@ -10,7 +10,8 @@
       String $description,
       String $service_account,
       Optional[String] $service_account_password,
-      Boolean $skip_queue_creation,  | -%>
+      Boolean $skip_queue_creation,
+      Optional[String] $instance_create_and_upgrade_acknowledgements,  | -%>
 Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\ServiceControlMgmt"
 
 New-MonitoringInstance -Name "<%= $instance_name %>" `
@@ -26,3 +27,4 @@ New-MonitoringInstance -Name "<%= $instance_name %>" `
                        -ServiceAccount "<%= $service_account %>" `
                        <% if !($service_account.downcase() in ['localsystem', 'localservice']) { %> -ServiceAccountPassword "<%= $service_account_password %>" <% } %> `
                        <% if $skip_queue_creation { %> -SkipQueueCreation <% } %> `
+                       <% if $instance_create_and_upgrade_acknowledgements { %> -Acknowledgements "<%= $instance_create_and_upgrade_acknowledgements %>" <% } %> `

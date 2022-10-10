@@ -17,7 +17,8 @@
       Optional[String] $service_account_password,
       String $audit_retention_period,
       Boolean $skip_queue_creation,
-      Boolean $enable_full_text_search_on_bodies,  | -%>
+      Boolean $enable_full_text_search_on_bodies,
+      Optional[String] $instance_create_and_upgrade_acknowledgements,  | -%>
 Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\ServiceControlMgmt"
 
 New-ServiceControlAuditInstance -Name "<%= $instance_name %>" `
@@ -40,3 +41,4 @@ New-ServiceControlAuditInstance -Name "<%= $instance_name %>" `
                            -AuditRetentionPeriod "<%= $audit_retention_period %>" `
                            <% if $skip_queue_creation { %> -SkipQueueCreation <% } %> `
                            <% if $enable_full_text_search_on_bodies { %> -EnableFullTextSearchOnBodies <% } %> `
+                           <% if $instance_create_and_upgrade_acknowledgements { %> -Acknowledgements "<%= $instance_create_and_upgrade_acknowledgements %>" <% } %> `
