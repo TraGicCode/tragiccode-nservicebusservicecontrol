@@ -36,8 +36,8 @@ describe 'Uninstalling ServiceControl and configuring Error, Audit, and Monitori
     }
 
     nservicebusservicecontrol::retry_redirect { 'Ordering.Endpoint':
-      ensure => absent,
-      destination_queue => 'SomeOtherEndpoint',
+      ensure              => absent,
+      destination_queue   => 'SomeOtherEndpoint',
       service_control_url => 'http://localhost:33333',
     }
     MANIFEST
