@@ -267,7 +267,7 @@ define nservicebusservicecontrol::audit_instance (
 
     exec { "restart-slow-service-${instance_name}":
       # lint:ignore:140chars
-      command     => "try { Restart-Service -Name ${instance_name} -ErrorAction Stop; exit 0 } catch { Write-Output \$_.Exception.Message; exit 1 }",
+      command     => "try { Start-Sleep -Seconds 10; Restart-Service -Name ${instance_name} -ErrorAction Stop; exit 0 } catch { Write-Output \$_.Exception.Message; exit 1 }",
       # lint:endignore
       logoutput   => true,
       refreshonly => true,
