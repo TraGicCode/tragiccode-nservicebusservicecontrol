@@ -59,6 +59,7 @@
         <add key="ServiceControl.Audit/ServiceControlQueueAddress" value="<%= $service_control_queue_address %>" />
         <add key="ServiceControl.Audit/EnableFullTextSearchOnBodies"
             value="<%= String($enable_full_text_search_on_bodies)  %>" />
+        <add key="ServiceControl.Audit/PersistenceType" value="ServiceControl.Audit.Persistence.RavenDb.RavenDbPersistenceConfiguration, ServiceControl.Audit.Persistence.RavenDb5" />
     </appSettings>
 <%- if $connection_string != undef { -%>
     <connectionStrings>
