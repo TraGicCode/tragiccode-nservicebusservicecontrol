@@ -48,18 +48,18 @@
         <add key="Raven/Esent/LogsPath" value="<%= $db_logs_path %>" />
         <add key="Raven/IndexStoragePath" value="<%= $db_index_storage_path %>" />
         <add key="ServiceControl.Audit/Port" value="<%= $port %>" />
-        <add key="ServiceControl.Audit/DatabaseMaintenancePort" value="<%= $database_maintenance_port %>" />
         <add key="ServiceControl.Audit/HostName" value="<%= $host_name %>" />
         <add key="ServiceControl.Audit/LogPath" value="<%= $log_path %>" />
-        <add key="ServiceControl.Audit/DBPath" value="<%= $db_path %>" />
         <add key="ServiceControl.Audit/ForwardAuditMessages" value="<%= String($forward_audit_messages) %>" />
         <add key="ServiceControl.Audit/TransportType" value="<%= $_transport_type %>" />
+        <add key="ServiceControl.Audit/PersistenceType" value="ServiceControl.Audit.Persistence.RavenDb.RavenDbPersistenceConfiguration, ServiceControl.Audit.Persistence.RavenDb5" />
         <add key="ServiceBus/AuditQueue" value="<%= $audit_queue %>" />
         <add key="ServiceControl.Audit/AuditRetentionPeriod" value="<%= $audit_retention_period %>" />
         <add key="ServiceControl.Audit/ServiceControlQueueAddress" value="<%= $service_control_queue_address %>" />
         <add key="ServiceControl.Audit/EnableFullTextSearchOnBodies"
             value="<%= String($enable_full_text_search_on_bodies)  %>" />
-        <add key="ServiceControl.Audit/PersistenceType" value="ServiceControl.Audit.Persistence.RavenDb.RavenDbPersistenceConfiguration, ServiceControl.Audit.Persistence.RavenDb5" />
+        <add key="ServiceControl.Audit/DBPath" value="<%= $db_path %>" />
+        <add key="ServiceControl.Audit/DatabaseMaintenancePort" value="<%= $database_maintenance_port %>" />
     </appSettings>
 <%- if $connection_string != undef { -%>
     <connectionStrings>
