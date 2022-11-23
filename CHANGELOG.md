@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v3.0.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v3.0.0) (2022-11-23)
+
+[Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v2.2.1...v3.0.0)
+
+### Changed
+
+- \(GH-116\) update audit instances to use newer ravendb [\#117](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/117) ([TraGicCode](https://github.com/TraGicCode))
+
 ## [v2.2.1](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v2.2.1) (2022-10-10)
 
 [Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v2.2.0...v2.2.1)
