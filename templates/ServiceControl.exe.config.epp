@@ -53,22 +53,22 @@
         <add key="ServiceControl/AllowMessageEditing" value="<%= $allow_message_editing %>" />
         <add key="ServiceControl/NotificationsFilter" value="<%= $notifications_filter %>" />
         <add key="ServiceControl/RavenDBLogLevel" value="<%= $ravendb_log_level %>" />
-        <add key="Raven/Esent/MaxVerPages" value="2048" />
         <add key="Raven/Esent/LogsPath" value="<%= $db_logs_path %>" />
         <add key="Raven/IndexStoragePath" value="<%= $db_index_storage_path %>" />
-        <add key="ServiceControl/DBPath" value="<%= $db_path %>" />
-        <add key="ServiceControl/TransportType" value="<%= $_transport_type %>" />
-        <add key="ServiceControl/HostName" value="<%= $host_name %>" />
         <add key="ServiceControl/Port" value="<%= $port %>" />
         <add key="ServiceControl/DatabaseMaintenancePort" value="<%= $database_maintenance_port %>" />
+        <add key="ServiceControl/HostName" value="<%= $host_name %>" />
         <add key="ServiceControl/LogPath" value="<%= $log_path %>" />
+        <add key="ServiceControl/DBPath" value="<%= $db_path %>" />
         <add key="ServiceControl/ForwardErrorMessages" value="<%= String($forward_error_messages).capitalize() %>" />
-        <add key="ServiceControl/ErrorRetentionPeriod" value="<%= $error_retention_period %>" />
+        <add key="ServiceControl/TransportType" value="<%= $_transport_type %>" />
         <add key="ServiceBus/ErrorQueue" value="<%= $error_queue %>" />
+        <add key="ServiceControl/ErrorRetentionPeriod" value="<%= $error_retention_period %>" />
         <add key="ServiceControl/EnableFullTextSearchOnBodies" value="<%= String($enable_full_text_search_on_bodies).capitalize() %>" />
 <%- if $remote_instances { -%>
         <add key="ServiceControl/RemoteInstances" value="[<% $remote_instances.each | $index, $remote | { -%>{&quot;api_uri&quot;:&quot;<%= $remote %>&quot;}<% if $index != $remote_instances.size() -1 { %>,<% } %><% } -%>]" />
 <%- } -%>
+        <add key="Raven/Esent/MaxVerPages" value="2048" />
     </appSettings>
 <%- if $connection_string != undef { -%>
     <connectionStrings>
