@@ -25,47 +25,15 @@ def retry_on_error_matching(max_retry_count = MAX_RETRY_COUNT, retry_wait_interv
   end
 end
 
-# Get Last 2 latest package versions
-# choco list servicecontrol --all-versions -r | ConvertFrom-Csv -Delimiter '|' -Header Package,Version | Sort-Object { [System.Version]$_.Version } | Select-Object -Last 2
-def get_latest_version_of_choco_package(_package_name)
+def get_latest_version_of_choco_package(package_name)
   <<-powershell
-        $pageNumber = 1;
-        $latestVersion = $null
-        $previousLastVersion = $null
-        $serviceControlTags = @()
-
-        Do
-        {
-            $tags = Invoke-RestMethod -Method Get -Uri "https://api.github.com/repos/TraGicCode/chocolatey-packages/tags?page=$pageNumber&per_page=100"
-            $serviceControlTags += $tags | Where-Object -FilterScript { $PSItem.name -like "*servicecontrol*" } | Select-Object -ExpandProperty name | ForEach-Object { $PSItem -replace "servicecontrol-", ""}
-            $pageNumber++;
-        }
-        While($tags.Count -ne 0)
-
-        $sortedServiceControlTags = $serviceControlTags | Sort-Object { [version] $_ } -Descending
-        $latestVersion = $sortedServiceControlTags | Select-Object -First 1
-        Write-Output $latestVersion
+    choco list #{package_name} --all-versions -r | ConvertFrom-Csv -Delimiter '|' -Header Package,Version | Sort-Object { [System.Version]$_.Version } | Select-Object -Last 2 | Select-Object -Last 1 -ExpandProperty Version
     powershell
 end
 
-def get_version_before_latest_of_choco_package(_package_name)
+def get_version_before_latest_of_choco_package(package_name)
   <<-powershell
-        $pageNumber = 1;
-        $latestVersion = $null
-        $previousLastVersion = $null
-        $serviceControlTags = @()
-
-        Do
-        {
-            $tags = Invoke-RestMethod -Method Get -Uri "https://api.github.com/repos/TraGicCode/chocolatey-packages/tags?page=$pageNumber&per_page=100"
-            $serviceControlTags += $tags | Where-Object -FilterScript { $PSItem.name -like "*servicecontrol*" } | Select-Object -ExpandProperty name | ForEach-Object { $PSItem -replace "servicecontrol-", ""}
-            $pageNumber++;
-        }
-        While($tags.Count -ne 0)
-
-        $sortedServiceControlTags = $serviceControlTags | Sort-Object { [version] $_ } -Descending
-        $previousLastVersion = $sortedServiceControlTags | Select-Object -First 1 -Skip 1
-        Write-Output $previousLastVersion
+    choco list #{package_name} --all-versions -r | ConvertFrom-Csv -Delimiter '|' -Header Package,Version | Sort-Object { [System.Version]$_.Version } | Select-Object -Last 2 | Select-Object -First 1 -ExpandProperty Version
     powershell
 end
 
