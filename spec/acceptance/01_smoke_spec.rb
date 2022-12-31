@@ -58,11 +58,6 @@ describe 'Installing ServiceControl and configuring Error, Audit, and Monitoring
     idempotent_apply(pp)
   end
 
-  #   describe file("/etc/feature.conf") do
-  #     it { is_expected.to be_file }
-  #     its(:content) { is_expected.to match %r{key = default value} }
-  #   end
-
   describe port(33_333) do
     it { is_expected.to be_listening }
   end
@@ -87,15 +82,9 @@ describe 'Installing ServiceControl and configuring Error, Audit, and Monitoring
     it { is_expected.to be_running }
   end
 
-  # it 'returns success' do
-  #   result = run_bolt_task('pe_databases::reset_pgrepack_schema')
-  #   expect(result.stdout).to contain(%r{success})
-  # end
-
   context 'with an updated version of the package' do
     before(:all) do
       @latest_package_version = run_shell(interpolate_powershell(get_latest_version_of_choco_package('servicecontrol'))).stdout.strip
-      # puts(@latest_package_version)
     end
 
     let(:pp) do
@@ -140,17 +129,7 @@ describe 'Installing ServiceControl and configuring Error, Audit, and Monitoring
       MANIFEST
     end
 
-    # it 'applies idempotently' do
-    #   retry_on_error_matching(60, 5, %r{Autofac}) do
-    #     # A sleep to give docker time to execute properly
-    #     # sleep 20
-    #     idempotent_apply(pp)
-    #     # apply_manifest_on(swarm_manager, install_code, catch_failures: true)
-    #   end
-    # end
     it 'applies idempotently' do
-      # A sleep to give docker time to execute properly
-      sleep 20
       idempotent_apply(pp)
     end
 
