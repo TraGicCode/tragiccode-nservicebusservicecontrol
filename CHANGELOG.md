@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v3.1.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v3.1.0) (2023-09-07)
+
+[Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v3.0.0...v3.1.0)
+
+### Added
+
+- \(GH-122\) Add puppet 8 support [\#123](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/123) ([TraGicCode](https://github.com/TraGicCode))
+
 ## [v3.0.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v3.0.0) (2022-11-23)
 
 [Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v2.2.1...v3.0.0)
