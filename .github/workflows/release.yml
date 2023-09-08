@@ -1,51 +1,47 @@
-# This is a generic workflow for releasing a Puppet module.
-# It requires that the caller sets `secrets: inherit` to ensure
-# that secrets are visible from steps in this workflow.
-name: "Module Release"
+name: "Publish module"
 
 on:
-  workflow_call:
-
+  workflow_dispatch:
+  
 jobs:
-  release:
-    name: "Release"
-    runs-on: "ubuntu-latest"
-    if: github.repository_owner == 'tragiccode'
-
+  create-github-release:
+    name: Deploy GitHub Release
+    runs-on: ubuntu-20.04
     steps:
-
-      - name: "Checkout"
-        uses: "actions/checkout@v3"
+      - name: Checkout code
+        uses: actions/checkout@v2
         with:
-          ref: "${{ github.ref }}"
+          ref: ${{ github.ref }}
           clean: true
           fetch-depth: 0
-
-      - name: "Get version"
-        id: "get_version"
+      - name: Get Version
+        id: gv
         run: |
-          echo "version=$(jq --raw-output .version metadata.json)" >> $GITHUB_OUTPUT
-
-      - name: "PDK build"
-        uses: "docker://puppet/pdk:3.0.0.0"
-        with:
-          args: "build"
-
-      - name: "Generate release notes"
-        run: |
-          export GH_HOST=github.com
-          gh extension install chelnak/gh-changelog
-          gh changelog get --latest > OUTPUT.md
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: "Create release"
-        run: |
-          gh release create v${{ steps.get_version.outputs.version }} --title v${{ steps.get_version.outputs.version }} -F OUTPUT.md
+          echo "::set-output name=ver::$(jq --raw-output .version metadata.json)"
+      - name: Create Release
+        uses: actions/create-release@v1
+        id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: "v${{ steps.gv.outputs.ver }}"
+          draft: false
+          prerelease: false
 
-      - name: "Publish module"
-        uses: "docker://puppet/pdk:3.0.0.0"
+  deploy-forge:
+    name: Deploy to Forge
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+          clean: true
+      - name: "PDK Build"
+        uses: docker://puppet/pdk:nightly
+        with:
+          args: 'build'
+      - name: "Push to Forge"
+        uses: docker://puppet/pdk:nightly
         with:
           args: 'release publish --forge-token ${{ secrets.FORGE_API_KEY }} --force'
