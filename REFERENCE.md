@@ -17,15 +17,15 @@
 
 ### Defined types
 
-* [`nservicebusservicecontrol::audit_instance`](#nservicebusservicecontrolaudit_instance): Manages Service Control Instances.
-* [`nservicebusservicecontrol::instance`](#nservicebusservicecontrolinstance): Manages Service Control Instances.
-* [`nservicebusservicecontrol::monitoring_instance`](#nservicebusservicecontrolmonitoring_instance): Manages Service Control Monitoring Instances.
-* [`nservicebusservicecontrol::retry_redirect`](#nservicebusservicecontrolretry_redirect): Manages Retry Redirects.
+* [`nservicebusservicecontrol::audit_instance`](#nservicebusservicecontrol--audit_instance): Manages Service Control Instances.
+* [`nservicebusservicecontrol::instance`](#nservicebusservicecontrol--instance): Manages Service Control Instances.
+* [`nservicebusservicecontrol::monitoring_instance`](#nservicebusservicecontrol--monitoring_instance): Manages Service Control Monitoring Instances.
+* [`nservicebusservicecontrol::retry_redirect`](#nservicebusservicecontrol--retry_redirect): Manages Retry Redirects.
 
 ### Data types
 
-* [`Nservicebusservicecontrol::Log_level`](#nservicebusservicecontrollog_level): Supported log levels for servicecontrol
-* [`Nservicebusservicecontrol::Transport`](#nservicebusservicecontroltransport): Supported NServicebus transports
+* [`Nservicebusservicecontrol::Log_level`](#Nservicebusservicecontrol--Log_level): Supported log levels for servicecontrol
+* [`Nservicebusservicecontrol::Transport`](#Nservicebusservicecontrol--Transport): Supported NServicebus transports
 
 ### Tasks
 
@@ -33,8 +33,8 @@
 
 ### Plans
 
-* [`nservicebusservicecontrol::compact_database`](#nservicebusservicecontrolcompact_database): Compacts the servicecontrol instance's RavenDB Database.
-* [`nservicebusservicecontrol::import_failed_messages`](#nservicebusservicecontrolimport_failed_messages): Imports failed error or audit messages.
+* [`nservicebusservicecontrol::compact_database`](#nservicebusservicecontrol--compact_database): Compacts the servicecontrol instance's RavenDB Database.
+* [`nservicebusservicecontrol::import_failed_messages`](#nservicebusservicecontrol--import_failed_messages): Imports failed error or audit messages.
 
 ## Classes
 
@@ -46,11 +46,11 @@ Installs and configures Particular's Service Control Monitoring Tool.
 
 The following parameters are available in the `nservicebusservicecontrol` class:
 
-* [`package_ensure`](#package_ensure)
-* [`package_source`](#package_source)
-* [`license_xml`](#license_xml)
+* [`package_ensure`](#-nservicebusservicecontrol--package_ensure)
+* [`package_source`](#-nservicebusservicecontrol--package_source)
+* [`license_xml`](#-nservicebusservicecontrol--license_xml)
 
-##### <a name="package_ensure"></a>`package_ensure`
+##### <a name="-nservicebusservicecontrol--package_ensure"></a>`package_ensure`
 
 Data type: `String`
 
@@ -58,15 +58,15 @@ Whether to install the ServiceControl package.
 
 Default value: `'present'`
 
-##### <a name="package_source"></a>`package_source`
+##### <a name="-nservicebusservicecontrol--package_source"></a>`package_source`
 
 Data type: `Optional[String]`
 
 The package source for the package.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="license_xml"></a>`license_xml`
+##### <a name="-nservicebusservicecontrol--license_xml"></a>`license_xml`
 
 Data type: `Optional[String]`
 
@@ -76,7 +76,7 @@ Default value: `''`
 
 ## Defined types
 
-### <a name="nservicebusservicecontrolaudit_instance"></a>`nservicebusservicecontrol::audit_instance`
+### <a name="nservicebusservicecontrol--audit_instance"></a>`nservicebusservicecontrol::audit_instance`
 
 Manages Service Control Instances.
 
@@ -84,60 +84,60 @@ Manages Service Control Instances.
 
 The following parameters are available in the `nservicebusservicecontrol::audit_instance` defined type:
 
-* [`ensure`](#ensure)
-* [`service_control_queue_address`](#service_control_queue_address)
-* [`instance_name`](#instance_name)
-* [`install_path`](#install_path)
-* [`log_path`](#log_path)
-* [`db_path`](#db_path)
-* [`db_index_storage_path`](#db_index_storage_path)
-* [`db_logs_path`](#db_logs_path)
-* [`instance_log_level`](#instance_log_level)
-* [`host_name`](#host_name)
-* [`port`](#port)
-* [`database_maintenance_port`](#database_maintenance_port)
-* [`maximum_concurrency_level`](#maximum_concurrency_level)
-* [`expose_ravendb`](#expose_ravendb)
-* [`ravendb_log_level`](#ravendb_log_level)
-* [`transport`](#transport)
-* [`display_name`](#display_name)
-* [`connection_string`](#connection_string)
-* [`description`](#description)
-* [`service_account`](#service_account)
-* [`service_account_password`](#service_account_password)
-* [`service_restart_on_config_change`](#service_restart_on_config_change)
-* [`audit_retention_period`](#audit_retention_period)
-* [`time_to_restart_audit_ingestion_after_failure`](#time_to_restart_audit_ingestion_after_failure)
-* [`enable_full_text_search_on_bodies`](#enable_full_text_search_on_bodies)
-* [`expiration_process_timer_in_seconds`](#expiration_process_timer_in_seconds)
-* [`expiration_process_batch_size`](#expiration_process_batch_size)
-* [`data_space_remaining_threshold`](#data_space_remaining_threshold)
-* [`max_body_size_to_store`](#max_body_size_to_store)
-* [`http_default_connection_limit`](#http_default_connection_limit)
-* [`disable_ravendb_performance_counters`](#disable_ravendb_performance_counters)
-* [`service_manage`](#service_manage)
-* [`skip_queue_creation`](#skip_queue_creation)
-* [`remove_db_on_delete`](#remove_db_on_delete)
-* [`remove_logs_on_delete`](#remove_logs_on_delete)
-* [`automatic_instance_upgrades`](#automatic_instance_upgrades)
-* [`instance_create_and_upgrade_acknowledgements`](#instance_create_and_upgrade_acknowledgements)
-* [`audit_queue`](#audit_queue)
-* [`audit_log_queue`](#audit_log_queue)
-* [`forward_audit_messages`](#forward_audit_messages)
+* [`ensure`](#-nservicebusservicecontrol--audit_instance--ensure)
+* [`service_control_queue_address`](#-nservicebusservicecontrol--audit_instance--service_control_queue_address)
+* [`instance_name`](#-nservicebusservicecontrol--audit_instance--instance_name)
+* [`install_path`](#-nservicebusservicecontrol--audit_instance--install_path)
+* [`log_path`](#-nservicebusservicecontrol--audit_instance--log_path)
+* [`db_path`](#-nservicebusservicecontrol--audit_instance--db_path)
+* [`db_index_storage_path`](#-nservicebusservicecontrol--audit_instance--db_index_storage_path)
+* [`db_logs_path`](#-nservicebusservicecontrol--audit_instance--db_logs_path)
+* [`instance_log_level`](#-nservicebusservicecontrol--audit_instance--instance_log_level)
+* [`host_name`](#-nservicebusservicecontrol--audit_instance--host_name)
+* [`port`](#-nservicebusservicecontrol--audit_instance--port)
+* [`database_maintenance_port`](#-nservicebusservicecontrol--audit_instance--database_maintenance_port)
+* [`maximum_concurrency_level`](#-nservicebusservicecontrol--audit_instance--maximum_concurrency_level)
+* [`expose_ravendb`](#-nservicebusservicecontrol--audit_instance--expose_ravendb)
+* [`ravendb_log_level`](#-nservicebusservicecontrol--audit_instance--ravendb_log_level)
+* [`transport`](#-nservicebusservicecontrol--audit_instance--transport)
+* [`display_name`](#-nservicebusservicecontrol--audit_instance--display_name)
+* [`connection_string`](#-nservicebusservicecontrol--audit_instance--connection_string)
+* [`description`](#-nservicebusservicecontrol--audit_instance--description)
+* [`service_account`](#-nservicebusservicecontrol--audit_instance--service_account)
+* [`service_account_password`](#-nservicebusservicecontrol--audit_instance--service_account_password)
+* [`service_restart_on_config_change`](#-nservicebusservicecontrol--audit_instance--service_restart_on_config_change)
+* [`audit_retention_period`](#-nservicebusservicecontrol--audit_instance--audit_retention_period)
+* [`time_to_restart_audit_ingestion_after_failure`](#-nservicebusservicecontrol--audit_instance--time_to_restart_audit_ingestion_after_failure)
+* [`enable_full_text_search_on_bodies`](#-nservicebusservicecontrol--audit_instance--enable_full_text_search_on_bodies)
+* [`expiration_process_timer_in_seconds`](#-nservicebusservicecontrol--audit_instance--expiration_process_timer_in_seconds)
+* [`expiration_process_batch_size`](#-nservicebusservicecontrol--audit_instance--expiration_process_batch_size)
+* [`data_space_remaining_threshold`](#-nservicebusservicecontrol--audit_instance--data_space_remaining_threshold)
+* [`max_body_size_to_store`](#-nservicebusservicecontrol--audit_instance--max_body_size_to_store)
+* [`http_default_connection_limit`](#-nservicebusservicecontrol--audit_instance--http_default_connection_limit)
+* [`disable_ravendb_performance_counters`](#-nservicebusservicecontrol--audit_instance--disable_ravendb_performance_counters)
+* [`service_manage`](#-nservicebusservicecontrol--audit_instance--service_manage)
+* [`skip_queue_creation`](#-nservicebusservicecontrol--audit_instance--skip_queue_creation)
+* [`remove_db_on_delete`](#-nservicebusservicecontrol--audit_instance--remove_db_on_delete)
+* [`remove_logs_on_delete`](#-nservicebusservicecontrol--audit_instance--remove_logs_on_delete)
+* [`automatic_instance_upgrades`](#-nservicebusservicecontrol--audit_instance--automatic_instance_upgrades)
+* [`instance_create_and_upgrade_acknowledgements`](#-nservicebusservicecontrol--audit_instance--instance_create_and_upgrade_acknowledgements)
+* [`audit_queue`](#-nservicebusservicecontrol--audit_instance--audit_queue)
+* [`audit_log_queue`](#-nservicebusservicecontrol--audit_instance--audit_log_queue)
+* [`forward_audit_messages`](#-nservicebusservicecontrol--audit_instance--forward_audit_messages)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-nservicebusservicecontrol--audit_instance--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
 Specifies whether the instance should exist.
 
-##### <a name="service_control_queue_address"></a>`service_control_queue_address`
+##### <a name="-nservicebusservicecontrol--audit_instance--service_control_queue_address"></a>`service_control_queue_address`
 
 Data type: `String`
 
 The ServiceControl queue name to use for plugin messages (e.g. Heartbeats, Custom Checks, Saga Audit, etc ).
 
-##### <a name="instance_name"></a>`instance_name`
+##### <a name="-nservicebusservicecontrol--audit_instance--instance_name"></a>`instance_name`
 
 Data type: `String`
 
@@ -145,7 +145,7 @@ Specify the name of the ServiceControl Instance (title).
 
 Default value: `$title`
 
-##### <a name="install_path"></a>`install_path`
+##### <a name="-nservicebusservicecontrol--audit_instance--install_path"></a>`install_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -153,7 +153,7 @@ Specify the directory to use for this ServiceControl Instance.
 
 Default value: `"C:\\Program Files (x86)\\Particular Software\\${instance_name}"`
 
-##### <a name="log_path"></a>`log_path`
+##### <a name="-nservicebusservicecontrol--audit_instance--log_path"></a>`log_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -161,7 +161,7 @@ Specify the directory to use for this ServiceControl Logs.
 
 Default value: `"C:\\ProgramData\\Particular\\ServiceControl\\${instance_name}\\Logs"`
 
-##### <a name="db_path"></a>`db_path`
+##### <a name="-nservicebusservicecontrol--audit_instance--db_path"></a>`db_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -169,7 +169,7 @@ Specify the directory that will contain the nservicebusservicecontrol database f
 
 Default value: `"C:\\ProgramData\\Particular\\ServiceControl\\${instance_name}\\DB"`
 
-##### <a name="db_index_storage_path"></a>`db_index_storage_path`
+##### <a name="-nservicebusservicecontrol--audit_instance--db_index_storage_path"></a>`db_index_storage_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -177,7 +177,7 @@ Specify the path for the indexes on disk.
 
 Default value: `"${db_path}\\Indexes"`
 
-##### <a name="db_logs_path"></a>`db_logs_path`
+##### <a name="-nservicebusservicecontrol--audit_instance--db_logs_path"></a>`db_logs_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -185,7 +185,7 @@ Specify the path for the Esent logs on disk.
 
 Default value: `"${db_path}\\logs"`
 
-##### <a name="instance_log_level"></a>`instance_log_level`
+##### <a name="-nservicebusservicecontrol--audit_instance--instance_log_level"></a>`instance_log_level`
 
 Data type: `Nservicebusservicecontrol::Log_level`
 
@@ -193,7 +193,7 @@ Specify the level of logging that should be used in ServiceControl logs.
 
 Default value: `'Warn'`
 
-##### <a name="host_name"></a>`host_name`
+##### <a name="-nservicebusservicecontrol--audit_instance--host_name"></a>`host_name`
 
 Data type: `Stdlib::Fqdn`
 
@@ -201,7 +201,7 @@ Specify the hostname to use in the URLACL.
 
 Default value: `'localhost'`
 
-##### <a name="port"></a>`port`
+##### <a name="-nservicebusservicecontrol--audit_instance--port"></a>`port`
 
 Data type: `Stdlib::Port`
 
@@ -209,7 +209,7 @@ Specify the port number to listen on. If this is the only ServiceControl instanc
 
 Default value: `44444`
 
-##### <a name="database_maintenance_port"></a>`database_maintenance_port`
+##### <a name="-nservicebusservicecontrol--audit_instance--database_maintenance_port"></a>`database_maintenance_port`
 
 Data type: `Stdlib::Port`
 
@@ -217,7 +217,7 @@ Specify the database maintenance port number to listen on. If this is the only S
 
 Default value: `44445`
 
-##### <a name="maximum_concurrency_level"></a>`maximum_concurrency_level`
+##### <a name="-nservicebusservicecontrol--audit_instance--maximum_concurrency_level"></a>`maximum_concurrency_level`
 
 Data type: `Integer`
 
@@ -225,15 +225,15 @@ This setting controls how many messages can be processed concurrently (in parall
 
 Default value: `32`
 
-##### <a name="expose_ravendb"></a>`expose_ravendb`
+##### <a name="-nservicebusservicecontrol--audit_instance--expose_ravendb"></a>`expose_ravendb`
 
 Data type: `Boolean`
 
 Specify if the embedded ravendb database should be accessible outside of maintenance mode.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="ravendb_log_level"></a>`ravendb_log_level`
+##### <a name="-nservicebusservicecontrol--audit_instance--ravendb_log_level"></a>`ravendb_log_level`
 
 Data type: `Nservicebusservicecontrol::Log_level`
 
@@ -241,7 +241,7 @@ Specify the level of logging that should be used in ravendb logs.
 
 Default value: `'Warn'`
 
-##### <a name="transport"></a>`transport`
+##### <a name="-nservicebusservicecontrol--audit_instance--transport"></a>`transport`
 
 Data type: `Nservicebusservicecontrol::Transport`
 
@@ -249,7 +249,7 @@ Specify the NServiceBus Transport to use.
 
 Default value: `'MSMQ'`
 
-##### <a name="display_name"></a>`display_name`
+##### <a name="-nservicebusservicecontrol--audit_instance--display_name"></a>`display_name`
 
 Data type: `String`
 
@@ -257,15 +257,15 @@ Specify the Windows Service Display name. If unspecified the instance name will 
 
 Default value: `$instance_name`
 
-##### <a name="connection_string"></a>`connection_string`
+##### <a name="-nservicebusservicecontrol--audit_instance--connection_string"></a>`connection_string`
 
 Data type: `Optional[String]`
 
 Specify the connection string to use to connect to the queuing system.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="description"></a>`description`
+##### <a name="-nservicebusservicecontrol--audit_instance--description"></a>`description`
 
 Data type: `String`
 
@@ -273,7 +273,7 @@ Specify the description to use on the Windows Service for this instance.
 
 Default value: `'A ServiceControl Audit Instance'`
 
-##### <a name="service_account"></a>`service_account`
+##### <a name="-nservicebusservicecontrol--audit_instance--service_account"></a>`service_account`
 
 Data type: `String`
 
@@ -281,23 +281,23 @@ The Account to run the Windows service.
 
 Default value: `'LocalSystem'`
 
-##### <a name="service_account_password"></a>`service_account_password`
+##### <a name="-nservicebusservicecontrol--audit_instance--service_account_password"></a>`service_account_password`
 
 Data type: `Optional[String]`
 
 The password for the ServiceAccount.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="service_restart_on_config_change"></a>`service_restart_on_config_change`
+##### <a name="-nservicebusservicecontrol--audit_instance--service_restart_on_config_change"></a>`service_restart_on_config_change`
 
 Data type: `Boolean`
 
 Specify if the servicecontrol instance's windows service should be restarted to pick up changes to its configuration file.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="audit_retention_period"></a>`audit_retention_period`
+##### <a name="-nservicebusservicecontrol--audit_instance--audit_retention_period"></a>`audit_retention_period`
 
 Data type: `String`
 
@@ -305,7 +305,7 @@ Specify thd grace period that faulted messages are kept before they are deleted.
 
 Default value: `'30.00:00:00'`
 
-##### <a name="time_to_restart_audit_ingestion_after_failure"></a>`time_to_restart_audit_ingestion_after_failure`
+##### <a name="-nservicebusservicecontrol--audit_instance--time_to_restart_audit_ingestion_after_failure"></a>`time_to_restart_audit_ingestion_after_failure`
 
 Data type: `String`
 
@@ -313,15 +313,15 @@ Specify the maximum time delay to wait before restarting the audit ingestion pip
 
 Default value: `'00.00:01:00'`
 
-##### <a name="enable_full_text_search_on_bodies"></a>`enable_full_text_search_on_bodies`
+##### <a name="-nservicebusservicecontrol--audit_instance--enable_full_text_search_on_bodies"></a>`enable_full_text_search_on_bodies`
 
 Data type: `Boolean`
 
 Allows full text searches to happen on the body of messages. This setting was introduced in ServiceControl version 4.17.0.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="expiration_process_timer_in_seconds"></a>`expiration_process_timer_in_seconds`
+##### <a name="-nservicebusservicecontrol--audit_instance--expiration_process_timer_in_seconds"></a>`expiration_process_timer_in_seconds`
 
 Data type: `Integer`
 
@@ -329,7 +329,7 @@ Specifies the number of seconds to wait between checking for expired messages.
 
 Default value: `600`
 
-##### <a name="expiration_process_batch_size"></a>`expiration_process_batch_size`
+##### <a name="-nservicebusservicecontrol--audit_instance--expiration_process_batch_size"></a>`expiration_process_batch_size`
 
 Data type: `Integer`
 
@@ -337,7 +337,7 @@ Specifies the batch size to use when checking for expired messages.
 
 Default value: `65512`
 
-##### <a name="data_space_remaining_threshold"></a>`data_space_remaining_threshold`
+##### <a name="-nservicebusservicecontrol--audit_instance--data_space_remaining_threshold"></a>`data_space_remaining_threshold`
 
 Data type: `Integer`
 
@@ -345,7 +345,7 @@ The percentage threshold for the Message database storage space check. If the re
 
 Default value: `20`
 
-##### <a name="max_body_size_to_store"></a>`max_body_size_to_store`
+##### <a name="-nservicebusservicecontrol--audit_instance--max_body_size_to_store"></a>`max_body_size_to_store`
 
 Data type: `Integer`
 
@@ -353,7 +353,7 @@ Specifies the upper limit on body size to be configured.
 
 Default value: `102400`
 
-##### <a name="http_default_connection_limit"></a>`http_default_connection_limit`
+##### <a name="-nservicebusservicecontrol--audit_instance--http_default_connection_limit"></a>`http_default_connection_limit`
 
 Data type: `Integer`
 
@@ -361,63 +361,63 @@ Specifies the maximum number of concurrent connections allowed by ServiceControl
 
 Default value: `100`
 
-##### <a name="disable_ravendb_performance_counters"></a>`disable_ravendb_performance_counters`
+##### <a name="-nservicebusservicecontrol--audit_instance--disable_ravendb_performance_counters"></a>`disable_ravendb_performance_counters`
 
 Data type: `Boolean`
 
 Specify if RavenDB Performance counters should be disabled.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="service_manage"></a>`service_manage`
+##### <a name="-nservicebusservicecontrol--audit_instance--service_manage"></a>`service_manage`
 
 Data type: `Boolean`
 
 Specifies whether or not to manage the desired state of the windows service for this instance.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="skip_queue_creation"></a>`skip_queue_creation`
+##### <a name="-nservicebusservicecontrol--audit_instance--skip_queue_creation"></a>`skip_queue_creation`
 
 Data type: `Boolean`
 
 Normally an instance will attempt to create the queues that it uses. If this flag is set, queue creation will be skipped.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="remove_db_on_delete"></a>`remove_db_on_delete`
+##### <a name="-nservicebusservicecontrol--audit_instance--remove_db_on_delete"></a>`remove_db_on_delete`
 
 Data type: `Boolean`
 
 Remove service control instance ravendb database when instance is deleted.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="remove_logs_on_delete"></a>`remove_logs_on_delete`
+##### <a name="-nservicebusservicecontrol--audit_instance--remove_logs_on_delete"></a>`remove_logs_on_delete`
 
 Data type: `Boolean`
 
 Remove service control instance logs when instance is deleted.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="automatic_instance_upgrades"></a>`automatic_instance_upgrades`
+##### <a name="-nservicebusservicecontrol--audit_instance--automatic_instance_upgrades"></a>`automatic_instance_upgrades`
 
 Data type: `Boolean`
 
 Automatically upgrade the service control monitoring instance when a new version of servicecontrol is installed.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="instance_create_and_upgrade_acknowledgements"></a>`instance_create_and_upgrade_acknowledgements`
+##### <a name="-nservicebusservicecontrol--audit_instance--instance_create_and_upgrade_acknowledgements"></a>`instance_create_and_upgrade_acknowledgements`
 
 Data type: `Optional[String]`
 
 Acknowledge mandatory requirements have been met during instance creation and upgrades.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="audit_queue"></a>`audit_queue`
+##### <a name="-nservicebusservicecontrol--audit_instance--audit_queue"></a>`audit_queue`
 
 Data type: `String`
 
@@ -425,7 +425,7 @@ Data type: `String`
 
 Default value: `'audit'`
 
-##### <a name="audit_log_queue"></a>`audit_log_queue`
+##### <a name="-nservicebusservicecontrol--audit_instance--audit_log_queue"></a>`audit_log_queue`
 
 Data type: `Optional[String]`
 
@@ -433,15 +433,15 @@ Data type: `Optional[String]`
 
 Default value: `'audit.log'`
 
-##### <a name="forward_audit_messages"></a>`forward_audit_messages`
+##### <a name="-nservicebusservicecontrol--audit_instance--forward_audit_messages"></a>`forward_audit_messages`
 
 Data type: `Boolean`
 
 
 
-Default value: ``false``
+Default value: `false`
 
-### <a name="nservicebusservicecontrolinstance"></a>`nservicebusservicecontrol::instance`
+### <a name="nservicebusservicecontrol--instance"></a>`nservicebusservicecontrol::instance`
 
 Manages Service Control Instances.
 
@@ -449,59 +449,59 @@ Manages Service Control Instances.
 
 The following parameters are available in the `nservicebusservicecontrol::instance` defined type:
 
-* [`ensure`](#ensure)
-* [`instance_name`](#instance_name)
-* [`install_path`](#install_path)
-* [`log_path`](#log_path)
-* [`db_path`](#db_path)
-* [`db_index_storage_path`](#db_index_storage_path)
-* [`db_logs_path`](#db_logs_path)
-* [`instance_log_level`](#instance_log_level)
-* [`host_name`](#host_name)
-* [`port`](#port)
-* [`database_maintenance_port`](#database_maintenance_port)
-* [`maximum_concurrency_level`](#maximum_concurrency_level)
-* [`retry_history_depth`](#retry_history_depth)
-* [`remote_instances`](#remote_instances)
-* [`expose_ravendb`](#expose_ravendb)
-* [`ravendb_log_level`](#ravendb_log_level)
-* [`error_queue`](#error_queue)
-* [`error_log_queue`](#error_log_queue)
-* [`transport`](#transport)
-* [`display_name`](#display_name)
-* [`connection_string`](#connection_string)
-* [`description`](#description)
-* [`forward_error_messages`](#forward_error_messages)
-* [`service_account`](#service_account)
-* [`service_account_password`](#service_account_password)
-* [`service_restart_on_config_change`](#service_restart_on_config_change)
-* [`error_retention_period`](#error_retention_period)
-* [`time_to_restart_error_ingestion_after_failure`](#time_to_restart_error_ingestion_after_failure)
-* [`disable_external_integrations_publishing`](#disable_external_integrations_publishing)
-* [`enable_full_text_search_on_bodies`](#enable_full_text_search_on_bodies)
-* [`event_retention_period`](#event_retention_period)
-* [`expiration_process_timer_in_seconds`](#expiration_process_timer_in_seconds)
-* [`expiration_process_batch_size`](#expiration_process_batch_size)
-* [`data_space_remaining_threshold`](#data_space_remaining_threshold)
-* [`http_default_connection_limit`](#http_default_connection_limit)
-* [`disable_ravendb_performance_counters`](#disable_ravendb_performance_counters)
-* [`heartbeat_grace_period`](#heartbeat_grace_period)
-* [`allow_message_editing`](#allow_message_editing)
-* [`notifications_filter`](#notifications_filter)
-* [`service_manage`](#service_manage)
-* [`skip_queue_creation`](#skip_queue_creation)
-* [`remove_db_on_delete`](#remove_db_on_delete)
-* [`remove_logs_on_delete`](#remove_logs_on_delete)
-* [`automatic_instance_upgrades`](#automatic_instance_upgrades)
-* [`instance_create_and_upgrade_acknowledgements`](#instance_create_and_upgrade_acknowledgements)
+* [`ensure`](#-nservicebusservicecontrol--instance--ensure)
+* [`instance_name`](#-nservicebusservicecontrol--instance--instance_name)
+* [`install_path`](#-nservicebusservicecontrol--instance--install_path)
+* [`log_path`](#-nservicebusservicecontrol--instance--log_path)
+* [`db_path`](#-nservicebusservicecontrol--instance--db_path)
+* [`db_index_storage_path`](#-nservicebusservicecontrol--instance--db_index_storage_path)
+* [`db_logs_path`](#-nservicebusservicecontrol--instance--db_logs_path)
+* [`instance_log_level`](#-nservicebusservicecontrol--instance--instance_log_level)
+* [`host_name`](#-nservicebusservicecontrol--instance--host_name)
+* [`port`](#-nservicebusservicecontrol--instance--port)
+* [`database_maintenance_port`](#-nservicebusservicecontrol--instance--database_maintenance_port)
+* [`maximum_concurrency_level`](#-nservicebusservicecontrol--instance--maximum_concurrency_level)
+* [`retry_history_depth`](#-nservicebusservicecontrol--instance--retry_history_depth)
+* [`remote_instances`](#-nservicebusservicecontrol--instance--remote_instances)
+* [`expose_ravendb`](#-nservicebusservicecontrol--instance--expose_ravendb)
+* [`ravendb_log_level`](#-nservicebusservicecontrol--instance--ravendb_log_level)
+* [`error_queue`](#-nservicebusservicecontrol--instance--error_queue)
+* [`error_log_queue`](#-nservicebusservicecontrol--instance--error_log_queue)
+* [`transport`](#-nservicebusservicecontrol--instance--transport)
+* [`display_name`](#-nservicebusservicecontrol--instance--display_name)
+* [`connection_string`](#-nservicebusservicecontrol--instance--connection_string)
+* [`description`](#-nservicebusservicecontrol--instance--description)
+* [`forward_error_messages`](#-nservicebusservicecontrol--instance--forward_error_messages)
+* [`service_account`](#-nservicebusservicecontrol--instance--service_account)
+* [`service_account_password`](#-nservicebusservicecontrol--instance--service_account_password)
+* [`service_restart_on_config_change`](#-nservicebusservicecontrol--instance--service_restart_on_config_change)
+* [`error_retention_period`](#-nservicebusservicecontrol--instance--error_retention_period)
+* [`time_to_restart_error_ingestion_after_failure`](#-nservicebusservicecontrol--instance--time_to_restart_error_ingestion_after_failure)
+* [`disable_external_integrations_publishing`](#-nservicebusservicecontrol--instance--disable_external_integrations_publishing)
+* [`enable_full_text_search_on_bodies`](#-nservicebusservicecontrol--instance--enable_full_text_search_on_bodies)
+* [`event_retention_period`](#-nservicebusservicecontrol--instance--event_retention_period)
+* [`expiration_process_timer_in_seconds`](#-nservicebusservicecontrol--instance--expiration_process_timer_in_seconds)
+* [`expiration_process_batch_size`](#-nservicebusservicecontrol--instance--expiration_process_batch_size)
+* [`data_space_remaining_threshold`](#-nservicebusservicecontrol--instance--data_space_remaining_threshold)
+* [`http_default_connection_limit`](#-nservicebusservicecontrol--instance--http_default_connection_limit)
+* [`disable_ravendb_performance_counters`](#-nservicebusservicecontrol--instance--disable_ravendb_performance_counters)
+* [`heartbeat_grace_period`](#-nservicebusservicecontrol--instance--heartbeat_grace_period)
+* [`allow_message_editing`](#-nservicebusservicecontrol--instance--allow_message_editing)
+* [`notifications_filter`](#-nservicebusservicecontrol--instance--notifications_filter)
+* [`service_manage`](#-nservicebusservicecontrol--instance--service_manage)
+* [`skip_queue_creation`](#-nservicebusservicecontrol--instance--skip_queue_creation)
+* [`remove_db_on_delete`](#-nservicebusservicecontrol--instance--remove_db_on_delete)
+* [`remove_logs_on_delete`](#-nservicebusservicecontrol--instance--remove_logs_on_delete)
+* [`automatic_instance_upgrades`](#-nservicebusservicecontrol--instance--automatic_instance_upgrades)
+* [`instance_create_and_upgrade_acknowledgements`](#-nservicebusservicecontrol--instance--instance_create_and_upgrade_acknowledgements)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-nservicebusservicecontrol--instance--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
 Specifies whether the instance should exist.
 
-##### <a name="instance_name"></a>`instance_name`
+##### <a name="-nservicebusservicecontrol--instance--instance_name"></a>`instance_name`
 
 Data type: `String`
 
@@ -509,7 +509,7 @@ Specify the name of the ServiceControl Instance (title).
 
 Default value: `$title`
 
-##### <a name="install_path"></a>`install_path`
+##### <a name="-nservicebusservicecontrol--instance--install_path"></a>`install_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -517,7 +517,7 @@ Specify the directory to use for this ServiceControl Instance.
 
 Default value: `"C:\\Program Files (x86)\\Particular Software\\${instance_name}"`
 
-##### <a name="log_path"></a>`log_path`
+##### <a name="-nservicebusservicecontrol--instance--log_path"></a>`log_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -525,7 +525,7 @@ Specify the directory to use for this ServiceControl Logs.
 
 Default value: `"C:\\ProgramData\\Particular\\ServiceControl\\${instance_name}\\Logs"`
 
-##### <a name="db_path"></a>`db_path`
+##### <a name="-nservicebusservicecontrol--instance--db_path"></a>`db_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -533,7 +533,7 @@ Specify the directory that will contain the nservicebusservicecontrol database f
 
 Default value: `"C:\\ProgramData\\Particular\\ServiceControl\\${instance_name}\\DB"`
 
-##### <a name="db_index_storage_path"></a>`db_index_storage_path`
+##### <a name="-nservicebusservicecontrol--instance--db_index_storage_path"></a>`db_index_storage_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -541,7 +541,7 @@ Specify the path for the indexes on disk.
 
 Default value: `"${db_path}\\Indexes"`
 
-##### <a name="db_logs_path"></a>`db_logs_path`
+##### <a name="-nservicebusservicecontrol--instance--db_logs_path"></a>`db_logs_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -549,7 +549,7 @@ Specify the path for the Esent logs on disk.
 
 Default value: `"${db_path}\\logs"`
 
-##### <a name="instance_log_level"></a>`instance_log_level`
+##### <a name="-nservicebusservicecontrol--instance--instance_log_level"></a>`instance_log_level`
 
 Data type: `Nservicebusservicecontrol::Log_level`
 
@@ -557,7 +557,7 @@ Specify the level of logging that should be used in ServiceControl logs.
 
 Default value: `'Warn'`
 
-##### <a name="host_name"></a>`host_name`
+##### <a name="-nservicebusservicecontrol--instance--host_name"></a>`host_name`
 
 Data type: `Stdlib::Fqdn`
 
@@ -565,7 +565,7 @@ Specify the hostname to use in the URLACL.
 
 Default value: `'localhost'`
 
-##### <a name="port"></a>`port`
+##### <a name="-nservicebusservicecontrol--instance--port"></a>`port`
 
 Data type: `Stdlib::Port`
 
@@ -573,7 +573,7 @@ Specify the port number to listen on. If this is the only ServiceControl instanc
 
 Default value: `33333`
 
-##### <a name="database_maintenance_port"></a>`database_maintenance_port`
+##### <a name="-nservicebusservicecontrol--instance--database_maintenance_port"></a>`database_maintenance_port`
 
 Data type: `Stdlib::Port`
 
@@ -581,7 +581,7 @@ Specify the database maintenance port number to listen on. If this is the only S
 
 Default value: `33334`
 
-##### <a name="maximum_concurrency_level"></a>`maximum_concurrency_level`
+##### <a name="-nservicebusservicecontrol--instance--maximum_concurrency_level"></a>`maximum_concurrency_level`
 
 Data type: `Integer`
 
@@ -589,7 +589,7 @@ This setting controls how many messages can be processed concurrently (in parall
 
 Default value: `10`
 
-##### <a name="retry_history_depth"></a>`retry_history_depth`
+##### <a name="-nservicebusservicecontrol--instance--retry_history_depth"></a>`retry_history_depth`
 
 Data type: `Integer`
 
@@ -597,7 +597,7 @@ The depth of retry history.
 
 Default value: `10`
 
-##### <a name="remote_instances"></a>`remote_instances`
+##### <a name="-nservicebusservicecontrol--instance--remote_instances"></a>`remote_instances`
 
 Data type: `Optional[Array[String]]`
 
@@ -605,15 +605,15 @@ Specify an optional array of remote instances.
 
 Default value: `[]`
 
-##### <a name="expose_ravendb"></a>`expose_ravendb`
+##### <a name="-nservicebusservicecontrol--instance--expose_ravendb"></a>`expose_ravendb`
 
 Data type: `Boolean`
 
 Specify if the embedded ravendb database should be accessible outside of maintenance mode.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="ravendb_log_level"></a>`ravendb_log_level`
+##### <a name="-nservicebusservicecontrol--instance--ravendb_log_level"></a>`ravendb_log_level`
 
 Data type: `Nservicebusservicecontrol::Log_level`
 
@@ -621,7 +621,7 @@ Specify the level of logging that should be used in ravendb logs.
 
 Default value: `'Warn'`
 
-##### <a name="error_queue"></a>`error_queue`
+##### <a name="-nservicebusservicecontrol--instance--error_queue"></a>`error_queue`
 
 Data type: `String`
 
@@ -629,7 +629,7 @@ Specify ErrorQueue name to consume messages from.
 
 Default value: `'error'`
 
-##### <a name="error_log_queue"></a>`error_log_queue`
+##### <a name="-nservicebusservicecontrol--instance--error_log_queue"></a>`error_log_queue`
 
 Data type: `Optional[String]`
 
@@ -637,7 +637,7 @@ Specify Queue name to forward error messages to.
 
 Default value: `'error.log'`
 
-##### <a name="transport"></a>`transport`
+##### <a name="-nservicebusservicecontrol--instance--transport"></a>`transport`
 
 Data type: `Nservicebusservicecontrol::Transport`
 
@@ -645,7 +645,7 @@ Specify the NServiceBus Transport to use.
 
 Default value: `'MSMQ'`
 
-##### <a name="display_name"></a>`display_name`
+##### <a name="-nservicebusservicecontrol--instance--display_name"></a>`display_name`
 
 Data type: `String`
 
@@ -653,15 +653,15 @@ Specify the Windows Service Display name. If unspecified the instance name will 
 
 Default value: `$instance_name`
 
-##### <a name="connection_string"></a>`connection_string`
+##### <a name="-nservicebusservicecontrol--instance--connection_string"></a>`connection_string`
 
 Data type: `Optional[String]`
 
 Specify the connection string to use to connect to the queuing system.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="description"></a>`description`
+##### <a name="-nservicebusservicecontrol--instance--description"></a>`description`
 
 Data type: `String`
 
@@ -669,15 +669,15 @@ Specify the description to use on the Windows Service for this instance.
 
 Default value: `'A ServiceControl Instance'`
 
-##### <a name="forward_error_messages"></a>`forward_error_messages`
+##### <a name="-nservicebusservicecontrol--instance--forward_error_messages"></a>`forward_error_messages`
 
 Data type: `Boolean`
 
 Specify if audit messages are forwarded to the queue specified by ErrorLogQueue.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="service_account"></a>`service_account`
+##### <a name="-nservicebusservicecontrol--instance--service_account"></a>`service_account`
 
 Data type: `String`
 
@@ -685,23 +685,23 @@ The Account to run the Windows service.
 
 Default value: `'LocalSystem'`
 
-##### <a name="service_account_password"></a>`service_account_password`
+##### <a name="-nservicebusservicecontrol--instance--service_account_password"></a>`service_account_password`
 
 Data type: `Optional[String]`
 
 The password for the ServiceAccount.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="service_restart_on_config_change"></a>`service_restart_on_config_change`
+##### <a name="-nservicebusservicecontrol--instance--service_restart_on_config_change"></a>`service_restart_on_config_change`
 
 Data type: `Boolean`
 
 Specify if the service control instance's windows service should be restarted to pick up changes to its configuration file.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="error_retention_period"></a>`error_retention_period`
+##### <a name="-nservicebusservicecontrol--instance--error_retention_period"></a>`error_retention_period`
 
 Data type: `String`
 
@@ -709,7 +709,7 @@ Specify thd grace period that faulted messages are kept before they are deleted.
 
 Default value: `'15.00:00:00'`
 
-##### <a name="time_to_restart_error_ingestion_after_failure"></a>`time_to_restart_error_ingestion_after_failure`
+##### <a name="-nservicebusservicecontrol--instance--time_to_restart_error_ingestion_after_failure"></a>`time_to_restart_error_ingestion_after_failure`
 
 Data type: `String`
 
@@ -717,23 +717,23 @@ Specify the maximum time delay to wait before restarting the error ingestion pip
 
 Default value: `'00.00:01:00'`
 
-##### <a name="disable_external_integrations_publishing"></a>`disable_external_integrations_publishing`
+##### <a name="-nservicebusservicecontrol--instance--disable_external_integrations_publishing"></a>`disable_external_integrations_publishing`
 
 Data type: `Boolean`
 
 Disable external integrations publishing.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="enable_full_text_search_on_bodies"></a>`enable_full_text_search_on_bodies`
+##### <a name="-nservicebusservicecontrol--instance--enable_full_text_search_on_bodies"></a>`enable_full_text_search_on_bodies`
 
 Data type: `Boolean`
 
 Allows full text searches to happen on the body of messages. This setting was introduced in ServiceControl version 4.17.0.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="event_retention_period"></a>`event_retention_period`
+##### <a name="-nservicebusservicecontrol--instance--event_retention_period"></a>`event_retention_period`
 
 Data type: `String`
 
@@ -741,7 +741,7 @@ Specifies the period to keep event logs before they are deleted.
 
 Default value: `'14.00:00:00'`
 
-##### <a name="expiration_process_timer_in_seconds"></a>`expiration_process_timer_in_seconds`
+##### <a name="-nservicebusservicecontrol--instance--expiration_process_timer_in_seconds"></a>`expiration_process_timer_in_seconds`
 
 Data type: `Integer`
 
@@ -749,7 +749,7 @@ Specifies the number of seconds to wait between checking for expired messages.
 
 Default value: `600`
 
-##### <a name="expiration_process_batch_size"></a>`expiration_process_batch_size`
+##### <a name="-nservicebusservicecontrol--instance--expiration_process_batch_size"></a>`expiration_process_batch_size`
 
 Data type: `Integer`
 
@@ -757,7 +757,7 @@ Specifies the batch size to use when checking for expired messages.
 
 Default value: `65512`
 
-##### <a name="data_space_remaining_threshold"></a>`data_space_remaining_threshold`
+##### <a name="-nservicebusservicecontrol--instance--data_space_remaining_threshold"></a>`data_space_remaining_threshold`
 
 Data type: `Integer`
 
@@ -765,7 +765,7 @@ The percentage threshold for the Message database storage space check. If the re
 
 Default value: `20`
 
-##### <a name="http_default_connection_limit"></a>`http_default_connection_limit`
+##### <a name="-nservicebusservicecontrol--instance--http_default_connection_limit"></a>`http_default_connection_limit`
 
 Data type: `Integer`
 
@@ -773,15 +773,15 @@ Specifies the maximum number of concurrent connections allowed by ServiceControl
 
 Default value: `100`
 
-##### <a name="disable_ravendb_performance_counters"></a>`disable_ravendb_performance_counters`
+##### <a name="-nservicebusservicecontrol--instance--disable_ravendb_performance_counters"></a>`disable_ravendb_performance_counters`
 
 Data type: `Boolean`
 
 Specify if RavenDB Performance counters should be disabled.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="heartbeat_grace_period"></a>`heartbeat_grace_period`
+##### <a name="-nservicebusservicecontrol--instance--heartbeat_grace_period"></a>`heartbeat_grace_period`
 
 Data type: `String`
 
@@ -789,15 +789,15 @@ Specifies the period that defines whether an endpoint is considered alive or not
 
 Default value: `'00:00:40'`
 
-##### <a name="allow_message_editing"></a>`allow_message_editing`
+##### <a name="-nservicebusservicecontrol--instance--allow_message_editing"></a>`allow_message_editing`
 
 Data type: `Boolean`
 
 Enables the ability for servicepulse to allow users to edit failed messages before being retried.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="notifications_filter"></a>`notifications_filter`
+##### <a name="-nservicebusservicecontrol--instance--notifications_filter"></a>`notifications_filter`
 
 Data type: `String`
 
@@ -805,55 +805,55 @@ Configures notificaiton filters.
 
 Default value: `''`
 
-##### <a name="service_manage"></a>`service_manage`
+##### <a name="-nservicebusservicecontrol--instance--service_manage"></a>`service_manage`
 
 Data type: `Boolean`
 
 Specifies whether or not to manage the desired state of the windows service for this instance.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="skip_queue_creation"></a>`skip_queue_creation`
+##### <a name="-nservicebusservicecontrol--instance--skip_queue_creation"></a>`skip_queue_creation`
 
 Data type: `Boolean`
 
 Normally an instance will attempt to create the queues that it uses. If this flag is set, queue creation will be skipped.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="remove_db_on_delete"></a>`remove_db_on_delete`
+##### <a name="-nservicebusservicecontrol--instance--remove_db_on_delete"></a>`remove_db_on_delete`
 
 Data type: `Boolean`
 
 Remove service control instance ravendb database when instance is deleted.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="remove_logs_on_delete"></a>`remove_logs_on_delete`
+##### <a name="-nservicebusservicecontrol--instance--remove_logs_on_delete"></a>`remove_logs_on_delete`
 
 Data type: `Boolean`
 
 Remove service control instance logs when instance is deleted.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="automatic_instance_upgrades"></a>`automatic_instance_upgrades`
+##### <a name="-nservicebusservicecontrol--instance--automatic_instance_upgrades"></a>`automatic_instance_upgrades`
 
 Data type: `Boolean`
 
 Automatically upgrade the service control monitoring instance when a new version of servicecontrol is installed.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="instance_create_and_upgrade_acknowledgements"></a>`instance_create_and_upgrade_acknowledgements`
+##### <a name="-nservicebusservicecontrol--instance--instance_create_and_upgrade_acknowledgements"></a>`instance_create_and_upgrade_acknowledgements`
 
 Data type: `Optional[String]`
 
 Acknowledge mandatory requirements have been met during instance creation and upgrades.
 
-Default value: ``undef``
+Default value: `undef`
 
-### <a name="nservicebusservicecontrolmonitoring_instance"></a>`nservicebusservicecontrol::monitoring_instance`
+### <a name="nservicebusservicecontrol--monitoring_instance"></a>`nservicebusservicecontrol::monitoring_instance`
 
 Manages Service Control Monitoring Instances.
 
@@ -861,36 +861,36 @@ Manages Service Control Monitoring Instances.
 
 The following parameters are available in the `nservicebusservicecontrol::monitoring_instance` defined type:
 
-* [`ensure`](#ensure)
-* [`instance_name`](#instance_name)
-* [`install_path`](#install_path)
-* [`log_path`](#log_path)
-* [`instance_log_level`](#instance_log_level)
-* [`host_name`](#host_name)
-* [`port`](#port)
-* [`maximum_concurrency_level`](#maximum_concurrency_level)
-* [`endpoint_uptime_grace_period`](#endpoint_uptime_grace_period)
-* [`error_queue`](#error_queue)
-* [`transport`](#transport)
-* [`display_name`](#display_name)
-* [`connection_string`](#connection_string)
-* [`description`](#description)
-* [`service_account`](#service_account)
-* [`service_account_password`](#service_account_password)
-* [`service_restart_on_config_change`](#service_restart_on_config_change)
-* [`service_manage`](#service_manage)
-* [`skip_queue_creation`](#skip_queue_creation)
-* [`remove_logs_on_delete`](#remove_logs_on_delete)
-* [`automatic_instance_upgrades`](#automatic_instance_upgrades)
-* [`instance_create_and_upgrade_acknowledgements`](#instance_create_and_upgrade_acknowledgements)
+* [`ensure`](#-nservicebusservicecontrol--monitoring_instance--ensure)
+* [`instance_name`](#-nservicebusservicecontrol--monitoring_instance--instance_name)
+* [`install_path`](#-nservicebusservicecontrol--monitoring_instance--install_path)
+* [`log_path`](#-nservicebusservicecontrol--monitoring_instance--log_path)
+* [`instance_log_level`](#-nservicebusservicecontrol--monitoring_instance--instance_log_level)
+* [`host_name`](#-nservicebusservicecontrol--monitoring_instance--host_name)
+* [`port`](#-nservicebusservicecontrol--monitoring_instance--port)
+* [`maximum_concurrency_level`](#-nservicebusservicecontrol--monitoring_instance--maximum_concurrency_level)
+* [`endpoint_uptime_grace_period`](#-nservicebusservicecontrol--monitoring_instance--endpoint_uptime_grace_period)
+* [`error_queue`](#-nservicebusservicecontrol--monitoring_instance--error_queue)
+* [`transport`](#-nservicebusservicecontrol--monitoring_instance--transport)
+* [`display_name`](#-nservicebusservicecontrol--monitoring_instance--display_name)
+* [`connection_string`](#-nservicebusservicecontrol--monitoring_instance--connection_string)
+* [`description`](#-nservicebusservicecontrol--monitoring_instance--description)
+* [`service_account`](#-nservicebusservicecontrol--monitoring_instance--service_account)
+* [`service_account_password`](#-nservicebusservicecontrol--monitoring_instance--service_account_password)
+* [`service_restart_on_config_change`](#-nservicebusservicecontrol--monitoring_instance--service_restart_on_config_change)
+* [`service_manage`](#-nservicebusservicecontrol--monitoring_instance--service_manage)
+* [`skip_queue_creation`](#-nservicebusservicecontrol--monitoring_instance--skip_queue_creation)
+* [`remove_logs_on_delete`](#-nservicebusservicecontrol--monitoring_instance--remove_logs_on_delete)
+* [`automatic_instance_upgrades`](#-nservicebusservicecontrol--monitoring_instance--automatic_instance_upgrades)
+* [`instance_create_and_upgrade_acknowledgements`](#-nservicebusservicecontrol--monitoring_instance--instance_create_and_upgrade_acknowledgements)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
 Specifies whether the monitoring instance should exist.
 
-##### <a name="instance_name"></a>`instance_name`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--instance_name"></a>`instance_name`
 
 Data type: `String`
 
@@ -898,7 +898,7 @@ Specify the name of the ServiceControl Monitoring Instance (title).
 
 Default value: `$title`
 
-##### <a name="install_path"></a>`install_path`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--install_path"></a>`install_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -906,7 +906,7 @@ Specify the directory to use for this ServiceControl Monitoring Instance.
 
 Default value: `"C:\\Program Files (x86)\\Particular Software\\${instance_name}"`
 
-##### <a name="log_path"></a>`log_path`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--log_path"></a>`log_path`
 
 Data type: `Stdlib::Absolutepath`
 
@@ -914,7 +914,7 @@ Specify the directory to use for this ServiceControl Monitoring Logs.
 
 Default value: `"C:\\ProgramData\\Particular\\ServiceControl\\${instance_name}\\Logs"`
 
-##### <a name="instance_log_level"></a>`instance_log_level`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--instance_log_level"></a>`instance_log_level`
 
 Data type: `Nservicebusservicecontrol::Log_level`
 
@@ -922,7 +922,7 @@ Specify the level of logging that should be used in ServiceControl Monitoring lo
 
 Default value: `'Warn'`
 
-##### <a name="host_name"></a>`host_name`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--host_name"></a>`host_name`
 
 Data type: `Stdlib::Fqdn`
 
@@ -930,7 +930,7 @@ Specify the hostname to use in the URLACL.
 
 Default value: `'localhost'`
 
-##### <a name="port"></a>`port`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--port"></a>`port`
 
 Data type: `Stdlib::Port`
 
@@ -938,7 +938,7 @@ Specify the port number to listen on. If this is the only ServiceControl Monitor
 
 Default value: `33633`
 
-##### <a name="maximum_concurrency_level"></a>`maximum_concurrency_level`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--maximum_concurrency_level"></a>`maximum_concurrency_level`
 
 Data type: `Integer`
 
@@ -946,7 +946,7 @@ This setting controls how many messages can be processed concurrently (in parall
 
 Default value: `32`
 
-##### <a name="endpoint_uptime_grace_period"></a>`endpoint_uptime_grace_period`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--endpoint_uptime_grace_period"></a>`endpoint_uptime_grace_period`
 
 Data type: `String`
 
@@ -954,7 +954,7 @@ The grace period for endpoint uptime.
 
 Default value: `'00:00:40'`
 
-##### <a name="error_queue"></a>`error_queue`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--error_queue"></a>`error_queue`
 
 Data type: `String`
 
@@ -962,7 +962,7 @@ Specify the ErrorQueue name.
 
 Default value: `'error'`
 
-##### <a name="transport"></a>`transport`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--transport"></a>`transport`
 
 Data type: `Nservicebusservicecontrol::Transport`
 
@@ -970,7 +970,7 @@ Specify the NServiceBus Transport to use.
 
 Default value: `'MSMQ'`
 
-##### <a name="display_name"></a>`display_name`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--display_name"></a>`display_name`
 
 Data type: `String`
 
@@ -978,15 +978,15 @@ Specify the Windows Service Display name. If unspecified the monitoring instance
 
 Default value: `$instance_name`
 
-##### <a name="connection_string"></a>`connection_string`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--connection_string"></a>`connection_string`
 
 Data type: `Optional[String]`
 
 Specify the connection string to use to connect to the queuing system.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="description"></a>`description`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--description"></a>`description`
 
 Data type: `String`
 
@@ -994,7 +994,7 @@ Specify the description to use on the Windows Service for this instance.
 
 Default value: `'A Monitoring Instance'`
 
-##### <a name="service_account"></a>`service_account`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--service_account"></a>`service_account`
 
 Data type: `String`
 
@@ -1002,63 +1002,63 @@ The Account to run the Windows service.
 
 Default value: `'LocalSystem'`
 
-##### <a name="service_account_password"></a>`service_account_password`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--service_account_password"></a>`service_account_password`
 
 Data type: `Optional[String]`
 
 The password for the ServiceAccount.
 
-Default value: ``undef``
+Default value: `undef`
 
-##### <a name="service_restart_on_config_change"></a>`service_restart_on_config_change`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--service_restart_on_config_change"></a>`service_restart_on_config_change`
 
 Data type: `Boolean`
 
 Specify if the servicecontrol monitoring instance's windows service should be restarted to pick up changes to its configuration file.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="service_manage"></a>`service_manage`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--service_manage"></a>`service_manage`
 
 Data type: `Boolean`
 
 Specifies whether or not to manage the desired state of the windows service for this instance.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="skip_queue_creation"></a>`skip_queue_creation`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--skip_queue_creation"></a>`skip_queue_creation`
 
 Data type: `Boolean`
 
 Normally an instance will attempt to create the queues that it uses. If this flag is set, queue creation will be skipped.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="remove_logs_on_delete"></a>`remove_logs_on_delete`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--remove_logs_on_delete"></a>`remove_logs_on_delete`
 
 Data type: `Boolean`
 
 Specifies if the service control logs should be deleted with the instance.
 
-Default value: ``false``
+Default value: `false`
 
-##### <a name="automatic_instance_upgrades"></a>`automatic_instance_upgrades`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--automatic_instance_upgrades"></a>`automatic_instance_upgrades`
 
 Data type: `Boolean`
 
 Automatically upgrade the service control monitoring instance when a new version of servicecontrol is installed.
 
-Default value: ``true``
+Default value: `true`
 
-##### <a name="instance_create_and_upgrade_acknowledgements"></a>`instance_create_and_upgrade_acknowledgements`
+##### <a name="-nservicebusservicecontrol--monitoring_instance--instance_create_and_upgrade_acknowledgements"></a>`instance_create_and_upgrade_acknowledgements`
 
 Data type: `Optional[String]`
 
 Acknowledge mandatory requirements have been met during instance creation and upgrades.
 
-Default value: ``undef``
+Default value: `undef`
 
-### <a name="nservicebusservicecontrolretry_redirect"></a>`nservicebusservicecontrol::retry_redirect`
+### <a name="nservicebusservicecontrol--retry_redirect"></a>`nservicebusservicecontrol::retry_redirect`
 
 Manages Retry Redirects.
 
@@ -1066,18 +1066,18 @@ Manages Retry Redirects.
 
 The following parameters are available in the `nservicebusservicecontrol::retry_redirect` defined type:
 
-* [`ensure`](#ensure)
-* [`source_queue`](#source_queue)
-* [`destination_queue`](#destination_queue)
-* [`service_control_url`](#service_control_url)
+* [`ensure`](#-nservicebusservicecontrol--retry_redirect--ensure)
+* [`source_queue`](#-nservicebusservicecontrol--retry_redirect--source_queue)
+* [`destination_queue`](#-nservicebusservicecontrol--retry_redirect--destination_queue)
+* [`service_control_url`](#-nservicebusservicecontrol--retry_redirect--service_control_url)
 
-##### <a name="ensure"></a>`ensure`
+##### <a name="-nservicebusservicecontrol--retry_redirect--ensure"></a>`ensure`
 
 Data type: `Enum['present', 'absent']`
 
 Specifies whether the retry redirect should exist.
 
-##### <a name="source_queue"></a>`source_queue`
+##### <a name="-nservicebusservicecontrol--retry_redirect--source_queue"></a>`source_queue`
 
 Data type: `String`
 
@@ -1085,13 +1085,13 @@ Specify the queue for which this redirect will be applied.
 
 Default value: `$title`
 
-##### <a name="destination_queue"></a>`destination_queue`
+##### <a name="-nservicebusservicecontrol--retry_redirect--destination_queue"></a>`destination_queue`
 
 Data type: `String`
 
 Specify the queue that will be the new destination when retrying.
 
-##### <a name="service_control_url"></a>`service_control_url`
+##### <a name="-nservicebusservicecontrol--retry_redirect--service_control_url"></a>`service_control_url`
 
 Data type: `String`
 
@@ -1099,25 +1099,17 @@ Data type: `String`
 
 ## Data types
 
-### <a name="nservicebusservicecontrollog_level"></a>`Nservicebusservicecontrol::Log_level`
+### <a name="Nservicebusservicecontrol--Log_level"></a>`Nservicebusservicecontrol::Log_level`
 
 Supported log levels for servicecontrol
 
-Alias of
+Alias of `Enum['Trace', 'Debug', 'Info', 'Warn', 'Error', 'Fatal', 'Off']`
 
-```puppet
-Enum['Trace', 'Debug', 'Info', 'Warn', 'Error', 'Fatal', 'Off']
-```
-
-### <a name="nservicebusservicecontroltransport"></a>`Nservicebusservicecontrol::Transport`
+### <a name="Nservicebusservicecontrol--Transport"></a>`Nservicebusservicecontrol::Transport`
 
 Supported NServicebus transports
 
-Alias of
-
-```puppet
-Enum['RabbitMQ - Conventional routing topology', 'RabbitMQ - Conventional routing topology (classic queues)', 'RabbitMQ - Conventional routing topology (quorum queues)', 'SQL Server', 'MSMQ', 'Azure Storage Queue', 'Azure Service Bus', 'AmazonSQS']
-```
+Alias of `Enum['RabbitMQ - Conventional routing topology', 'RabbitMQ - Conventional routing topology (classic queues)', 'RabbitMQ - Conventional routing topology (quorum queues)', 'SQL Server', 'MSMQ', 'Azure Storage Queue', 'Azure Service Bus', 'AmazonSQS']`
 
 ## Tasks
 
@@ -1129,7 +1121,7 @@ Gets all servicecontrol instances.
 
 ## Plans
 
-### <a name="nservicebusservicecontrolcompact_database"></a>`nservicebusservicecontrol::compact_database`
+### <a name="nservicebusservicecontrol--compact_database"></a>`nservicebusservicecontrol::compact_database`
 
 Compacts the servicecontrol instance's RavenDB Database.
 
@@ -1137,22 +1129,22 @@ Compacts the servicecontrol instance's RavenDB Database.
 
 The following parameters are available in the `nservicebusservicecontrol::compact_database` plan:
 
-* [`targets`](#targets)
-* [`instance_name`](#instance_name)
+* [`targets`](#-nservicebusservicecontrol--compact_database--targets)
+* [`instance_name`](#-nservicebusservicecontrol--compact_database--instance_name)
 
-##### <a name="targets"></a>`targets`
+##### <a name="-nservicebusservicecontrol--compact_database--targets"></a>`targets`
 
 Data type: `TargetSpec`
 
 Targets to compact databases.
 
-##### <a name="instance_name"></a>`instance_name`
+##### <a name="-nservicebusservicecontrol--compact_database--instance_name"></a>`instance_name`
 
 Data type: `String[1]`
 
 The name of the servicecontrol instance.
 
-### <a name="nservicebusservicecontrolimport_failed_messages"></a>`nservicebusservicecontrol::import_failed_messages`
+### <a name="nservicebusservicecontrol--import_failed_messages"></a>`nservicebusservicecontrol::import_failed_messages`
 
 Imports failed error or audit messages.
 
@@ -1160,23 +1152,23 @@ Imports failed error or audit messages.
 
 The following parameters are available in the `nservicebusservicecontrol::import_failed_messages` plan:
 
-* [`targets`](#targets)
-* [`instance_name`](#instance_name)
-* [`instance_type`](#instance_type)
+* [`targets`](#-nservicebusservicecontrol--import_failed_messages--targets)
+* [`instance_name`](#-nservicebusservicecontrol--import_failed_messages--instance_name)
+* [`instance_type`](#-nservicebusservicecontrol--import_failed_messages--instance_type)
 
-##### <a name="targets"></a>`targets`
+##### <a name="-nservicebusservicecontrol--import_failed_messages--targets"></a>`targets`
 
 Data type: `TargetSpec`
 
 Targets to import failed messages on.
 
-##### <a name="instance_name"></a>`instance_name`
+##### <a name="-nservicebusservicecontrol--import_failed_messages--instance_name"></a>`instance_name`
 
 Data type: `String[1]`
 
 The name of the servicecontrol instance.
 
-##### <a name="instance_type"></a>`instance_type`
+##### <a name="-nservicebusservicecontrol--import_failed_messages--instance_type"></a>`instance_type`
 
 Data type: `Enum['error', 'audit']`
 
