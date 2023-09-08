@@ -8,7 +8,6 @@ plan nservicebusservicecontrol::import_failed_messages (
   String[1] $instance_name,
   Enum['error', 'audit'] $instance_type,
 ) {
-
   get_targets($targets).each |$target| {
     # Cannot trust user input so lets validate their data instead
     # Maybe perform more validations?

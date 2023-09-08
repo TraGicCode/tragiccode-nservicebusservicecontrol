@@ -9,12 +9,11 @@
 # @param license_xml
 #   A valid NServiceBus XML License. 
 #
-class nservicebusservicecontrol(
+class nservicebusservicecontrol (
   String $package_ensure           = 'present',
   Optional[String] $package_source = undef,
   Optional[String] $license_xml    = '',
-  ) {
-
+) {
   contain nservicebusservicecontrol::install
   contain nservicebusservicecontrol::config
 
@@ -32,5 +31,4 @@ class nservicebusservicecontrol(
     -> Class['nservicebusservicecontrol::config']
     -> Class['nservicebusservicecontrol::install']
   }
-
 }

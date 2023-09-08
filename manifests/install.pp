@@ -4,12 +4,9 @@
 # @api private
 #
 class nservicebusservicecontrol::install {
-
-
   package { 'servicecontrol':
     ensure   => $nservicebusservicecontrol::package_ensure,
     source   => $nservicebusservicecontrol::package_source,
     provider => 'chocolatey',
   }
-
 }

@@ -14,34 +14,33 @@ define nservicebusservicecontrol::retry_redirect (
   String $source_queue = $title,
   String $destination_queue,
   String $service_control_url,
-  ) {
-
+) {
   if $ensure == 'present' {
     exec { "create-retry-redirect-${source_queue}":
       command   => epp("${module_name}/create-or-update-retry-redirect.ps1.epp", {
-        'source_queue'        => $source_queue,
-        'destination_queue'   => $destination_queue,
-        'service_control_url' => $service_control_url,
+          'source_queue'        => $source_queue,
+          'destination_queue'   => $destination_queue,
+          'service_control_url' => $service_control_url,
       }),
       onlyif    => epp("${module_name}/query-retry-redirect.ps1.epp", {
-        'source_queue'        => $source_queue,
-        'destination_queue'   => $destination_queue,
-        'service_control_url' => $service_control_url,
-        }),
+          'source_queue'        => $source_queue,
+          'destination_queue'   => $destination_queue,
+          'service_control_url' => $service_control_url,
+      }),
       logoutput => true,
       provider  => 'powershell',
     }
   } else {
     exec { "delete-retry-redirect-${source_queue}":
       command   => epp("${module_name}/delete-retry-redirect.ps1.epp", {
-        'source_queue'        => $source_queue,
-        'destination_queue'   => $destination_queue,
-        'service_control_url' => $service_control_url,
+          'source_queue'        => $source_queue,
+          'destination_queue'   => $destination_queue,
+          'service_control_url' => $service_control_url,
       }),
       unless    => epp("${module_name}/query-retry-redirect.ps1.epp", {
-        'source_queue'        => $source_queue,
-        'destination_queue'   => $destination_queue,
-        'service_control_url' => $service_control_url,
+          'source_queue'        => $source_queue,
+          'destination_queue'   => $destination_queue,
+          'service_control_url' => $service_control_url,
       }),
       logoutput => true,
       provider  => 'powershell',
