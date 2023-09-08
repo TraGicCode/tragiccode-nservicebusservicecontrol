@@ -181,10 +181,8 @@ define nservicebusservicecontrol::instance (
   Boolean $remove_logs_on_delete                                 = false,
   Boolean $automatic_instance_upgrades                           = true,
   Optional[String] $instance_create_and_upgrade_acknowledgements = undef,
-  ) {
-
+) {
   if $ensure == 'present' {
-
     if $transport == 'MSMQ' or $transport == 'AmazonSQS' {
       if $connection_string != undef {
         fail('Cannot provide connection_string when using the MSMQ transport')
@@ -196,30 +194,30 @@ define nservicebusservicecontrol::instance (
       # 1.) Does a service exist with the name of the instance
       # 2.) Does the following folder exist $install_path
       command   => epp("${module_name}/create-instance.ps1.epp", {
-        'instance_name'                                => $instance_name,
-        'install_path'                                 => $install_path,
-        'log_path'                                     => $log_path,
-        'db_path'                                      => $db_path,
-        'host_name'                                    => $host_name,
-        'port'                                         => $port,
-        'database_maintenance_port'                    => $database_maintenance_port,
-        'error_queue'                                  => $error_queue,
-        'error_log_queue'                              => $error_log_queue,
-        'transport'                                    => $transport,
-        'display_name'                                 => $display_name,
-        'connection_string'                            => $connection_string,
-        'description'                                  => $description,
-        'forward_error_messages'                       => $forward_error_messages,
-        'service_account'                              => $service_account,
-        'service_account_password'                     => $service_account_password,
-        'error_retention_period'                       => $error_retention_period,
-        'skip_queue_creation'                          => $skip_queue_creation,
-        'enable_full_text_search_on_bodies'            => $enable_full_text_search_on_bodies,
-        'instance_create_and_upgrade_acknowledgements' => $instance_create_and_upgrade_acknowledgements,
+          'instance_name'                                => $instance_name,
+          'install_path'                                 => $install_path,
+          'log_path'                                     => $log_path,
+          'db_path'                                      => $db_path,
+          'host_name'                                    => $host_name,
+          'port'                                         => $port,
+          'database_maintenance_port'                    => $database_maintenance_port,
+          'error_queue'                                  => $error_queue,
+          'error_log_queue'                              => $error_log_queue,
+          'transport'                                    => $transport,
+          'display_name'                                 => $display_name,
+          'connection_string'                            => $connection_string,
+          'description'                                  => $description,
+          'forward_error_messages'                       => $forward_error_messages,
+          'service_account'                              => $service_account,
+          'service_account_password'                     => $service_account_password,
+          'error_retention_period'                       => $error_retention_period,
+          'skip_queue_creation'                          => $skip_queue_creation,
+          'enable_full_text_search_on_bodies'            => $enable_full_text_search_on_bodies,
+          'instance_create_and_upgrade_acknowledgements' => $instance_create_and_upgrade_acknowledgements,
       }),
       onlyif    => epp("${module_name}/query-instance.ps1.epp", {
-        'instance_name' => $instance_name,
-        }),
+          'instance_name' => $instance_name,
+      }),
       logoutput => true,
       provider  => 'powershell',
     }
@@ -227,12 +225,12 @@ define nservicebusservicecontrol::instance (
     if $automatic_instance_upgrades {
       exec { "automatic-instance-upgrade-${instance_name}":
         command   => epp("${module_name}/upgrade-instance.ps1.epp", {
-          'instance_name'                                => $instance_name,
-          'instance_create_and_upgrade_acknowledgements' => $instance_create_and_upgrade_acknowledgements,
+            'instance_name'                                => $instance_name,
+            'instance_create_and_upgrade_acknowledgements' => $instance_create_and_upgrade_acknowledgements,
         }),
         onlyif    => epp("${module_name}/query-instance-upgrade.ps1.epp", {
-          'instance_name' => $instance_name,
-          'install_path'  => $install_path,
+            'instance_name' => $instance_name,
+            'install_path'  => $install_path,
         }),
         logoutput => true,
         provider  => 'powershell',
@@ -254,75 +252,73 @@ define nservicebusservicecontrol::instance (
       # lint:endignore
     }
 
-  file { "${install_path}\\ServiceControl.exe.config":
-    ensure  => 'file',
-    content => unix2dos(epp("${module_name}/ServiceControl.exe.config.epp", {
-      'instance_log_level'                            => $instance_log_level,
-      'db_path'                                       => $db_path,
-      'db_index_storage_path'                         => $db_index_storage_path,
-      'db_logs_path'                                  => $db_logs_path,
-      'log_path'                                      => $log_path,
-      'host_name'                                     => $host_name,
-      'port'                                          => $port,
-      'database_maintenance_port'                     => $database_maintenance_port,
-      'maximum_concurrency_level'                     => $maximum_concurrency_level,
-      'retry_history_depth'                           => $retry_history_depth,
-      'remote_instances'                              => $remote_instances,
-      'expose_ravendb'                                => $expose_ravendb,
-      'ravendb_log_level'                             => $ravendb_log_level,
-      'error_queue'                                   => $error_queue,
-      'error_log_queue'                               => $error_log_queue,
-      '_transport_type'                               => $_transport_type,
-      'connection_string'                             => $connection_string,
-      'forward_error_messages'                        => $forward_error_messages,
-      'error_retention_period'                        => $error_retention_period,
-      'enable_full_text_search_on_bodies'             => $enable_full_text_search_on_bodies,
-      'time_to_restart_error_ingestion_after_failure' => $time_to_restart_error_ingestion_after_failure,
-      'disable_external_integrations_publishing'      => $disable_external_integrations_publishing,
-      'event_retention_period'                        => $event_retention_period,
-      'expiration_process_timer_in_seconds'           => $expiration_process_timer_in_seconds,
-      'expiration_process_batch_size'                 => $expiration_process_batch_size,
-      'data_space_remaining_threshold'                => $data_space_remaining_threshold,
-      'http_default_connection_limit'                 => $http_default_connection_limit,
-      'disable_ravendb_performance_counters'          => $disable_ravendb_performance_counters,
-      'heartbeat_grace_period'                        => $heartbeat_grace_period,
-      'allow_message_editing'                         => $allow_message_editing,
-      'notifications_filter'                          => $notifications_filter,
-    })),
-    require => Exec["create-service-control-instance-${instance_name}"],
-  }
-
-  if $service_manage {
-
-    if $service_restart_on_config_change {
-      File["${install_path}\\ServiceControl.exe.config"] ~> Exec["restart-slow-service-${instance_name}"]
+    file { "${install_path}\\ServiceControl.exe.config":
+      ensure  => 'file',
+      content => unix2dos(epp("${module_name}/ServiceControl.exe.config.epp", {
+            'instance_log_level'                            => $instance_log_level,
+            'db_path'                                       => $db_path,
+            'db_index_storage_path'                         => $db_index_storage_path,
+            'db_logs_path'                                  => $db_logs_path,
+            'log_path'                                      => $log_path,
+            'host_name'                                     => $host_name,
+            'port'                                          => $port,
+            'database_maintenance_port'                     => $database_maintenance_port,
+            'maximum_concurrency_level'                     => $maximum_concurrency_level,
+            'retry_history_depth'                           => $retry_history_depth,
+            'remote_instances'                              => $remote_instances,
+            'expose_ravendb'                                => $expose_ravendb,
+            'ravendb_log_level'                             => $ravendb_log_level,
+            'error_queue'                                   => $error_queue,
+            'error_log_queue'                               => $error_log_queue,
+            '_transport_type'                               => $_transport_type,
+            'connection_string'                             => $connection_string,
+            'forward_error_messages'                        => $forward_error_messages,
+            'error_retention_period'                        => $error_retention_period,
+            'enable_full_text_search_on_bodies'             => $enable_full_text_search_on_bodies,
+            'time_to_restart_error_ingestion_after_failure' => $time_to_restart_error_ingestion_after_failure,
+            'disable_external_integrations_publishing'      => $disable_external_integrations_publishing,
+            'event_retention_period'                        => $event_retention_period,
+            'expiration_process_timer_in_seconds'           => $expiration_process_timer_in_seconds,
+            'expiration_process_batch_size'                 => $expiration_process_batch_size,
+            'data_space_remaining_threshold'                => $data_space_remaining_threshold,
+            'http_default_connection_limit'                 => $http_default_connection_limit,
+            'disable_ravendb_performance_counters'          => $disable_ravendb_performance_counters,
+            'heartbeat_grace_period'                        => $heartbeat_grace_period,
+            'allow_message_editing'                         => $allow_message_editing,
+            'notifications_filter'                          => $notifications_filter,
+      })),
+      require => Exec["create-service-control-instance-${instance_name}"],
     }
 
-    exec { "restart-slow-service-${instance_name}":
-      # lint:ignore:140chars
-      command     => "try { Restart-Service -Name ${instance_name} -ErrorAction Stop; exit 0 } catch { Write-Output \$_.Exception.Message; exit 1 }",
-      # lint:endignore
-      logoutput   => true,
-      refreshonly => true,
-      provider    => 'powershell',
-      subscribe   => File["${install_path}\\ServiceControl.exe.config"],
-    }
+    if $service_manage {
+      if $service_restart_on_config_change {
+        File["${install_path}\\ServiceControl.exe.config"] ~> Exec["restart-slow-service-${instance_name}"]
+      }
 
-    service { $instance_name:
-      ensure => running,
-      enable => true,
-    }
-  }
+      exec { "restart-slow-service-${instance_name}":
+        # lint:ignore:140chars
+        command     => "try { Restart-Service -Name ${instance_name} -ErrorAction Stop; exit 0 } catch { Write-Output \$_.Exception.Message; exit 1 }",
+        # lint:endignore
+        logoutput   => true,
+        refreshonly => true,
+        provider    => 'powershell',
+        subscribe   => File["${install_path}\\ServiceControl.exe.config"],
+      }
 
+      service { $instance_name:
+        ensure => running,
+        enable => true,
+      }
+    }
   } else {
     exec { "delete ServiceControl Instance ${instance_name}":
       command   => epp("${module_name}/delete-instance.ps1.epp", {
-        'instance_name'         => $instance_name,
-        'remove_db_on_delete'   => $remove_db_on_delete,
-        'remove_logs_on_delete' => $remove_logs_on_delete,
+          'instance_name'         => $instance_name,
+          'remove_db_on_delete'   => $remove_db_on_delete,
+          'remove_logs_on_delete' => $remove_logs_on_delete,
       }),
       unless    => epp("${module_name}/query-instance.ps1.epp", {
-        'instance_name' => $instance_name,
+          'instance_name' => $instance_name,
       }),
       logoutput => true,
       provider  => 'powershell',

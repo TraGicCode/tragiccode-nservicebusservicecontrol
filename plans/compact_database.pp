@@ -6,7 +6,6 @@ plan nservicebusservicecontrol::compact_database (
   TargetSpec $targets,
   String[1] $instance_name,
 ) {
-
   get_targets($targets).each |$target| {
     # Cannot trust user input so lets validate their data instead
     # Maybe perform more validations?

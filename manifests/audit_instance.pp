@@ -152,10 +152,8 @@ define nservicebusservicecontrol::audit_instance (
   Boolean $remove_logs_on_delete                           = false,
   Boolean $automatic_instance_upgrades                     = true,
   Optional[String] $instance_create_and_upgrade_acknowledgements = undef,
-  ) {
-
+) {
   if $ensure == 'present' {
-
     if $transport == 'MSMQ' or $transport == 'AmazonSQS' {
       if $connection_string != undef {
         fail('Cannot provide connection_string when using the MSMQ transport')
@@ -167,31 +165,31 @@ define nservicebusservicecontrol::audit_instance (
       # 1.) Does a service exist with the name of the instance
       # 2.) Does the following folder exist $install_path
       command   => epp("${module_name}/create-audit-instance.ps1.epp", {
-        'service_control_queue_address'                => $service_control_queue_address,
-        'instance_name'                                => $instance_name,
-        'install_path'                                 => $install_path,
-        'db_path'                                      => $db_path,
-        'log_path'                                     => $log_path,
-        'host_name'                                    => $host_name,
-        'port'                                         => $port,
-        'database_maintenance_port'                    => $database_maintenance_port,
-        'audit_queue'                                  => $audit_queue,
-        'audit_log_queue'                              => $audit_log_queue,
-        'transport'                                    => $transport,
-        'display_name'                                 => $display_name,
-        'connection_string'                            => $connection_string,
-        'description'                                  => $description,
-        'forward_audit_messages'                       => $forward_audit_messages,
-        'service_account'                              => $service_account,
-        'service_account_password'                     => $service_account_password,
-        'audit_retention_period'                       => $audit_retention_period,
-        'skip_queue_creation'                          => $skip_queue_creation,
-        'enable_full_text_search_on_bodies'            => $enable_full_text_search_on_bodies,
-        'instance_create_and_upgrade_acknowledgements' => $instance_create_and_upgrade_acknowledgements,
+          'service_control_queue_address'                => $service_control_queue_address,
+          'instance_name'                                => $instance_name,
+          'install_path'                                 => $install_path,
+          'db_path'                                      => $db_path,
+          'log_path'                                     => $log_path,
+          'host_name'                                    => $host_name,
+          'port'                                         => $port,
+          'database_maintenance_port'                    => $database_maintenance_port,
+          'audit_queue'                                  => $audit_queue,
+          'audit_log_queue'                              => $audit_log_queue,
+          'transport'                                    => $transport,
+          'display_name'                                 => $display_name,
+          'connection_string'                            => $connection_string,
+          'description'                                  => $description,
+          'forward_audit_messages'                       => $forward_audit_messages,
+          'service_account'                              => $service_account,
+          'service_account_password'                     => $service_account_password,
+          'audit_retention_period'                       => $audit_retention_period,
+          'skip_queue_creation'                          => $skip_queue_creation,
+          'enable_full_text_search_on_bodies'            => $enable_full_text_search_on_bodies,
+          'instance_create_and_upgrade_acknowledgements' => $instance_create_and_upgrade_acknowledgements,
       }),
       onlyif    => epp("${module_name}/query-audit-instance.ps1.epp", {
-        'instance_name' => $instance_name,
-        }),
+          'instance_name' => $instance_name,
+      }),
       logoutput => true,
       provider  => 'powershell',
     }
@@ -199,12 +197,12 @@ define nservicebusservicecontrol::audit_instance (
     if $automatic_instance_upgrades {
       exec { "automatic-instance-upgrade-${instance_name}":
         command   => epp("${module_name}/upgrade-audit-instance.ps1.epp", {
-          'instance_name'                                => $instance_name,
-          'instance_create_and_upgrade_acknowledgements' => $instance_create_and_upgrade_acknowledgements,
+            'instance_name'                                => $instance_name,
+            'instance_create_and_upgrade_acknowledgements' => $instance_create_and_upgrade_acknowledgements,
         }),
         onlyif    => epp("${module_name}/query-audit-instance-upgrade.ps1.epp", {
-          'instance_name' => $instance_name,
-          'install_path'  => $install_path,
+            'instance_name' => $instance_name,
+            'install_path'  => $install_path,
         }),
         logoutput => true,
         provider  => 'powershell',
@@ -226,70 +224,68 @@ define nservicebusservicecontrol::audit_instance (
       # lint:endignore
     }
 
-  file { "${install_path}\\ServiceControl.Audit.exe.config":
-    ensure  => 'file',
-    content => unix2dos(epp("${module_name}/ServiceControl.Audit.exe.config.epp", {
-      'service_control_queue_address'                 => $service_control_queue_address,
-      'instance_log_level'                            => $instance_log_level,
-      'db_path'                                       => $db_path,
-      'db_index_storage_path'                         => $db_index_storage_path,
-      'db_logs_path'                                  => $db_logs_path,
-      'log_path'                                      => $log_path,
-      'host_name'                                     => $host_name,
-      'port'                                          => $port,
-      'database_maintenance_port'                     => $database_maintenance_port,
-      'maximum_concurrency_level'                     => $maximum_concurrency_level,
-      'audit_queue'                                   => $audit_queue,
-      'audit_log_queue'                               => $audit_log_queue,
-      'expose_ravendb'                                => $expose_ravendb,
-      'ravendb_log_level'                             => $ravendb_log_level,
-      '_transport_type'                               => $_transport_type,
-      'connection_string'                             => $connection_string,
-      'forward_audit_messages'                        => $forward_audit_messages,
-      'audit_retention_period'                        => $audit_retention_period,
-      'enable_full_text_search_on_bodies'             => $enable_full_text_search_on_bodies,
-      'time_to_restart_audit_ingestion_after_failure' => $time_to_restart_audit_ingestion_after_failure,
-      'expiration_process_timer_in_seconds'           => $expiration_process_timer_in_seconds,
-      'expiration_process_batch_size'                 => $expiration_process_batch_size,
-      'data_space_remaining_threshold'                => $data_space_remaining_threshold,
-      'max_body_size_to_store'                        => $max_body_size_to_store,
-      'http_default_connection_limit'                 => $http_default_connection_limit,
-      'disable_ravendb_performance_counters'          => $disable_ravendb_performance_counters,
-    })),
-    require => Exec["create-service-control-instance-${instance_name}"],
-  }
-
-  if $service_manage {
-
-    if $service_restart_on_config_change {
-      File["${install_path}\\ServiceControl.Audit.exe.config"] ~> Exec["restart-slow-service-${instance_name}"]
+    file { "${install_path}\\ServiceControl.Audit.exe.config":
+      ensure  => 'file',
+      content => unix2dos(epp("${module_name}/ServiceControl.Audit.exe.config.epp", {
+            'service_control_queue_address'                 => $service_control_queue_address,
+            'instance_log_level'                            => $instance_log_level,
+            'db_path'                                       => $db_path,
+            'db_index_storage_path'                         => $db_index_storage_path,
+            'db_logs_path'                                  => $db_logs_path,
+            'log_path'                                      => $log_path,
+            'host_name'                                     => $host_name,
+            'port'                                          => $port,
+            'database_maintenance_port'                     => $database_maintenance_port,
+            'maximum_concurrency_level'                     => $maximum_concurrency_level,
+            'audit_queue'                                   => $audit_queue,
+            'audit_log_queue'                               => $audit_log_queue,
+            'expose_ravendb'                                => $expose_ravendb,
+            'ravendb_log_level'                             => $ravendb_log_level,
+            '_transport_type'                               => $_transport_type,
+            'connection_string'                             => $connection_string,
+            'forward_audit_messages'                        => $forward_audit_messages,
+            'audit_retention_period'                        => $audit_retention_period,
+            'enable_full_text_search_on_bodies'             => $enable_full_text_search_on_bodies,
+            'time_to_restart_audit_ingestion_after_failure' => $time_to_restart_audit_ingestion_after_failure,
+            'expiration_process_timer_in_seconds'           => $expiration_process_timer_in_seconds,
+            'expiration_process_batch_size'                 => $expiration_process_batch_size,
+            'data_space_remaining_threshold'                => $data_space_remaining_threshold,
+            'max_body_size_to_store'                        => $max_body_size_to_store,
+            'http_default_connection_limit'                 => $http_default_connection_limit,
+            'disable_ravendb_performance_counters'          => $disable_ravendb_performance_counters,
+      })),
+      require => Exec["create-service-control-instance-${instance_name}"],
     }
 
-    exec { "restart-slow-service-${instance_name}":
-      # lint:ignore:140chars
-      command     => "try { Start-Sleep -Seconds 10; Restart-Service -Name ${instance_name} -ErrorAction Stop; exit 0 } catch { Write-Output \$_.Exception.Message; exit 1 }",
-      # lint:endignore
-      logoutput   => true,
-      refreshonly => true,
-      provider    => 'powershell',
-      subscribe   => File["${install_path}\\ServiceControl.Audit.exe.config"],
-    }
+    if $service_manage {
+      if $service_restart_on_config_change {
+        File["${install_path}\\ServiceControl.Audit.exe.config"] ~> Exec["restart-slow-service-${instance_name}"]
+      }
 
-    service { $instance_name:
-      ensure => running,
-      enable => true,
-    }
-  }
+      exec { "restart-slow-service-${instance_name}":
+        # lint:ignore:140chars
+        command     => "try { Start-Sleep -Seconds 10; Restart-Service -Name ${instance_name} -ErrorAction Stop; exit 0 } catch { Write-Output \$_.Exception.Message; exit 1 }",
+        # lint:endignore
+        logoutput   => true,
+        refreshonly => true,
+        provider    => 'powershell',
+        subscribe   => File["${install_path}\\ServiceControl.Audit.exe.config"],
+      }
 
+      service { $instance_name:
+        ensure => running,
+        enable => true,
+      }
+    }
   } else {
     exec { "delete ServiceControl Instance ${instance_name}":
       command   => epp("${module_name}/delete-audit-instance.ps1.epp", {
-        'instance_name'         => $instance_name,
-        'remove_db_on_delete'   => $remove_db_on_delete,
-        'remove_logs_on_delete' => $remove_logs_on_delete,
+          'instance_name'         => $instance_name,
+          'remove_db_on_delete'   => $remove_db_on_delete,
+          'remove_logs_on_delete' => $remove_logs_on_delete,
       }),
       unless    => epp("${module_name}/query-audit-instance.ps1.epp", {
-        'instance_name' => $instance_name,
+          'instance_name' => $instance_name,
       }),
       logoutput => true,
       provider  => 'powershell',

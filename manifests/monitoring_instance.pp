@@ -89,10 +89,8 @@ define nservicebusservicecontrol::monitoring_instance (
   Boolean $remove_logs_on_delete                           = false,
   Boolean $automatic_instance_upgrades                     = true,
   Optional[String] $instance_create_and_upgrade_acknowledgements = undef,
-  ) {
-
+) {
   if $ensure == 'present' {
-
     if $transport == 'MSMQ' or $transport == 'AmazonSQS' {
       if $connection_string != undef {
         fail('Cannot provide connection_string when using the MSMQ transport')
@@ -104,24 +102,24 @@ define nservicebusservicecontrol::monitoring_instance (
       # 1.) Does a service exist with the name of the instance
       # 2.) Does the following folder exist $install_path
       command   => epp("${module_name}/create-monitoring-instance.ps1.epp", {
-        'instance_name'                                => $instance_name,
-        'install_path'                                 => $install_path,
-        'log_path'                                     => $log_path,
-        'host_name'                                    => $host_name,
-        'port'                                         => $port,
-        'error_queue'                                  => $error_queue,
-        'transport'                                    => $transport,
-        'display_name'                                 => $display_name,
-        'connection_string'                            => $connection_string,
-        'description'                                  => $description,
-        'service_account'                              => $service_account,
-        'service_account_password'                     => $service_account_password,
-        'skip_queue_creation'                          => $skip_queue_creation,
-        'instance_create_and_upgrade_acknowledgements' => $instance_create_and_upgrade_acknowledgements,
+          'instance_name'                                => $instance_name,
+          'install_path'                                 => $install_path,
+          'log_path'                                     => $log_path,
+          'host_name'                                    => $host_name,
+          'port'                                         => $port,
+          'error_queue'                                  => $error_queue,
+          'transport'                                    => $transport,
+          'display_name'                                 => $display_name,
+          'connection_string'                            => $connection_string,
+          'description'                                  => $description,
+          'service_account'                              => $service_account,
+          'service_account_password'                     => $service_account_password,
+          'skip_queue_creation'                          => $skip_queue_creation,
+          'instance_create_and_upgrade_acknowledgements' => $instance_create_and_upgrade_acknowledgements,
       }),
       onlyif    => epp("${module_name}/query-monitoring-instance.ps1.epp", {
-        'instance_name' => $instance_name,
-        }),
+          'instance_name' => $instance_name,
+      }),
       logoutput => true,
       provider  => 'powershell',
     }
@@ -129,12 +127,12 @@ define nservicebusservicecontrol::monitoring_instance (
     if $automatic_instance_upgrades {
       exec { "automatic-monitoring-instance-upgrade-${instance_name}":
         command   => epp("${module_name}/upgrade-monitoring-instance.ps1.epp", {
-          'instance_name'                                => $instance_name,
-          'instance_create_and_upgrade_acknowledgements' => $instance_create_and_upgrade_acknowledgements,
+            'instance_name'                                => $instance_name,
+            'instance_create_and_upgrade_acknowledgements' => $instance_create_and_upgrade_acknowledgements,
         }),
         onlyif    => epp("${module_name}/query-monitoring-instance-upgrade.ps1.epp", {
-          'instance_name' => $instance_name,
-          'install_path'  => $install_path,
+            'instance_name' => $instance_name,
+            'install_path'  => $install_path,
         }),
         logoutput => true,
         provider  => 'powershell',
@@ -156,53 +154,51 @@ define nservicebusservicecontrol::monitoring_instance (
       # lint:endignore
     }
 
-  file { "${install_path}\\ServiceControl.Monitoring.exe.config":
-    ensure  => 'file',
-    content => unix2dos(epp("${module_name}/ServiceControl.Monitoring.exe.config.epp", {
-      'endpoint_name'                => $instance_name,
-      'host_name'                    => $host_name,
-      'port'                         => $port,
-      'maximum_concurrency_level'    => $maximum_concurrency_level,
-      'endpoint_uptime_grace_period' => $endpoint_uptime_grace_period,
-      'log_path'                     => $log_path,
-      'instance_log_level'           => $instance_log_level,
-      'error_queue'                  => $error_queue,
-      '_transport_type'              => $_transport_type,
-      'connection_string'            => $connection_string,
-    })),
-    require => Exec["create-service-control-monitoring-instance-${instance_name}"],
-  }
-
-  if $service_manage {
-
-    if $service_restart_on_config_change {
-      File["${install_path}\\ServiceControl.Monitoring.exe.config"] ~> Exec["restart-slow-service-control-monitoring-service-${instance_name}"]
+    file { "${install_path}\\ServiceControl.Monitoring.exe.config":
+      ensure  => 'file',
+      content => unix2dos(epp("${module_name}/ServiceControl.Monitoring.exe.config.epp", {
+            'endpoint_name'                => $instance_name,
+            'host_name'                    => $host_name,
+            'port'                         => $port,
+            'maximum_concurrency_level'    => $maximum_concurrency_level,
+            'endpoint_uptime_grace_period' => $endpoint_uptime_grace_period,
+            'log_path'                     => $log_path,
+            'instance_log_level'           => $instance_log_level,
+            'error_queue'                  => $error_queue,
+            '_transport_type'              => $_transport_type,
+            'connection_string'            => $connection_string,
+      })),
+      require => Exec["create-service-control-monitoring-instance-${instance_name}"],
     }
 
-    exec { "restart-slow-service-control-monitoring-service-${instance_name}":
-      # lint:ignore:140chars
-      command     => "try { Restart-Service -Name ${instance_name} -ErrorAction Stop; exit 0 } catch { Write-Output \$_.Exception.Message; exit 1 }",
-      # lint:endignore
-      logoutput   => true,
-      refreshonly => true,
-      provider    => 'powershell',
-      subscribe   => File["${install_path}\\ServiceControl.Monitoring.exe.config"],
-    }
+    if $service_manage {
+      if $service_restart_on_config_change {
+        File["${install_path}\\ServiceControl.Monitoring.exe.config"] ~> Exec["restart-slow-service-control-monitoring-service-${instance_name}"]
+      }
 
-    service { $instance_name:
-      ensure => running,
-      enable => true,
-    }
-  }
+      exec { "restart-slow-service-control-monitoring-service-${instance_name}":
+        # lint:ignore:140chars
+        command     => "try { Restart-Service -Name ${instance_name} -ErrorAction Stop; exit 0 } catch { Write-Output \$_.Exception.Message; exit 1 }",
+        # lint:endignore
+        logoutput   => true,
+        refreshonly => true,
+        provider    => 'powershell',
+        subscribe   => File["${install_path}\\ServiceControl.Monitoring.exe.config"],
+      }
 
+      service { $instance_name:
+        ensure => running,
+        enable => true,
+      }
+    }
   } else {
     exec { "delete-service-control-monitoring-instance-${instance_name}":
       command   => epp("${module_name}/delete-monitoring-instance.ps1.epp", {
-        'instance_name'         => $instance_name,
-        'remove_logs_on_delete' => $remove_logs_on_delete,
+          'instance_name'         => $instance_name,
+          'remove_logs_on_delete' => $remove_logs_on_delete,
       }),
       unless    => epp("${module_name}/query-monitoring-instance.ps1.epp", {
-        'instance_name' => $instance_name,
+          'instance_name' => $instance_name,
       }),
       logoutput => true,
       provider  => 'powershell',
