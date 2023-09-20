@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v3.3.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v3.3.0) (2023-09-20)
+
+[Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v3.2.0...v3.3.0)
+
+### Added
+
+- \(GH-136\) Use powershell gallery module [\#137](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/137) ([TraGicCode](https://github.com/TraGicCode))
+
 ## [v3.2.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v3.2.0) (2023-09-20)
 
 [Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v3.1.0...v3.2.0)
