@@ -25,7 +25,6 @@
       Integer $expiration_process_batch_size,
       Integer $data_space_remaining_threshold,
       Integer $http_default_connection_limit,
-      Boolean $disable_ravendb_performance_counters,
       String $heartbeat_grace_period,
       Boolean $allow_message_editing,
       String $notifications_filter, | -%>
@@ -47,7 +46,6 @@
         <add key="ServiceControl/ExpirationProcessTimerInSeconds" value="<%= $expiration_process_timer_in_seconds %>" />
         <add key="ServiceControl/ExpirationProcessBatchSize" value="<%= $expiration_process_batch_size %>" />
         <add key="ServiceControl/DataSpaceRemainingThreshold" value="<%= $data_space_remaining_threshold %>" />
-        <add key="ServiceControl/DisableRavenDBPerformanceCounters" value="<%= $disable_ravendb_performance_counters %>" />
         <add key="ServiceControl/HttpDefaultConnectionLimit" value="<%= $http_default_connection_limit %>" />
         <add key="ServiceControl/HeartbeatGracePeriod" value="<%= $heartbeat_grace_period %>" />
         <add key="ServiceControl/AllowMessageEditing" value="<%= $allow_message_editing %>" />

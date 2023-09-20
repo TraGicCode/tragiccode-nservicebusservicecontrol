@@ -90,9 +90,6 @@
 # @param http_default_connection_limit
 #   Specifies the maximum number of concurrent connections allowed by ServiceControl.
 #
-# @param disable_ravendb_performance_counters
-#   Specify if RavenDB Performance counters should be disabled.
-#
 # @param service_manage
 #   Specifies whether or not to manage the desired state of the windows service for this instance.
 #
@@ -145,7 +142,6 @@ define nservicebusservicecontrol::audit_instance (
   Integer $data_space_remaining_threshold                  = 20,
   Integer $max_body_size_to_store                          = 102400,
   Integer $http_default_connection_limit                   = 100,
-  Boolean $disable_ravendb_performance_counters            = true,
   Boolean $service_manage                                  = true,
   Boolean $skip_queue_creation                             = false,
   Boolean $remove_db_on_delete                             = false,
@@ -252,7 +248,6 @@ define nservicebusservicecontrol::audit_instance (
             'data_space_remaining_threshold'                => $data_space_remaining_threshold,
             'max_body_size_to_store'                        => $max_body_size_to_store,
             'http_default_connection_limit'                 => $http_default_connection_limit,
-            'disable_ravendb_performance_counters'          => $disable_ravendb_performance_counters,
       })),
       require => Exec["create-service-control-instance-${instance_name}"],
     }
