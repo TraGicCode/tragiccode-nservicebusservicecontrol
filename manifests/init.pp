@@ -6,12 +6,16 @@
 # @param package_source
 #   The package source for the package.
 #
+# @param powershell_package_provider
+#   Whether to use Windows PowerShell or PowerShell Core to install the Particular.ServiceControl.Management PowerShell module.
+#
 # @param license_xml
 #   A valid NServiceBus XML License. 
 #
 class nservicebusservicecontrol (
   String $package_ensure           = 'present',
   Optional[String] $package_source = undef,
+  Optional[Enum['windowspowershell', 'powershellcore']] $powershell_package_provider = 'windowspowershell',
   Optional[String] $license_xml    = '',
 ) {
   contain nservicebusservicecontrol::install

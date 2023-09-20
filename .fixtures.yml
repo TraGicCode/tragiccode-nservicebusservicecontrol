@@ -3,8 +3,9 @@
 ---
 fixtures:
   forge_modules:
-    stdlib:       'puppetlabs/stdlib'
-    chocolatey:   'puppetlabs/chocolatey'
-    powershell:   'puppetlabs/powershell'
-    pwshlib:      'puppetlabs/pwshlib'
-    registry:     'puppetlabs/registry'
+    stdlib:           'puppetlabs/stdlib'
+    chocolatey:       'puppetlabs/chocolatey'
+    powershell:       'puppetlabs/powershell'
+    powershellmodule: 'hbuckle/powershellmodule'
+    pwshlib:          'puppetlabs/pwshlib'
+    registry:         'puppetlabs/registry'
