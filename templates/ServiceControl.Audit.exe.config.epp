@@ -22,8 +22,7 @@
       Integer $expiration_process_batch_size,
       Integer $data_space_remaining_threshold,
       Integer $max_body_size_to_store,
-      Integer $http_default_connection_limit,
-      Boolean $disable_ravendb_performance_counters, | -%>
+      Integer $http_default_connection_limit, | -%>
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
     <appSettings>
@@ -41,8 +40,6 @@
         <add key="ServiceControl.Audit/DataSpaceRemainingThreshold" value="<%= $data_space_remaining_threshold %>" />
         <add key="ServiceControl.Audit/MaxBodySizeToStore" value="<%= $max_body_size_to_store %>" />
         <add key="ServiceControl.Audit/HttpDefaultConnectionLimit" value="<%= $http_default_connection_limit %>" />
-        <add key="ServiceControl.Audit/DisableRavenDBPerformanceCounters"
-            value="<%= String($disable_ravendb_performance_counters).capitalize() %>" />
         <add key="ServiceControl.Audit/RavenDBLogLevel" value="<%= $ravendb_log_level %>" />
         <add key="Raven/Esent/MaxVerPages" value="2048" />
         <add key="Raven/Esent/LogsPath" value="<%= $db_logs_path %>" />

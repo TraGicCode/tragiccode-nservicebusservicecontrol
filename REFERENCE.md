@@ -114,7 +114,6 @@ The following parameters are available in the `nservicebusservicecontrol::audit_
 * [`data_space_remaining_threshold`](#-nservicebusservicecontrol--audit_instance--data_space_remaining_threshold)
 * [`max_body_size_to_store`](#-nservicebusservicecontrol--audit_instance--max_body_size_to_store)
 * [`http_default_connection_limit`](#-nservicebusservicecontrol--audit_instance--http_default_connection_limit)
-* [`disable_ravendb_performance_counters`](#-nservicebusservicecontrol--audit_instance--disable_ravendb_performance_counters)
 * [`service_manage`](#-nservicebusservicecontrol--audit_instance--service_manage)
 * [`skip_queue_creation`](#-nservicebusservicecontrol--audit_instance--skip_queue_creation)
 * [`remove_db_on_delete`](#-nservicebusservicecontrol--audit_instance--remove_db_on_delete)
@@ -361,14 +360,6 @@ Specifies the maximum number of concurrent connections allowed by ServiceControl
 
 Default value: `100`
 
-##### <a name="-nservicebusservicecontrol--audit_instance--disable_ravendb_performance_counters"></a>`disable_ravendb_performance_counters`
-
-Data type: `Boolean`
-
-Specify if RavenDB Performance counters should be disabled.
-
-Default value: `true`
-
 ##### <a name="-nservicebusservicecontrol--audit_instance--service_manage"></a>`service_manage`
 
 Data type: `Boolean`
@@ -484,7 +475,6 @@ The following parameters are available in the `nservicebusservicecontrol::instan
 * [`expiration_process_batch_size`](#-nservicebusservicecontrol--instance--expiration_process_batch_size)
 * [`data_space_remaining_threshold`](#-nservicebusservicecontrol--instance--data_space_remaining_threshold)
 * [`http_default_connection_limit`](#-nservicebusservicecontrol--instance--http_default_connection_limit)
-* [`disable_ravendb_performance_counters`](#-nservicebusservicecontrol--instance--disable_ravendb_performance_counters)
 * [`heartbeat_grace_period`](#-nservicebusservicecontrol--instance--heartbeat_grace_period)
 * [`allow_message_editing`](#-nservicebusservicecontrol--instance--allow_message_editing)
 * [`notifications_filter`](#-nservicebusservicecontrol--instance--notifications_filter)
@@ -772,14 +762,6 @@ Data type: `Integer`
 Specifies the maximum number of concurrent connections allowed by ServiceControl.
 
 Default value: `100`
-
-##### <a name="-nservicebusservicecontrol--instance--disable_ravendb_performance_counters"></a>`disable_ravendb_performance_counters`
-
-Data type: `Boolean`
-
-Specify if RavenDB Performance counters should be disabled.
-
-Default value: `true`
 
 ##### <a name="-nservicebusservicecontrol--instance--heartbeat_grace_period"></a>`heartbeat_grace_period`
 
