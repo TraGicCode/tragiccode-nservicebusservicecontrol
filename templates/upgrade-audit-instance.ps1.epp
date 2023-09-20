@@ -1,6 +1,6 @@
 <%- | String $instance_name,
       Optional[String] $instance_create_and_upgrade_acknowledgements,  | -%>
-Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\ServiceControlMgmt"
+Import-Module Particular.ServiceControl.Management
 
 Invoke-ServiceControlAuditInstanceUpgrade -Name '<%= $instance_name %>' `
                                           <% if $instance_create_and_upgrade_acknowledgements { %> -Acknowledgements "<%= $instance_create_and_upgrade_acknowledgements %>" <% } %> `

@@ -19,7 +19,7 @@
       Boolean $skip_queue_creation,
       Boolean $enable_full_text_search_on_bodies,
       Optional[String] $instance_create_and_upgrade_acknowledgements,  | -%>
-Import-Module "C:\Program Files (x86)\Particular Software\ServiceControl Management\ServiceControlMgmt"
+Import-Module Particular.ServiceControl.Management
 
 New-ServiceControlAuditInstance -Name "<%= $instance_name %>" `
                            -InstallPath "<%= $install_path %>" `
