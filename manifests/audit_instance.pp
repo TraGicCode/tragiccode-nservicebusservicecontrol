@@ -21,9 +21,6 @@
 # @param db_index_storage_path
 #   Specify the path for the indexes on disk.
 #
-# @param db_logs_path
-#   Specify the path for the Esent logs on disk.
-#
 # @param instance_log_level
 #   Specify the level of logging that should be used in ServiceControl logs.
 #
@@ -38,9 +35,6 @@
 #
 # @param maximum_concurrency_level
 #   This setting controls how many messages can be processed concurrently (in parallel) by ServiceControl.
-#
-# @param expose_ravendb
-#   Specify if the embedded ravendb database should be accessible outside of maintenance mode.
 #
 # @param ravendb_log_level
 #   Specify the level of logging that should be used in ravendb logs.
@@ -90,6 +84,9 @@
 # @param http_default_connection_limit
 #   Specifies the maximum number of concurrent connections allowed by ServiceControl.
 #
+# @param minimum_storage_left_required_for_ingestion
+#   The percentage threshold for the Critical message database storage space check.
+#
 # @param service_manage
 #   Specifies whether or not to manage the desired state of the windows service for this instance.
 #
@@ -116,7 +113,6 @@ define nservicebusservicecontrol::audit_instance (
   Stdlib::Absolutepath $log_path                           = "C:\\ProgramData\\Particular\\ServiceControl\\${instance_name}\\Logs",
   Stdlib::Absolutepath $db_path                            = "C:\\ProgramData\\Particular\\ServiceControl\\${instance_name}\\DB",
   Stdlib::Absolutepath $db_index_storage_path              = "${db_path}\\Indexes",
-  Stdlib::Absolutepath $db_logs_path                       = "${db_path}\\logs",
   Nservicebusservicecontrol::Log_level $instance_log_level = 'Warn',
   Stdlib::Fqdn $host_name                                  = 'localhost',
   Stdlib::Port $port                                       = 44444,
@@ -142,6 +138,7 @@ define nservicebusservicecontrol::audit_instance (
   Integer $data_space_remaining_threshold                  = 20,
   Integer $max_body_size_to_store                          = 102400,
   Integer $http_default_connection_limit                   = 100,
+  Integer $minimum_storage_left_required_for_ingestion     = 5,
   Boolean $service_manage                                  = true,
   Boolean $skip_queue_creation                             = false,
   Boolean $remove_db_on_delete                             = false,
@@ -227,7 +224,6 @@ define nservicebusservicecontrol::audit_instance (
             'instance_log_level'                            => $instance_log_level,
             'db_path'                                       => $db_path,
             'db_index_storage_path'                         => $db_index_storage_path,
-            'db_logs_path'                                  => $db_logs_path,
             'log_path'                                      => $log_path,
             'host_name'                                     => $host_name,
             'port'                                          => $port,
@@ -235,7 +231,6 @@ define nservicebusservicecontrol::audit_instance (
             'maximum_concurrency_level'                     => $maximum_concurrency_level,
             'audit_queue'                                   => $audit_queue,
             'audit_log_queue'                               => $audit_log_queue,
-            'expose_ravendb'                                => $expose_ravendb,
             'ravendb_log_level'                             => $ravendb_log_level,
             '_transport_type'                               => $_transport_type,
             'connection_string'                             => $connection_string,
@@ -248,6 +243,7 @@ define nservicebusservicecontrol::audit_instance (
             'data_space_remaining_threshold'                => $data_space_remaining_threshold,
             'max_body_size_to_store'                        => $max_body_size_to_store,
             'http_default_connection_limit'                 => $http_default_connection_limit,
+            'minimum_storage_left_required_for_ingestion'   => $minimum_storage_left_required_for_ingestion,
       })),
       require => Exec["create-service-control-instance-${instance_name}"],
     }

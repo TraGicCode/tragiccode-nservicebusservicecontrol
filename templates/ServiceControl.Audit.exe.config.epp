@@ -2,13 +2,11 @@
       Enum['Trace', 'Debug', 'Info', 'Warn', 'Error', 'Fatal', 'Off'] $instance_log_level,
       String $db_path,
       String $db_index_storage_path,
-      String $db_logs_path,
       String $log_path,
       String $host_name,
       Integer[1, 49151] $port,
       Integer[1, 49151] $database_maintenance_port,
       Integer $maximum_concurrency_level,
-      Boolean $expose_ravendb,
       Enum['Trace', 'Debug', 'Info', 'Warn', 'Error', 'Fatal', 'Off'] $ravendb_log_level,
       String $audit_queue,
       String $audit_log_queue,
@@ -22,13 +20,13 @@
       Integer $expiration_process_batch_size,
       Integer $data_space_remaining_threshold,
       Integer $max_body_size_to_store,
-      Integer $http_default_connection_limit, | -%>
+      Integer $http_default_connection_limit, 
+      Integer $minimum_storage_left_required_for_ingestion, | -%>
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
     <appSettings>
         <add key="ServiceControl.Audit/LogLevel" value="<%= $instance_log_level %>" />
         <add key="ServiceControl.Audit/MaximumConcurrencyLevel" value="<%= $maximum_concurrency_level %>" />
-        <add key="ServiceControl.Audit/ExposeRavenDB" value="<%= $expose_ravendb %>" />
 <%- if $forward_audit_messages { -%>
         <add key="ServiceBus/AuditLogQueue" value="<%= $audit_log_queue %>" />
 <%- } -%>
@@ -41,8 +39,6 @@
         <add key="ServiceControl.Audit/MaxBodySizeToStore" value="<%= $max_body_size_to_store %>" />
         <add key="ServiceControl.Audit/HttpDefaultConnectionLimit" value="<%= $http_default_connection_limit %>" />
         <add key="ServiceControl.Audit/RavenDBLogLevel" value="<%= $ravendb_log_level %>" />
-        <add key="Raven/Esent/MaxVerPages" value="2048" />
-        <add key="Raven/Esent/LogsPath" value="<%= $db_logs_path %>" />
         <add key="Raven/IndexStoragePath" value="<%= $db_index_storage_path %>" />
         <add key="ServiceControl.Audit/Port" value="<%= $port %>" />
         <add key="ServiceControl.Audit/HostName" value="<%= $host_name %>" />
@@ -57,6 +53,7 @@
             value="<%= String($enable_full_text_search_on_bodies)  %>" />
         <add key="ServiceControl.Audit/DBPath" value="<%= $db_path %>" />
         <add key="ServiceControl.Audit/DatabaseMaintenancePort" value="<%= $database_maintenance_port %>" />
+        <add key="ServiceControl.Audit/MinimumStorageLeftRequiredForIngestion" value="<%= $minimum_storage_left_required_for_ingestion %>" />
     </appSettings>
 <%- if $connection_string != undef { -%>
     <connectionStrings>
