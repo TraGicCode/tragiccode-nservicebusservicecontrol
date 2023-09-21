@@ -100,13 +100,11 @@ The following parameters are available in the `nservicebusservicecontrol::audit_
 * [`log_path`](#-nservicebusservicecontrol--audit_instance--log_path)
 * [`db_path`](#-nservicebusservicecontrol--audit_instance--db_path)
 * [`db_index_storage_path`](#-nservicebusservicecontrol--audit_instance--db_index_storage_path)
-* [`db_logs_path`](#-nservicebusservicecontrol--audit_instance--db_logs_path)
 * [`instance_log_level`](#-nservicebusservicecontrol--audit_instance--instance_log_level)
 * [`host_name`](#-nservicebusservicecontrol--audit_instance--host_name)
 * [`port`](#-nservicebusservicecontrol--audit_instance--port)
 * [`database_maintenance_port`](#-nservicebusservicecontrol--audit_instance--database_maintenance_port)
 * [`maximum_concurrency_level`](#-nservicebusservicecontrol--audit_instance--maximum_concurrency_level)
-* [`expose_ravendb`](#-nservicebusservicecontrol--audit_instance--expose_ravendb)
 * [`ravendb_log_level`](#-nservicebusservicecontrol--audit_instance--ravendb_log_level)
 * [`transport`](#-nservicebusservicecontrol--audit_instance--transport)
 * [`display_name`](#-nservicebusservicecontrol--audit_instance--display_name)
@@ -123,6 +121,7 @@ The following parameters are available in the `nservicebusservicecontrol::audit_
 * [`data_space_remaining_threshold`](#-nservicebusservicecontrol--audit_instance--data_space_remaining_threshold)
 * [`max_body_size_to_store`](#-nservicebusservicecontrol--audit_instance--max_body_size_to_store)
 * [`http_default_connection_limit`](#-nservicebusservicecontrol--audit_instance--http_default_connection_limit)
+* [`minimum_storage_left_required_for_ingestion`](#-nservicebusservicecontrol--audit_instance--minimum_storage_left_required_for_ingestion)
 * [`service_manage`](#-nservicebusservicecontrol--audit_instance--service_manage)
 * [`skip_queue_creation`](#-nservicebusservicecontrol--audit_instance--skip_queue_creation)
 * [`remove_db_on_delete`](#-nservicebusservicecontrol--audit_instance--remove_db_on_delete)
@@ -131,6 +130,7 @@ The following parameters are available in the `nservicebusservicecontrol::audit_
 * [`instance_create_and_upgrade_acknowledgements`](#-nservicebusservicecontrol--audit_instance--instance_create_and_upgrade_acknowledgements)
 * [`audit_queue`](#-nservicebusservicecontrol--audit_instance--audit_queue)
 * [`audit_log_queue`](#-nservicebusservicecontrol--audit_instance--audit_log_queue)
+* [`expose_ravendb`](#-nservicebusservicecontrol--audit_instance--expose_ravendb)
 * [`forward_audit_messages`](#-nservicebusservicecontrol--audit_instance--forward_audit_messages)
 
 ##### <a name="-nservicebusservicecontrol--audit_instance--ensure"></a>`ensure`
@@ -185,14 +185,6 @@ Specify the path for the indexes on disk.
 
 Default value: `"${db_path}\\Indexes"`
 
-##### <a name="-nservicebusservicecontrol--audit_instance--db_logs_path"></a>`db_logs_path`
-
-Data type: `Stdlib::Absolutepath`
-
-Specify the path for the Esent logs on disk.
-
-Default value: `"${db_path}\\logs"`
-
 ##### <a name="-nservicebusservicecontrol--audit_instance--instance_log_level"></a>`instance_log_level`
 
 Data type: `Nservicebusservicecontrol::Log_level`
@@ -232,14 +224,6 @@ Data type: `Integer`
 This setting controls how many messages can be processed concurrently (in parallel) by ServiceControl.
 
 Default value: `32`
-
-##### <a name="-nservicebusservicecontrol--audit_instance--expose_ravendb"></a>`expose_ravendb`
-
-Data type: `Boolean`
-
-Specify if the embedded ravendb database should be accessible outside of maintenance mode.
-
-Default value: `false`
 
 ##### <a name="-nservicebusservicecontrol--audit_instance--ravendb_log_level"></a>`ravendb_log_level`
 
@@ -369,6 +353,14 @@ Specifies the maximum number of concurrent connections allowed by ServiceControl
 
 Default value: `100`
 
+##### <a name="-nservicebusservicecontrol--audit_instance--minimum_storage_left_required_for_ingestion"></a>`minimum_storage_left_required_for_ingestion`
+
+Data type: `Integer`
+
+The percentage threshold for the Critical message database storage space check.
+
+Default value: `5`
+
 ##### <a name="-nservicebusservicecontrol--audit_instance--service_manage"></a>`service_manage`
 
 Data type: `Boolean`
@@ -432,6 +424,14 @@ Data type: `Optional[String]`
 
 
 Default value: `'audit.log'`
+
+##### <a name="-nservicebusservicecontrol--audit_instance--expose_ravendb"></a>`expose_ravendb`
+
+Data type: `Boolean`
+
+
+
+Default value: `false`
 
 ##### <a name="-nservicebusservicecontrol--audit_instance--forward_audit_messages"></a>`forward_audit_messages`
 
