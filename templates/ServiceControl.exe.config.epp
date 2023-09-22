@@ -27,7 +27,8 @@
       Integer $http_default_connection_limit,
       String $heartbeat_grace_period,
       Boolean $allow_message_editing,
-      String $notifications_filter, | -%>
+      String $notifications_filter,
+      Integer $minimum_storage_left_required_for_ingestion, | -%>
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
     <appSettings>
@@ -63,6 +64,7 @@
         <add key="ServiceBus/ErrorQueue" value="<%= $error_queue %>" />
         <add key="ServiceControl/ErrorRetentionPeriod" value="<%= $error_retention_period %>" />
         <add key="ServiceControl/EnableFullTextSearchOnBodies" value="<%= String($enable_full_text_search_on_bodies).capitalize() %>" />
+        <add key="ServiceControl/MinimumStorageLeftRequiredForIngestion" value="<%= $minimum_storage_left_required_for_ingestion %>" />
 <%- if $remote_instances { -%>
         <add key="ServiceControl/RemoteInstances" value="[<% $remote_instances.each | $index, $remote | { -%>{&quot;api_uri&quot;:&quot;<%= $remote %>&quot;}<% if $index != $remote_instances.size() -1 { %>,<% } %><% } -%>]" />
 <%- } -%>

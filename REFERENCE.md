@@ -487,6 +487,7 @@ The following parameters are available in the `nservicebusservicecontrol::instan
 * [`heartbeat_grace_period`](#-nservicebusservicecontrol--instance--heartbeat_grace_period)
 * [`allow_message_editing`](#-nservicebusservicecontrol--instance--allow_message_editing)
 * [`notifications_filter`](#-nservicebusservicecontrol--instance--notifications_filter)
+* [`minimum_storage_left_required_for_ingestion`](#-nservicebusservicecontrol--instance--minimum_storage_left_required_for_ingestion)
 * [`service_manage`](#-nservicebusservicecontrol--instance--service_manage)
 * [`skip_queue_creation`](#-nservicebusservicecontrol--instance--skip_queue_creation)
 * [`remove_db_on_delete`](#-nservicebusservicecontrol--instance--remove_db_on_delete)
@@ -792,9 +793,17 @@ Default value: `false`
 
 Data type: `String`
 
-Configures notificaiton filters.
+Configures notification filters.
 
 Default value: `''`
+
+##### <a name="-nservicebusservicecontrol--instance--minimum_storage_left_required_for_ingestion"></a>`minimum_storage_left_required_for_ingestion`
+
+Data type: `Integer`
+
+The percentage threshold for the Critical message database storage space check.
+
+Default value: `5`
 
 ##### <a name="-nservicebusservicecontrol--instance--service_manage"></a>`service_manage`
 

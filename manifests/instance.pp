@@ -112,7 +112,10 @@
 #   Enables the ability for servicepulse to allow users to edit failed messages before being retried.
 #
 # @param notifications_filter
-#   Configures notificaiton filters.
+#   Configures notification filters.
+#
+# @param minimum_storage_left_required_for_ingestion
+#   The percentage threshold for the Critical message database storage space check.
 #
 # @param service_manage
 #   Specifies whether or not to manage the desired state of the windows service for this instance.
@@ -171,6 +174,7 @@ define nservicebusservicecontrol::instance (
   String $heartbeat_grace_period                                 = '00:00:40',
   Boolean $allow_message_editing                                 = false,
   String $notifications_filter                                   = '',
+  Integer $minimum_storage_left_required_for_ingestion           = 5,
   Boolean $service_manage                                        = true,
   Boolean $skip_queue_creation                                   = false,
   Boolean $remove_db_on_delete                                   = false,
@@ -281,6 +285,7 @@ define nservicebusservicecontrol::instance (
             'heartbeat_grace_period'                        => $heartbeat_grace_period,
             'allow_message_editing'                         => $allow_message_editing,
             'notifications_filter'                          => $notifications_filter,
+            'minimum_storage_left_required_for_ingestion'   => $minimum_storage_left_required_for_ingestion,
       })),
       require => Exec["create-service-control-instance-${instance_name}"],
     }
