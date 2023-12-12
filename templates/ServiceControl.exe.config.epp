@@ -65,6 +65,7 @@
         <add key="ServiceControl/ErrorRetentionPeriod" value="<%= $error_retention_period %>" />
         <add key="ServiceControl/EnableFullTextSearchOnBodies" value="<%= String($enable_full_text_search_on_bodies).capitalize() %>" />
         <add key="ServiceControl/MinimumStorageLeftRequiredForIngestion" value="<%= $minimum_storage_left_required_for_ingestion %>" />
+        <add key="ServiceControl/PersistenceType" value="RavenDB" />
 <%- if $remote_instances { -%>
         <add key="ServiceControl/RemoteInstances" value="[<% $remote_instances.each | $index, $remote | { -%>{&quot;api_uri&quot;:&quot;<%= $remote %>&quot;}<% if $index != $remote_instances.size() -1 { %>,<% } %><% } -%>]" />
 <%- } -%>

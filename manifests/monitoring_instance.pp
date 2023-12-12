@@ -97,6 +97,19 @@ define nservicebusservicecontrol::monitoring_instance (
       }
     }
 
+    $_transport_type = $transport ? {
+      'AmazonSQS'                                                 => 'AmazonSQS',
+      'Azure Service Bus'                                         => 'NetStandardAzureServiceBus',
+      'Azure Storage Queue'                                       => 'AzureStorageQueue',
+      'MSMQ'                                                      => 'MSMQ',
+      'RabbitMQ - Conventional routing topology (classic queues)' => 'RabbitMQ.ClassicConventionalRouting',
+      'RabbitMQ - Conventional routing topology (quorum queues)'  => 'RabbitMQ.QuorumConventionalRouting',
+      'SQL Server'                                                => 'SQLServer',
+      # lint:ignore:140chars
+      default                                                     => fail("${transport} is not a known or valid transport that can be used with this module.  If this is a mistake please open a ticket on github."),
+      # lint:endignore
+    }
+
     exec { "create-service-control-monitoring-instance-${instance_name}":
       # I could also maybe look at the following to determine idempotence of create
       # 1.) Does a service exist with the name of the instance
@@ -108,7 +121,7 @@ define nservicebusservicecontrol::monitoring_instance (
           'host_name'                                    => $host_name,
           'port'                                         => $port,
           'error_queue'                                  => $error_queue,
-          'transport'                                    => $transport,
+          'transport'                                    => $_transport_type,
           'display_name'                                 => $display_name,
           'connection_string'                            => $connection_string,
           'description'                                  => $description,
@@ -121,7 +134,7 @@ define nservicebusservicecontrol::monitoring_instance (
           'instance_name' => $instance_name,
       }),
       logoutput => true,
-      provider  => 'powershell',
+      provider  => 'pwsh',
     }
 
     if $automatic_instance_upgrades {
@@ -135,23 +148,9 @@ define nservicebusservicecontrol::monitoring_instance (
             'install_path'  => $install_path,
         }),
         logoutput => true,
-        provider  => 'powershell',
+        provider  => 'pwsh',
         require   => Exec["create-service-control-monitoring-instance-${instance_name}"],
       }
-    }
-
-    $_transport_type = $transport ? {
-      'RabbitMQ - Conventional routing topology'                  => 'ServiceControl.Transports.RabbitMQ.RabbitMQConventionalRoutingTransportCustomization, ServiceControl.Transports.RabbitMQ',
-      'RabbitMQ - Conventional routing topology (classic queues)' => 'ServiceControl.Transports.RabbitMQ.RabbitMQClassicConventionalRoutingTransportCustomization, ServiceControl.Transports.RabbitMQ',
-      'RabbitMQ - Conventional routing topology (quorum queues)'  => 'ServiceControl.Transports.RabbitMQ.RabbitMQQuorumConventionalRoutingTransportCustomization, ServiceControl.Transports.RabbitMQ',
-      'SQL Server'                                                => 'ServiceControl.Transports.SQLServer.ServiceControlSQLServerTransport, ServiceControl.Transports.SQLServe',
-      'MSMQ'                                                      => 'NServiceBus.MsmqTransport, NServiceBus.Transport.Msmq',
-      'Azure Storage Queue'                                       => 'ServiceControl.Transports.AzureStorageQueues.ServiceControlAzureStorageQueueTransport, ServiceControl.Transports.AzureStorageQueues',
-      'Azure Service Bus'                                         => 'ServiceControl.Transports.AzureServiceBus.AzureServiceBusTransport, ServiceControl.Transports.AzureServiceBus',
-      'AmazonSQS'                                                 => 'ServiceControl.Transports.AmazonSQS.ServiceControlSqsTransport, ServiceControl.Transports.AmazonSQSS',
-      # lint:ignore:140chars
-      default                                                     => fail("${transport} is not a known or valid transport that can be used with this module.  If this is a mistake please open a ticket on github."),
-      # lint:endignore
     }
 
     file { "${install_path}\\ServiceControl.Monitoring.exe.config":
@@ -182,7 +181,7 @@ define nservicebusservicecontrol::monitoring_instance (
         # lint:endignore
         logoutput   => true,
         refreshonly => true,
-        provider    => 'powershell',
+        provider    => 'pwsh',
         subscribe   => File["${install_path}\\ServiceControl.Monitoring.exe.config"],
       }
 
@@ -201,7 +200,7 @@ define nservicebusservicecontrol::monitoring_instance (
           'instance_name' => $instance_name,
       }),
       logoutput => true,
-      provider  => 'powershell',
+      provider  => 'pwsh',
     }
   }
 }

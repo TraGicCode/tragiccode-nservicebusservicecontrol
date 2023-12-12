@@ -48,7 +48,6 @@ The following parameters are available in the `nservicebusservicecontrol` class:
 
 * [`package_ensure`](#-nservicebusservicecontrol--package_ensure)
 * [`package_source`](#-nservicebusservicecontrol--package_source)
-* [`powershell_package_provider`](#-nservicebusservicecontrol--powershell_package_provider)
 * [`license_xml`](#-nservicebusservicecontrol--license_xml)
 
 ##### <a name="-nservicebusservicecontrol--package_ensure"></a>`package_ensure`
@@ -66,14 +65,6 @@ Data type: `Optional[String]`
 The package source for the package.
 
 Default value: `undef`
-
-##### <a name="-nservicebusservicecontrol--powershell_package_provider"></a>`powershell_package_provider`
-
-Data type: `Optional[Enum['windowspowershell', 'powershellcore']]`
-
-Whether to use Windows PowerShell or PowerShell Core to install the Particular.ServiceControl.Management PowerShell module.
-
-Default value: `'windowspowershell'`
 
 ##### <a name="-nservicebusservicecontrol--license_xml"></a>`license_xml`
 

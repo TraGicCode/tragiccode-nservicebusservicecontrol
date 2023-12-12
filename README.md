@@ -35,6 +35,7 @@ The nservicebusservicecontrol module requires the following:
 * Access to the internet.
 * Microsoft .NET 4.6.1 Runtime.
 * Windows Server 2012/2012R2/2016/2019.
+* Powershell v7.2 or greater (pwsh/powershell-core)
 
 ### Beginning with nservicebusservicecontrol
 

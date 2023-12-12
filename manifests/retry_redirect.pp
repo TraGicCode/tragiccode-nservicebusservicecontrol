@@ -28,7 +28,7 @@ define nservicebusservicecontrol::retry_redirect (
           'service_control_url' => $service_control_url,
       }),
       logoutput => true,
-      provider  => 'powershell',
+      provider  => 'pwsh',
     }
   } else {
     exec { "delete-retry-redirect-${source_queue}":
@@ -43,7 +43,7 @@ define nservicebusservicecontrol::retry_redirect (
           'service_control_url' => $service_control_url,
       }),
       logoutput => true,
-      provider  => 'powershell',
+      provider  => 'pwsh',
     }
   }
 }

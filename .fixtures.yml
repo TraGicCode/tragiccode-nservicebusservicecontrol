@@ -6,6 +6,6 @@ fixtures:
     stdlib:           'puppetlabs/stdlib'
     chocolatey:       'puppetlabs/chocolatey'
     powershell:       'puppetlabs/powershell'
-    powershellmodule: 'hbuckle/powershellmodule'
+    powershellmodule: 'encore/powershellmodule'
     pwshlib:          'puppetlabs/pwshlib'
     registry:         'puppetlabs/registry'
