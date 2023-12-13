@@ -5,9 +5,9 @@
 #
 class nservicebusservicecontrol::install {
   package { 'Particular.ServiceControl.Management':
-    ensure   => $nservicebusservicecontrol::package_ensure,
+    ensure   => '5.0.0',
     source   => 'PSGallery',
-    provider => $nservicebusservicecontrol::powershell_package_provider,
+    provider => 'powershellcore',
   }
   package { 'servicecontrol':
     ensure   => $nservicebusservicecontrol::package_ensure,

@@ -15,7 +15,6 @@ describe 'Installing ServiceControl and configuring Error, Audit, and Monitoring
     <<-MANIFEST
     class { 'nservicebusservicecontrol':
       package_ensure              => '#{@older_package_version}',
-      powershell_package_provider => 'powershellcore',
     }
 
     $primary_service_control_instance = 'Particular.ServiceControl.Development'
@@ -92,7 +91,6 @@ describe 'Installing ServiceControl and configuring Error, Audit, and Monitoring
       <<-MANIFEST
       class { 'nservicebusservicecontrol':
         package_ensure              => '#{@latest_package_version}',
-        powershell_package_provider => 'powershellcore',
       }
 
       $primary_service_control_instance = 'Particular.ServiceControl.Development'

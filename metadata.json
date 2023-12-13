@@ -13,7 +13,7 @@
       "version_requirement": ">= 1.0.0 < 2.0.0"
     },
     {
-      "name": "hbuckle/powershellmodule",
+      "name": "encore/powershellmodule",
       "version_requirement": ">= 2.0.0 < 3.0.0"
     },
     {
@@ -23,6 +23,10 @@
     {
       "name": "puppetlabs/powershell",
       "version_requirement": ">= 1.0.1 < 7.0.0"
+    },
+    {
+      "name": "puppetlabs/pwshlib",
+      "version_requirement": ">= 1.0.0 < 2.0.0"
     },
     {
       "name": "puppetlabs/registry",

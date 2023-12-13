@@ -54,6 +54,7 @@
         <add key="ServiceControl.Audit/DBPath" value="<%= $db_path %>" />
         <add key="ServiceControl.Audit/DatabaseMaintenancePort" value="<%= $database_maintenance_port %>" />
         <add key="ServiceControl.Audit/MinimumStorageLeftRequiredForIngestion" value="<%= $minimum_storage_left_required_for_ingestion %>" />
+        <add key="ServiceControl/PersistenceType" value="RavenDB" />
     </appSettings>
 <%- if $connection_string != undef { -%>
     <connectionStrings>

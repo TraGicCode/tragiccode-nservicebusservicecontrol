@@ -153,6 +153,19 @@ define nservicebusservicecontrol::audit_instance (
       }
     }
 
+    $_transport_type = $transport ? {
+      'AmazonSQS'                                                 => 'AmazonSQS',
+      'Azure Service Bus'                                         => 'NetStandardAzureServiceBus',
+      'Azure Storage Queue'                                       => 'AzureStorageQueue',
+      'MSMQ'                                                      => 'MSMQ',
+      'RabbitMQ - Conventional routing topology (classic queues)' => 'RabbitMQ.ClassicConventionalRouting',
+      'RabbitMQ - Conventional routing topology (quorum queues)'  => 'RabbitMQ.QuorumConventionalRouting',
+      'SQL Server'                                                => 'SQLServer',
+      # lint:ignore:140chars
+      default                                                     => fail("${transport} is not a known or valid transport that can be used with this module.  If this is a mistake please open a ticket on github."),
+      # lint:endignore
+    }
+
     exec { "create-service-control-instance-${instance_name}":
       # I could also maybe look at the following to determine idempotence of create
       # 1.) Does a service exist with the name of the instance
@@ -168,7 +181,7 @@ define nservicebusservicecontrol::audit_instance (
           'database_maintenance_port'                    => $database_maintenance_port,
           'audit_queue'                                  => $audit_queue,
           'audit_log_queue'                              => $audit_log_queue,
-          'transport'                                    => $transport,
+          'transport'                                    => $_transport_type,
           'display_name'                                 => $display_name,
           'connection_string'                            => $connection_string,
           'description'                                  => $description,
@@ -184,7 +197,7 @@ define nservicebusservicecontrol::audit_instance (
           'instance_name' => $instance_name,
       }),
       logoutput => true,
-      provider  => 'powershell',
+      provider  => 'pwsh',
     }
 
     if $automatic_instance_upgrades {
@@ -198,23 +211,9 @@ define nservicebusservicecontrol::audit_instance (
             'install_path'  => $install_path,
         }),
         logoutput => true,
-        provider  => 'powershell',
+        provider  => 'pwsh',
         require   => Exec["create-service-control-instance-${instance_name}"],
       }
-    }
-
-    $_transport_type = $transport ? {
-      'RabbitMQ - Conventional routing topology'                  => 'ServiceControl.Transports.RabbitMQ.RabbitMQConventionalRoutingTransportCustomization, ServiceControl.Transports.RabbitMQ',
-      'RabbitMQ - Conventional routing topology (classic queues)' => 'ServiceControl.Transports.RabbitMQ.RabbitMQClassicConventionalRoutingTransportCustomization, ServiceControl.Transports.RabbitMQ',
-      'RabbitMQ - Conventional routing topology (quorum queues)'  => 'ServiceControl.Transports.RabbitMQ.RabbitMQQuorumConventionalRoutingTransportCustomization, ServiceControl.Transports.RabbitMQ',
-      'SQL Server'                                                => 'ServiceControl.Transports.SqlServer.SqlServerTransportCustomization, ServiceControl.Transports.SqlServer',
-      'MSMQ'                                                      => 'ServiceControl.Transports.Msmq.MsmqTransportCustomization, ServiceControl.Transports.Msmq',
-      'Azure Storage Queue'                                       => 'ServiceControl.Transports.ASQ.ASQTransportCustomization, ServiceControl.Transports.ASQ',
-      'Azure Service Bus'                                         => 'ServiceControl.Transports.ASBS.ASBSTransportCustomization, ServiceControl.Transports.ASBS',
-      'AmazonSQS'                                                 => 'ServiceControl.Transports.SQS.SQSTransportCustomization, ServiceControl.Transports.SQS',
-      # lint:ignore:140chars
-      default                                                     => fail("${transport} is not a known or valid transport that can be used with this module.  If this is a mistake please open a ticket on github."),
-      # lint:endignore
     }
 
     file { "${install_path}\\ServiceControl.Audit.exe.config":
@@ -259,7 +258,7 @@ define nservicebusservicecontrol::audit_instance (
         # lint:endignore
         logoutput   => true,
         refreshonly => true,
-        provider    => 'powershell',
+        provider    => 'pwsh',
         subscribe   => File["${install_path}\\ServiceControl.Audit.exe.config"],
       }
 
@@ -279,7 +278,7 @@ define nservicebusservicecontrol::audit_instance (
           'instance_name' => $instance_name,
       }),
       logoutput => true,
-      provider  => 'powershell',
+      provider  => 'pwsh',
     }
   }
 }
