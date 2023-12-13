@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v4.0.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v4.0.0) (2023-12-13)
+
+[Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v3.5.0...v4.0.0)
+
+### Changed
+
+- \(GH-146\) Particular.ServiceControl.Management powershell 7.2 \>= requirement [\#147](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/147) ([TraGicCode](https://github.com/TraGicCode))
+
 ## [v3.5.0](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/tree/v3.5.0) (2023-09-22)
 
 [Full Changelog](https://github.com/tragiccode/tragiccode-nservicebusservicecontrol/compare/v3.4.0...v3.5.0)
