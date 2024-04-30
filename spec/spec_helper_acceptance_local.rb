@@ -27,13 +27,13 @@ end
 
 def get_latest_version_of_choco_package(package_name)
   <<-powershell
-    choco search #{package_name} --all-versions --limit-output | ConvertFrom-Csv -Delimiter '|' -Header Package,Version | Sort-Object { [System.Version]$_.Version } | Select-Object -Last 2 | Select-Object -Last 1 -ExpandProperty Version
+    choco search #{package_name} --exact --all-versions --limit-output | ConvertFrom-Csv -Delimiter '|' -Header Package,Version | Sort-Object { [System.Version]$_.Version } | Select-Object -Last 2 | Select-Object -Last 1 -ExpandProperty Version
     powershell
 end
 
 def get_version_before_latest_of_choco_package(package_name)
   <<-powershell
-    choco search #{package_name} --all-versions --limit-output | ConvertFrom-Csv -Delimiter '|' -Header Package,Version | Sort-Object { [System.Version]$_.Version } | Select-Object -Last 2 | Select-Object -First 1 -ExpandProperty Version
+    choco search #{package_name} --exact --all-versions --limit-output | ConvertFrom-Csv -Delimiter '|' -Header Package,Version | Sort-Object { [System.Version]$_.Version } | Select-Object -Last 2 | Select-Object -First 1 -ExpandProperty Version
     powershell
 end
 
