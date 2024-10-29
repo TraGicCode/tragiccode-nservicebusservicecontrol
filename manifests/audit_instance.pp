@@ -36,6 +36,15 @@
 # @param maximum_concurrency_level
 #   This setting controls how many messages can be processed concurrently (in parallel) by ServiceControl.
 #
+# @param expose_ravendb
+#   Specify if the embedded ravendb database should be accessible outside of maintenance mode.
+#
+# @param audit_queue
+#   The name of the audit queue.
+#
+# @param audit_log_queue
+#   The name of the audit forwarding queue.
+#
 # @param ravendb_log_level
 #   Specify the level of logging that should be used in ravendb logs.
 #
@@ -50,6 +59,9 @@
 #
 # @param description
 #   Specify the description to use on the Windows Service for this instance.
+#
+# @param forward_audit_messages
+#   whether or not to forward audit messages.
 #
 # @param service_account
 #   The Account to run the Windows service.
@@ -119,7 +131,7 @@ define nservicebusservicecontrol::audit_instance (
   Stdlib::Port $database_maintenance_port                  = 44445,
   Integer $maximum_concurrency_level                       = 32,
   String $audit_queue                                      = 'audit',
-  Optional[String] $audit_log_queue                        = 'audit.log',
+  String $audit_log_queue                                  = 'audit.log',
   Boolean $expose_ravendb                                  = false,
   Nservicebusservicecontrol::Log_level $ravendb_log_level  = 'Warn',
   Nservicebusservicecontrol::Transport $transport          = 'MSMQ',

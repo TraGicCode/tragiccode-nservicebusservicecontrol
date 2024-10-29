@@ -12,7 +12,7 @@
 class nservicebusservicecontrol (
   String $package_ensure           = 'present',
   Optional[String] $package_source = undef,
-  Optional[String] $license_xml    = '',
+  Optional[String] $license_xml    = undef,
 ) {
   contain nservicebusservicecontrol::install
   contain nservicebusservicecontrol::config

@@ -5,7 +5,7 @@
 #
 class nservicebusservicecontrol::config {
   $_license_ensure = $nservicebusservicecontrol::license_xml ? {
-    ''      => 'absent',
+    undef      => 'absent',
     default => 'present'
   }
 

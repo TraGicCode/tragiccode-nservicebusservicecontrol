@@ -72,7 +72,7 @@ Data type: `Optional[String]`
 
 A valid NServiceBus XML License.
 
-Default value: `''`
+Default value: `undef`
 
 ## Defined types
 
@@ -96,11 +96,15 @@ The following parameters are available in the `nservicebusservicecontrol::audit_
 * [`port`](#-nservicebusservicecontrol--audit_instance--port)
 * [`database_maintenance_port`](#-nservicebusservicecontrol--audit_instance--database_maintenance_port)
 * [`maximum_concurrency_level`](#-nservicebusservicecontrol--audit_instance--maximum_concurrency_level)
+* [`expose_ravendb`](#-nservicebusservicecontrol--audit_instance--expose_ravendb)
+* [`audit_queue`](#-nservicebusservicecontrol--audit_instance--audit_queue)
+* [`audit_log_queue`](#-nservicebusservicecontrol--audit_instance--audit_log_queue)
 * [`ravendb_log_level`](#-nservicebusservicecontrol--audit_instance--ravendb_log_level)
 * [`transport`](#-nservicebusservicecontrol--audit_instance--transport)
 * [`display_name`](#-nservicebusservicecontrol--audit_instance--display_name)
 * [`connection_string`](#-nservicebusservicecontrol--audit_instance--connection_string)
 * [`description`](#-nservicebusservicecontrol--audit_instance--description)
+* [`forward_audit_messages`](#-nservicebusservicecontrol--audit_instance--forward_audit_messages)
 * [`service_account`](#-nservicebusservicecontrol--audit_instance--service_account)
 * [`service_account_password`](#-nservicebusservicecontrol--audit_instance--service_account_password)
 * [`service_restart_on_config_change`](#-nservicebusservicecontrol--audit_instance--service_restart_on_config_change)
@@ -119,10 +123,6 @@ The following parameters are available in the `nservicebusservicecontrol::audit_
 * [`remove_logs_on_delete`](#-nservicebusservicecontrol--audit_instance--remove_logs_on_delete)
 * [`automatic_instance_upgrades`](#-nservicebusservicecontrol--audit_instance--automatic_instance_upgrades)
 * [`instance_create_and_upgrade_acknowledgements`](#-nservicebusservicecontrol--audit_instance--instance_create_and_upgrade_acknowledgements)
-* [`audit_queue`](#-nservicebusservicecontrol--audit_instance--audit_queue)
-* [`audit_log_queue`](#-nservicebusservicecontrol--audit_instance--audit_log_queue)
-* [`expose_ravendb`](#-nservicebusservicecontrol--audit_instance--expose_ravendb)
-* [`forward_audit_messages`](#-nservicebusservicecontrol--audit_instance--forward_audit_messages)
 
 ##### <a name="-nservicebusservicecontrol--audit_instance--ensure"></a>`ensure`
 
@@ -216,6 +216,30 @@ This setting controls how many messages can be processed concurrently (in parall
 
 Default value: `32`
 
+##### <a name="-nservicebusservicecontrol--audit_instance--expose_ravendb"></a>`expose_ravendb`
+
+Data type: `Boolean`
+
+Specify if the embedded ravendb database should be accessible outside of maintenance mode.
+
+Default value: `false`
+
+##### <a name="-nservicebusservicecontrol--audit_instance--audit_queue"></a>`audit_queue`
+
+Data type: `String`
+
+The name of the audit queue.
+
+Default value: `'audit'`
+
+##### <a name="-nservicebusservicecontrol--audit_instance--audit_log_queue"></a>`audit_log_queue`
+
+Data type: `String`
+
+The name of the audit forwarding queue.
+
+Default value: `'audit.log'`
+
 ##### <a name="-nservicebusservicecontrol--audit_instance--ravendb_log_level"></a>`ravendb_log_level`
 
 Data type: `Nservicebusservicecontrol::Log_level`
@@ -255,6 +279,14 @@ Data type: `String`
 Specify the description to use on the Windows Service for this instance.
 
 Default value: `'A ServiceControl Audit Instance'`
+
+##### <a name="-nservicebusservicecontrol--audit_instance--forward_audit_messages"></a>`forward_audit_messages`
+
+Data type: `Boolean`
+
+whether or not to forward audit messages.
+
+Default value: `false`
 
 ##### <a name="-nservicebusservicecontrol--audit_instance--service_account"></a>`service_account`
 
@@ -399,38 +431,6 @@ Data type: `Optional[String]`
 Acknowledge mandatory requirements have been met during instance creation and upgrades.
 
 Default value: `undef`
-
-##### <a name="-nservicebusservicecontrol--audit_instance--audit_queue"></a>`audit_queue`
-
-Data type: `String`
-
-
-
-Default value: `'audit'`
-
-##### <a name="-nservicebusservicecontrol--audit_instance--audit_log_queue"></a>`audit_log_queue`
-
-Data type: `Optional[String]`
-
-
-
-Default value: `'audit.log'`
-
-##### <a name="-nservicebusservicecontrol--audit_instance--expose_ravendb"></a>`expose_ravendb`
-
-Data type: `Boolean`
-
-
-
-Default value: `false`
-
-##### <a name="-nservicebusservicecontrol--audit_instance--forward_audit_messages"></a>`forward_audit_messages`
-
-Data type: `Boolean`
-
-
-
-Default value: `false`
 
 ### <a name="nservicebusservicecontrol--instance"></a>`nservicebusservicecontrol::instance`
 
@@ -622,7 +622,7 @@ Default value: `'error'`
 
 ##### <a name="-nservicebusservicecontrol--instance--error_log_queue"></a>`error_log_queue`
 
-Data type: `Optional[String]`
+Data type: `String`
 
 Specify Queue name to forward error messages to.
 
@@ -1059,8 +1059,8 @@ The following parameters are available in the `nservicebusservicecontrol::retry_
 
 * [`ensure`](#-nservicebusservicecontrol--retry_redirect--ensure)
 * [`source_queue`](#-nservicebusservicecontrol--retry_redirect--source_queue)
-* [`destination_queue`](#-nservicebusservicecontrol--retry_redirect--destination_queue)
 * [`service_control_url`](#-nservicebusservicecontrol--retry_redirect--service_control_url)
+* [`destination_queue`](#-nservicebusservicecontrol--retry_redirect--destination_queue)
 
 ##### <a name="-nservicebusservicecontrol--retry_redirect--ensure"></a>`ensure`
 
@@ -1076,17 +1076,17 @@ Specify the queue for which this redirect will be applied.
 
 Default value: `$title`
 
+##### <a name="-nservicebusservicecontrol--retry_redirect--service_control_url"></a>`service_control_url`
+
+Data type: `String`
+
+Url for servicecontrol in format of 'http://localhost:33333'.
+
 ##### <a name="-nservicebusservicecontrol--retry_redirect--destination_queue"></a>`destination_queue`
 
 Data type: `String`
 
 Specify the queue that will be the new destination when retrying.
-
-##### <a name="-nservicebusservicecontrol--retry_redirect--service_control_url"></a>`service_control_url`
-
-Data type: `String`
-
-
 
 ## Data types
 
