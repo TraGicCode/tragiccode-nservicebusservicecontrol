@@ -590,7 +590,7 @@ Default value: `10`
 
 ##### <a name="-nservicebusservicecontrol--instance--remote_instances"></a>`remote_instances`
 
-Data type: `Optional[Array[String]]`
+Data type: `Array[String]`
 
 Specify an optional array of remote instances.
 
