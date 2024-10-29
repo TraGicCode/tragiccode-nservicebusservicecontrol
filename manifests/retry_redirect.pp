@@ -6,14 +6,18 @@
 # @param source_queue
 #   Specify the queue for which this redirect will be applied.
 #
+# @param service_control_url
+#   Url for servicecontrol in format of 'http://localhost:33333'.
+#
+#
 # @param destination_queue
 #   Specify the queue that will be the new destination when retrying.
 #
 define nservicebusservicecontrol::retry_redirect (
   Enum['present', 'absent'] $ensure,
-  String $source_queue = $title,
   String $destination_queue,
   String $service_control_url,
+  String $source_queue = $title,
 ) {
   if $ensure == 'present' {
     exec { "create-retry-redirect-${source_queue}":

@@ -27,7 +27,7 @@ describe 'nservicebusservicecontrol::instance' do
         it {
           is_expected.to contain_exec('create-service-control-instance-Particular.ServiceControl.Development')
             .with(
-              provider: 'powershell',
+              provider: 'pwsh',
               logoutput: 'true',
             )
             .with_command(%r{Particular\.ServiceControl\.Development})

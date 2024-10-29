@@ -27,7 +27,7 @@ describe 'nservicebusservicecontrol::monitoring_instance' do
         it {
           is_expected.to contain_exec('create-service-control-monitoring-instance-Particular.Monitoring.Development')
             .with(
-              provider: 'powershell',
+              provider: 'pwsh',
               logoutput: 'true',
             )
             .with_command(%r{Particular\.Monitoring\.Development})
