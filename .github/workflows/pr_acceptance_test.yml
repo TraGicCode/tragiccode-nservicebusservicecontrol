@@ -9,7 +9,7 @@ on:
 jobs:
   run-tests:
     name: "Acceptance Tests"
-    runs-on: windows-2019
+    runs-on: windows-2025
 
     steps:
       - name: Git Checkout
