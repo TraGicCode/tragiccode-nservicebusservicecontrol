@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v5.0.0](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/tree/v5.0.0) - 2025-10-04
+
+[Full Changelog](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/compare/v4.1.0...v5.0.0)
+
+### Changed
+
+- (GH164) Update puppet module dependencies [#165](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/165) ([TraGicCode](https://github.com/TraGicCode))
+
+### Other
+
+- (GH-162) Update mininmum and maxiumum supported puppet version [#163](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/pull/163) ([TraGicCode](https://github.com/TraGicCode))
+
 ## [v4.1.0](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/tree/v4.1.0) - 2024-10-29
 
 [Full Changelog](https://github.com/TraGicCode/tragiccode-nservicebusservicecontrol/compare/v4.0.0...v4.1.0)
